@@ -8,11 +8,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 
 public class Game implements ApplicationListener {
 
     private OrthographicCamera camera;
+    private Viewport gamePort;
     private SpriteBatch batch;
     private BitmapFont font;
     private GamePlayer player1, player2; //player3, player4
@@ -21,6 +24,7 @@ public class Game implements ApplicationListener {
     @Override
     public void create() {
         camera = new OrthographicCamera();
+        gamePort = new FitViewport(1280, 720, camera);
         batch = new SpriteBatch();
         font = new BitmapFont();
 
@@ -45,6 +49,7 @@ public class Game implements ApplicationListener {
     public void render() {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
+        batch.setProjectionMatrix(camera.combined);
 
         batch.begin();
         batch.draw(background, 0, 0);
@@ -97,6 +102,7 @@ public class Game implements ApplicationListener {
 
     @Override
     public void resize(int width, int height) {
+        gamePort.update(width, height);
     }
 
     @Override
