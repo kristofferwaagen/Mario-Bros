@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<!-- FIXME - set group id -->
-	<groupId>inf112.skeleton.app</groupId>
+	<groupId>Hackespett</groupId>
 	<!-- FIXME - set artifact name -->
 	<artifactId>gdx-app</artifactId>
 	<version>1.0-SNAPSHOT</version>
@@ -20,7 +20,7 @@
 		<maven.compiler.release>17</maven.compiler.release>
 		<libgdx.version>1.10.0</libgdx.version>
 		<!-- FIXME - set to app's main class' -->
-		<main.class>inf112.skeleton.app.Main</main.class>
+		<main.class>main.Main</main.class>
 		<jvm.extra.args></jvm.extra.args>
 	</properties>
 
