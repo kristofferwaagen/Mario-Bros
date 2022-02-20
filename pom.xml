@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<!-- FIXME - set group id -->
-	<groupId>inf112.skeleton.app</groupId>
+	<groupId>Hackespett</groupId>
 	<!-- FIXME - set artifact name -->
 	<artifactId>gdx-app</artifactId>
 	<version>1.0-SNAPSHOT</version>
