@@ -6,8 +6,7 @@ import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -28,13 +27,13 @@ public class Game implements ApplicationListener {
         batch = new SpriteBatch();
         font = new BitmapFont();
 
-        player1 = new GamePlayer("src/resourses/Steffen.png");
+        player1 = new GamePlayer("src/resources/Steffen.png");
         player1.setPosition(200, 100);
 
-        player2 = new GamePlayer("src/resourses/Elias.png");
+        player2 = new GamePlayer("src/resources/Elias.png");
         player2.setPosition(50, 100); //p2
 
-        background = new Texture(Gdx.files.internal("src/resourses/testmapbackground.png"));
+        background = new Texture(Gdx.files.internal("src/resources/testmapbackground.png"));
 
     }
 
