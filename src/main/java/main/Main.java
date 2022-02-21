@@ -1,14 +1,16 @@
-package inf112.skeleton.app;
+package main;
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import game.Mario;
 
 public class Main {
     public static void main(String[] args) {
         Lwjgl3ApplicationConfiguration cfg = new Lwjgl3ApplicationConfiguration();
-        cfg.setTitle("hello-world");
-        cfg.setWindowedMode(480, 320);
+        cfg.setTitle("Kurt Mario");
+        cfg.setIdleFPS(60);
+        cfg.setWindowedMode(1280, 720);
 
-        new Lwjgl3Application(new HelloWorld(), cfg);
+        new Lwjgl3Application(new Mario(), cfg);
     }
 }
