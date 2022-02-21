@@ -7,7 +7,7 @@ import game.Mario;
 public class Main {
     public static void main(String[] args) {
         Lwjgl3ApplicationConfiguration cfg = new Lwjgl3ApplicationConfiguration();
-        cfg.setTitle("GameIngame");
+        cfg.setTitle("Kurt Mario");
         cfg.setIdleFPS(60);
         cfg.setWindowedMode(1280, 720);
 
