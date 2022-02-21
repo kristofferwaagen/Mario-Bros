@@ -24,7 +24,7 @@ Når det kommer til oppfølgelig av arbeid vil Kristoffer sine "daily stand ups"
 DELING OG OPPBEVARING AV FELLES DOKUMENTER etc.
 Vi kommer til å bruke git som kodebase, et google docs dokument for ekstra notater og hjelpende linker og Jira for prosjektplan.
 
-DELOPPGAVE 3 - OVERSIKT OVER DET FORVENTETE PRODUKTET
+DELOPPGAVE 3 - OVERSIKT OVER DET FORVENTETE PRODUKTET.
 
 MÅL FOR APPLIKASJONEN
 Vi ønsker å lage et Super Mario inspirert spill der spilleren beveger seg gjennom nivåer og må unngå fiender og hindringer for å komme dit. På det siste nivået ønsker vi å implementere en større fiende (boss) som spilleren må beseire for å vinne. Vi vil at spilleren skal kunne spille med minst en annen gjennom nivåene. De skal kunne se hverandre og interagere med hverandre. Dersom det er flere spillere kunne det være en ide å øke antall fiender for å gjøre det vanskeligere. På veien skal spilleren kunne plukke opp objekter (power ups) for å enklere beseire fiender mot mål. I tillegg skal spilleren ha en health bar slik at man kan ta skade av fienden og dø. Dersom spilleren faller utenfor spillbrettet må man også starte på nytt igjen. 
@@ -48,10 +48,13 @@ Akseptansekriterier
 MVP 1 	- spillet burde åpnes i et eget vindu når man kjører applikasjonen
 		- spillbrettet vises i vinduet slik det er designet
 		- design ulike blokker/gjenstander/plattformer for spillbrettet
-		- bakgrunnen skal kunne scrolles horisontalt
 
 MVP 2	- man må kunne se spilleren tydelig på brettet
 
 MVP 3	- dersom man presser spesifikke taster skal spilleren sin posisjon bli oppdatert i koden.
 		- dersom man presser spesifikke taster skal man kunne se at spilleren beveger seg på brettet.
 		
+OPPSUMMERING
+Sammarbeidet har startet veldig greit. Vi var kjapt ute med å fordele roller og arbeidsoppgaver. Det første problemet vi støtte på var hvordan vi ønsket å arbeide med prosjektet (branches / forks) fra GitHub. Kristoffer fikk satt det opp slik at vi forket prosjektet og deretter pushet til hver vår fork. Så legger vi inn en merge request til ulike branches i prosjektet. Dette virker som en foreløpig god løsning. Testing av koden har til nå skjedd ved å kjøre programmet og sett om vi oppfyller de første MVP kravene. Det er visuelle krav, så det er lett å få brekrefelse ved å kjøre applikasjonen. 
+
+Siden dette er den første innleveringen har det selvfølgelig vært mye usikkerhet i hvordan man skal jobbe sammen og hvordan vi skal angripe oppgaven. Vi kunne vært flinkere på å ha daily standups oftere for å gjøre sammarbeidet og kommunikasjonen bedre. Vi kunne også vært mer tilgjengelige på discord for å skape mer framgang i prosjektet og raskere avgjøre spørsmål som f.eks. hvordan vi skal jobbe med prosjektet fra git. Når kommunikasjonen går treigere vil oppdatering av arbeidsoppgaver gå saktere, og framgangen sakker ned. Til neste gang ønsker vi gjøre kommunikasjonen bedre og sørge for at alle er mer aktive på discord. For discord kan vi tagge hverandre for å få tydeligere varsler når noe viktig skjer i prosjektet, og for å øke oppdateringer mellom gruppemedlemmene kan vi ha faste tidspunkt for daily standups.
