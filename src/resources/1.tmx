@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.8" tiledversion="1.8.2" orientation="orthogonal" renderorder="right-down" width="240" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="7">
+ <tileset firstgid="1" source="NES - Super Mario Bros - Tileset.tsx"/>
+ <layer id="1" name="background" width="240" height="13">
+  <data encoding="base64" compression="zlib">
+   eJztw7ENAAAMAiDT/z928YpukNBLqqqqqqqqqqqqqqqq+ngvgAwl
+  </data>
+ </layer>
+ <layer id="2" name="graphics" width="240" height="13">
+  <data encoding="base64" compression="zlib">
+   eJzt11EKglAQBdCnO7B2om61gnIdFaR7a4Ik6KukeCrnwP1/H3PnMSkBALzsypT2kUOZ+yXAt87R20vkmrm/9ghrdIx5PkW6lc/1XPYI/NIt5rmPDOYaAHjjfoVpNkXuF7hfYYoquttEtjPoMPC5R3frZ39bHYbFGP/dsbuNfxj+ohCRxeYO3qMTNQ==
+  </data>
+ </layer>
+ <objectgroup id="3" name="ground">
+  <object id="5" x="0.5" y="192.5" width="446.5" height="14.5"/>
+ </objectgroup>
+ <objectgroup id="4" name="pipes"/>
+ <objectgroup id="5" name="coins"/>
+ <objectgroup id="6" name="bricks"/>
+</map>
