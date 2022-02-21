@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class GamePlayer {
 
-    Rectangle bottom, left, right, top;
+    public Rectangle bottom, left, right, top;
     Sprite sprite;
     Texture texture;
     int action;
@@ -63,7 +63,7 @@ public class GamePlayer {
 
     public void jump() {
         if (velocityY == 0) // fjerner dobbelhopping
-            velocityY = 20; // hvor høyt spilleren kan hoppe
+            velocityY = 10; // hvor høyt spilleren kan hoppe
     }
 
 }
