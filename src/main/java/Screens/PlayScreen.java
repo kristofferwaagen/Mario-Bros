@@ -56,10 +56,10 @@ public class PlayScreen implements Screen {
         camera.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
         player1 = new GamePlayer("src/resources/Steffen16.png"); // spiller 1
-        player1.setPosition(200, 7);
+        player1.setPosition(20, 16);
 
         player2 = new GamePlayer("src/resources/Elias16.png"); // spiller 2
-        player2.setPosition(50, 7); //p2
+        player2.setPosition(50, 16); //p2
 
     }
 
