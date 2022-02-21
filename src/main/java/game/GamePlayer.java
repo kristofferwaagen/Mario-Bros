@@ -17,7 +17,7 @@ public class GamePlayer {
     public GamePlayer(String string) {
         bottom = new Rectangle(0.0f, 0.0f, 128.0f, 128.0f);
         texture = new Texture(Gdx.files.internal(string));
-        sprite = new Sprite(texture, 0, 0, 128, 128);
+        sprite = new Sprite(texture, 0, 0, 16, 16);
         velocityY = 0;
         this.setPosition(0, 0);
     }
@@ -36,7 +36,7 @@ public class GamePlayer {
     }
 
     public void update(float delta) {
-        velocityY -= (50 * delta);
+        velocityY -= (25 * delta);
         bottom.y += velocityY;
         sprite.setPosition(bottom.x, bottom.y);
     }
@@ -48,12 +48,12 @@ public class GamePlayer {
     }
 
     public void moveLeft(float delta) {
-        bottom.x -= (500 * delta);	// delta == "change of time" "for fluid change om motion"
+        bottom.x -= (200 * delta);	// delta == "change of time" "for fluid change om motion"
         sprite.setPosition(bottom.x, bottom.y);
     }
 
     public void moveRight(float delta) {
-        bottom.x += (500 * delta);	// (value) * delta, endre value for å endre movementspeed
+        bottom.x += (200 * delta);	// (value) * delta, endre value for å endre movementspeed
         sprite.setPosition(bottom.x, bottom.y);
     }
 
@@ -63,7 +63,7 @@ public class GamePlayer {
 
     public void jump() {
         if (velocityY == 0) // fjerner dobbelhopping
-            velocityY = 10; // hvor høyt spilleren kan hoppe
+            velocityY = 7; // hvor høyt spilleren kan hoppe
     }
 
 }

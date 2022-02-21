@@ -42,7 +42,7 @@ public class PlayScreen implements Screen {
         gamePort = new FitViewport(Mario.visionWidth, Mario.visionHeight, camera); // skalerer responsivt med vinduets størrelse, henter resolution størrelse fra Mario.java
         hud = new Hud(game.batch); // Hud som skal vise poeng/tid/info
 
-        floorHitbox = new Rectangle(0, 0, 1280, 10); // gulvet i spillet
+        floorHitbox = new Rectangle(0, 0, 1280, 16); // gulvet i spillet
 
         mapLoader = new TmxMapLoader(); // laster inn spillebrettet
         map = mapLoader.load("src/resources/1.tmx"); // henter ut hvilket spillebrett som skal brukes
@@ -55,10 +55,10 @@ public class PlayScreen implements Screen {
         * */
         camera.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
-        player1 = new GamePlayer("src/resources/Steffen.png"); // spiller 1
+        player1 = new GamePlayer("src/resources/Steffen16.png"); // spiller 1
         player1.setPosition(200, 7);
 
-        player2 = new GamePlayer("src/resources/Elias.png"); // spiller 2
+        player2 = new GamePlayer("src/resources/Elias16.png"); // spiller 2
         player2.setPosition(50, 7); //p2
 
     }
@@ -70,7 +70,7 @@ public class PlayScreen implements Screen {
 
     public void handleInput(float dt) { // sjekker input
         if(player2.hits(floorHitbox) != -1) {
-            player2.action(1, 0, 7); // dersom spillerens hitbox treffer bakken skal den plasseres på gitte koordinater
+            player2.action(1, 0, 16); // dersom spillerens hitbox treffer bakken skal den plasseres på gitte koordinater
         }
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             player2.jump();
@@ -82,7 +82,7 @@ public class PlayScreen implements Screen {
             player2.moveRight(dt);
         }
         if(player1.hits(floorHitbox) != -1) {
-            player1.action(1, 0, 7); // dersom spillerens hitbox treffer bakken skal den plasseres på gitte koordinater
+            player1.action(1, 0, 16); // dersom spillerens hitbox treffer bakken skal den plasseres på gitte koordinater
         }
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
             player1.jump();
