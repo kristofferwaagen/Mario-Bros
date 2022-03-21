@@ -39,6 +39,10 @@ public class GamePlayer {
         }
     }
 
+    /**
+     * Oppdaterer posisjonen til objektet, sjekker om den har kollidert oppover eller nedover, og korrigerer så posisjonen i henhold til det.
+     * @param delta
+     */
     public void update(float delta) {
     	bottom.y += velocityY;
         sprite.setPosition(bottom.x, bottom.y);
@@ -54,61 +58,45 @@ public class GamePlayer {
         	collisionUpwards = collidesUpwards(tileWidth, tileHeight);
         }
         if(collisionDown) {
-//        	bottom.y = collisionLayer.getCell((int) (bottom.x /tileWidth), (int) (bottom.y /tileHeight)).getHeight + tileHeight;
         	bottom.y = (int) (bottom.y / tileHeight) * tileHeight + sprite.getHeight();
         	velocityY = 0;
             sprite.setPosition(bottom.x, bottom.y);
         
-        } else if(collisionUpwards) {
+        } else {
+        	velocityY -= (25 * delta);
+        }
+        if(collisionUpwards) {
         	bottom.y = (int) (bottom.y / tileHeight) * tileHeight;
         	if(velocityY > 0)
         		velocityY = 0;
         	velocityY -= (25 * delta);
             sprite.setPosition(bottom.x, bottom.y);
-        } else {
-        	velocityY -= (25 * delta);
         }
     }
 
+    /**
+     * Sjekker om det finnes en blokk under spillkarakteren
+     * @param tileWidth
+     * @param tileHeight
+     * @return
+     */
 	private boolean collidesDownwards(float tileWidth, float tileHeight) {
-//		if(collisionLayer.getCell((int) ((bottom.x /tileWidth) + 0.01), (int) (bottom.y /tileHeight)) != null) { // sjekker om blokken karakteren står på finnes
-//			if(collisionLayer.getCell((int) (bottom.x /tileWidth + 0.01), (int) (bottom.y /tileHeight)).	// sjekker om blokken er et gulv.
-//					getTile().getProperties().containsKey("collide")) {
-//				return true;
-//			}
-//		}
 		if(isCellBlocked((bottom.x), (bottom.y))){
 			return true;
 		}
-//		else if(collisionLayer.getCell((int) ((bottom.x /tileWidth) + 0.99), (int) (bottom.y /tileHeight)) != null) {
-//			if(collisionLayer.getCell((int) ((bottom.x /tileWidth) + 0.99), (int) (bottom.y /tileHeight))
-//					.getTile().getProperties().containsKey("collide")) {
-//				return true;
-//			}
-//		}
-		if(isCellBlocked((bottom.x) + sprite.getWidth(), (bottom.y))){
+
+		if(isCellBlocked((bottom.x) + sprite.getWidth()-1, (bottom.y))){
 			return true;
 		}
 		return false;
 	}
 	
 	private boolean collidesUpwards(float tileWidth, float tileHeight) {
-//		if(collisionLayer.getCell((int) ((bottom.x /tileWidth) + 0.01), (int) ((bottom.y /tileHeight) + 1)) != null) { // sjekker om blokken karakteren står på finnes
-//			if(collisionLayer.getCell((int) ((bottom.x /tileWidth) + 0.01), (int) ((bottom.y /tileHeight)+1)).	// sjekker om blokken er et gulv.
-//					getTile().getProperties().containsKey("collide")) {
-//				return true;
-//			}
-//		}
 		if(isCellBlocked((bottom.x), (bottom.y) + sprite.getHeight())){
 			return true;
 		}
-//		else if(collisionLayer.getCell((int) ((bottom.x /tileWidth) + 0.99), (int) ((bottom.y  /tileHeight) + 1)) != null) {
-//			if(collisionLayer.getCell((int) ((bottom.x /tileWidth) + 0.99), (int) ((bottom.y /tileHeight) + 1))
-//					.getTile().getProperties().containsKey("collide")) {
-//				return true;
-//			}
-//		}
-		if(isCellBlocked((bottom.x) + sprite.getWidth(), (bottom.y) + sprite.getHeight())){
+		if(isCellBlocked((bottom.x) + sprite.getWidth()-1, (bottom.y) + sprite.getHeight())){
+
 			return true;
 		}
 		return false;
@@ -131,6 +119,12 @@ public class GamePlayer {
 		return false;
 	}
 
+	/**
+	 * Sjekker om tilen på gitte koordinater har konfigurasjonen "collide".
+	 * @param x x-koordinat
+	 * @param y y-koordinat
+	 * @return true om den har "collide"
+	 */
 	private boolean isCellBlocked(float x, float y){
 		if(collisionLayer.getCell((int)x / collisionLayer.getTileWidth(),(int)y / collisionLayer.getTileHeight()) != null) { // sjekker om blokken karakteren står på finnes
 			if(collisionLayer.getCell((int)x / collisionLayer.getTileWidth(),(int)y / collisionLayer.getTileHeight()).	// sjekker om blokken er et gulv.
