@@ -5,15 +5,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import game.CollisionUsedForTesting;
 import game.GamePlayer;
-import game.GamePlayerLogic;
 
-public class GamePlayerTest2 {
-	GamePlayerLogic g;
+public class GamePlayerTest {
+	GamePlayer g;
 	
 	@BeforeEach
 	void setup() {
-		g = new GamePlayerLogic();
+		g = new GamePlayer(new CollisionUsedForTesting());
 	}
 	@Test
 	void movesLeftAndRight() {
@@ -27,15 +27,30 @@ public class GamePlayerTest2 {
 	void jumpsCauseElevation() {
 		float oldY = g.hitbox.getY();
 		g.jump();
-		g.update(1f);
+		g.update(0.04f); //may fail if this time is high enough for player to crash into ground again
 		assertTrue(oldY < g.hitbox.getY());
 	}
 	@Test
 	void fallsOnUpdate() {
+		g.setPosition(g.hitbox.x, 20);
 		float oldY = g.hitbox.getY();
-		g.update(1f); // Sets velocityY to negative
-		g.update(1f); // Causes character to fall
+		g.setVelocityY(1);
+		for(int i = 50; i > 0; i--) { // Simulates 50 frames played in game.
+			g.update(0.04f);
+		}
 		assertTrue(g.hitbox.getY() < oldY);
+	}
+	@Test
+	void landsOnGround() {
+		g.setPosition(0, 10);
+		g.jump();
+		g.update(0.04f);
+		assertTrue(g.hitbox.getY() > 10);
+		for(int i = 50; i > 0; i--) {
+			g.update(0.04f);
+		}
+		assertTrue(g.hitbox.getY() == 10);
 	}
 
 }
+

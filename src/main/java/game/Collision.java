@@ -2,20 +2,29 @@ package game;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 /**
- * Checks if tiles in the surrounding area are marked with "collide".
- * @author samit
+ * Interface for checking for collision
  *
  */
-public class Collision {
+public interface Collision {
+	boolean collidesDownwards(float x, float y);
+	boolean collidesUpwards(float x, float y);
+	boolean collidesLeftwards(float x, float y);
+	boolean collidesRightwards(float x, float y);
+	boolean isCellBlocked(float x, float y);
+}
+/**
+ * Checks if tiles in the surrounding area are marked with "collide".
+ *
+ */
+class CollisionWithTiles implements Collision {
 	float tileWidth, tileHeight, spriteHeight, spriteWidth;
 	TiledMapTileLayer collisionLayer;
 	
-	public Collision(float spriteHeight, float spriteWidth, TiledMapTileLayer collisionLayer) {
+	public CollisionWithTiles(float spriteHeight, float spriteWidth, TiledMapTileLayer collisionLayer) {
 		this.tileWidth = collisionLayer.getTileWidth(); this.tileHeight = collisionLayer.getTileHeight(); 
 		this.spriteHeight = spriteHeight; this.spriteWidth = spriteWidth;
 		this.collisionLayer = collisionLayer;
 	}
-	
 	public boolean collidesDownwards(float x, float y) {
 		if(isCellBlocked((x), (y))
 				|| isCellBlocked((x) + spriteWidth-1, (y))){
@@ -23,7 +32,6 @@ public class Collision {
 		}
 		return false;
 	}
-	
 	public boolean collidesUpwards(float x, float y) {
 		if(isCellBlocked((x), (y) + spriteHeight)
 				|| isCellBlocked((x) + spriteWidth-1, (y) + spriteHeight)){

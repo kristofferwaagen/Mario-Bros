@@ -5,6 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -23,6 +25,7 @@ public class PlayScreen implements Screen {
     private Viewport gamePort;
 
     private GamePlayer player1, player2;
+    private Sprite player1Sprite, player2Sprite;
 
     private SpriteBatch batch;
 
@@ -58,14 +61,23 @@ public class PlayScreen implements Screen {
         * bruker da halvparten av bredde og høyde for å "sentrere" spillebrettet på x- og y-aksen
         * */
         camera.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
+        
+        player1Sprite = createSprite("src/resources/Steffen16Transp.png");
+        player2Sprite = createSprite("src/resources/Elias16Transp.png");
 
-        player1 = new GamePlayer("src/resources/Steffen16Transp.png", floor); // spiller 1
+        player1 = new GamePlayer(player1Sprite.getHeight(), player1Sprite.getWidth(), floor); // spiller 1
         player1.setPosition(20, 16);
 
-        player2 = new GamePlayer("src/resources/Elias16Transp.png", floor); // spiller 2
+        player2 = new GamePlayer(player2Sprite.getHeight(), player2Sprite.getWidth(), floor); // spiller 2
         player2.setPosition(50, 16); //p2
 
     }
+    
+    private Sprite createSprite(String string) {
+    	Texture texture = new Texture(Gdx.files.internal(string));
+    	return new Sprite(texture, 0, 0, 16, 16);
+    }
+    
 
     @Override
     public void show() {
@@ -103,6 +115,9 @@ public class PlayScreen implements Screen {
         handleInput(dt);
         camera.update(); // må oppdatere kamera hver gang det flytter på seg
         renderer.setView(camera); // metoden som viser spillebrettet trenger å vite hva den skal oppdatere av spillebrettet
+        
+        player1Sprite.setPosition(player1.hitbox.x, player1.hitbox.y);
+        player2Sprite.setPosition(player2.hitbox.x, player2.hitbox.y);
     }
 
     @Override
@@ -115,8 +130,8 @@ public class PlayScreen implements Screen {
         renderer.render(); // kaller på at spillebrettet skal vises
 
         batch.begin(); // starter batch
-        player1.draw(batch); // tegner spiller1
-        player2.draw(batch); // tegner spiller2
+        player1Sprite.draw(batch); // tegner spiller1
+        player2Sprite.draw(batch); // tegner spiller2
 
         /*
         * henter ut nåverende posisjon for spillere
