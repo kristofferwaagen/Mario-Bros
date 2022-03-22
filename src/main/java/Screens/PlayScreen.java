@@ -113,6 +113,7 @@ public class PlayScreen implements Screen {
     public void update(float dt){ // oppdaterer enheter
         handleInput(dt);
         camera.update(); // må oppdatere kamera hver gang det flytter på seg
+//        updateCamera();
         renderer.setView(camera); // metoden som viser spillebrettet trenger å vite hva den skal oppdatere av spillebrettet
     }
 
@@ -124,6 +125,12 @@ public class PlayScreen implements Screen {
     		break;
     	case 2:
     		this.mainGame(v);
+    		break;
+    	case 3:
+    		this.nextLevel();
+    		break;
+    	case 4:
+    		this.gameOver();
     		break;
     	}
     }
@@ -139,7 +146,6 @@ public class PlayScreen implements Screen {
         batch.end();
         
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
-        
     }
     
     
@@ -171,6 +177,14 @@ public class PlayScreen implements Screen {
         hud.stage.draw(); // viser Hud til spillet
     }
     
+    public void nextLevel() {
+    	
+    }
+    
+    public void gameOver() {
+    	
+    }
+    
     @Override
     public void resize(int width, int height) {
         gamePort.update(width, height); // viewPort blir oppdatert når vinduet blir justert
@@ -195,4 +209,9 @@ public class PlayScreen implements Screen {
     public void dispose() {
 
     }
+    
+//    public void updateCamera() {
+//    	camera.position.x = player1.bottom.x * 4;
+//    	camera.update();
+//    }
 }
