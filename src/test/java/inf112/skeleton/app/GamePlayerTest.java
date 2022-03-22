@@ -13,7 +13,7 @@ public class GamePlayerTest {
 	
 	@BeforeEach
 	void setup() {
-		g = new GamePlayer(new CollisionUsedForTesting());
+		g = new GamePlayer(10f, 10f, new CollisionUsedForTesting());
 	}
 	@Test
 	void movesLeftAndRight() {

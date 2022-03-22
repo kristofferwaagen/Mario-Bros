@@ -4,7 +4,7 @@ package game;
  * This class is strictly used in tests.
  *
  */
-public class CollisionUsedForTesting implements Collision {
+public class CollisionUsedForTesting implements ICollision {
 
 	float floor = 10;
 	float roof = 50;
@@ -42,6 +42,16 @@ public class CollisionUsedForTesting implements Collision {
 	public boolean isCellBlocked(float x, float y) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public float getTileWidth() {
+		return 10;
+	}
+
+	@Override
+	public float getTileHeight() {
+		return 10;
 	}
 	
 }

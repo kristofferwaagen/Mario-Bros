@@ -1,26 +1,16 @@
 package game;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-/**
- * Interface for checking for collision
- *
- */
-public interface Collision {
-	boolean collidesDownwards(float x, float y);
-	boolean collidesUpwards(float x, float y);
-	boolean collidesLeftwards(float x, float y);
-	boolean collidesRightwards(float x, float y);
-	boolean isCellBlocked(float x, float y);
-}
+
 /**
  * Checks if tiles in the surrounding area are marked with "collide".
  *
  */
-class CollisionWithTiles implements Collision {
-	float tileWidth, tileHeight, spriteHeight, spriteWidth;
+public class Collision implements ICollision {
+	public float tileWidth, tileHeight, spriteHeight, spriteWidth;
 	TiledMapTileLayer collisionLayer;
 	
-	public CollisionWithTiles(float spriteHeight, float spriteWidth, TiledMapTileLayer collisionLayer) {
+	public Collision(float spriteHeight, float spriteWidth, TiledMapTileLayer collisionLayer) {
 		this.tileWidth = collisionLayer.getTileWidth(); this.tileHeight = collisionLayer.getTileHeight(); 
 		this.spriteHeight = spriteHeight; this.spriteWidth = spriteWidth;
 		this.collisionLayer = collisionLayer;
@@ -71,6 +61,14 @@ class CollisionWithTiles implements Collision {
 			}
 		}
 		return false;
+	}
+	@Override
+	public float getTileWidth() {
+		return tileWidth;
+	}
+	@Override
+	public float getTileHeight() {
+		return tileHeight;
 	}
 
 }

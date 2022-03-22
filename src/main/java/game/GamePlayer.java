@@ -1,35 +1,28 @@
 package game;
 
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
 
 public class GamePlayer {
 
+	public Rectangle hitbox;
     int action;
-    float tileWidth, tileHeight;
+    float tileHeight, tileWidth;
     float spriteHeight, spriteWidth;
-    Collision collision;
-    public Rectangle hitbox;
+    ICollision collision;
     float velocityY;
-    
-    public GamePlayer(float spriteHeight, float spriteWidth, TiledMapTileLayer collisionLayer) {
-    	hitbox = new Rectangle(0.0f, 0.0f, 128.0f, 128.0f);
-        velocityY = 0;
-        hitbox.x = 0; hitbox.y = 0;
-        tileWidth = collisionLayer.getTileWidth();
-        tileHeight = collisionLayer.getTileHeight();
-        collision = new CollisionWithTiles(spriteHeight, spriteWidth, collisionLayer);
-    }
     /**
-     * Used when testing the class, avoids TiledMapTileLayer
-     * @param collisionUsedForTesting
+     * Tar for seg alt det logiske med spillerne.
+     * @param spriteHeight
+     * @param spriteWidth
+     * @param collision
      */
-    public GamePlayer(CollisionUsedForTesting collisionUsedForTesting) {
+    public GamePlayer(float spriteHeight, float spriteWidth, ICollision collision) {
     	hitbox = new Rectangle(0.0f, 0.0f, 128.0f, 128.0f);
         velocityY = 0;
         hitbox.x = 0; hitbox.y = 0;
-    	collision = collisionUsedForTesting;
-    	tileWidth = tileHeight = spriteHeight = spriteWidth = 10;
+        tileWidth = collision.getTileWidth(); tileHeight = collision.getTileHeight();
+        this.spriteHeight = spriteHeight; this.spriteWidth = spriteWidth;
+        this.collision = collision;
     }
 
     public void action(int type, float x, float y) {
@@ -74,10 +67,9 @@ public class GamePlayer {
     }
 
     public void moveLeft(float delta) {
-    	float oldX = hitbox.x;
         hitbox.x -= (200 * delta);	// delta == "change of time" "for fluid change om motion"
     	if(collision.collidesLeftwards(hitbox.x, hitbox.y)) {
-    		hitbox.x = (int) (oldX / tileWidth) * tileWidth + spriteWidth;
+    		hitbox.x = (int) (hitbox.x / tileWidth) * tileWidth + spriteWidth;
     	}
     }
 
@@ -103,4 +95,3 @@ public class GamePlayer {
     }
 
 }
-
