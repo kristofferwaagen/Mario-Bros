@@ -121,8 +121,8 @@ public class PlayScreen implements Screen {
         /*
         * henter ut nåverende posisjon for spillere
         * */
-        player1.setPosition(player1.bottom.getX(), player1.bottom.getY());
-        player2.setPosition(player2.bottom.getX(), player2.bottom.getY());
+        player1.setPosition(player1.hitbox.getX(), player1.hitbox.getY());
+        player2.setPosition(player2.hitbox.getX(), player2.hitbox.getY());
 
         // oppdaterer spillere
         player1.update(v);

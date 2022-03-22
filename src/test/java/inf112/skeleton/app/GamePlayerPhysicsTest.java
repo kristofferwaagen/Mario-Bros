@@ -20,12 +20,12 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import org.mockito.Mockito;
 
-import game.GamePlayerPhysics;
+import game.GamePlayerLogic;
 import game.Mario;
 
 public class GamePlayerPhysicsTest {
 	
-	private static GamePlayerPhysics kurt;
+	private static GamePlayerLogic kurt;
 	private TmxMapLoader mapLoader; // funksjonalitet som laster inn spillebrettet
     private TiledMap map; // referanse til selve spillebrettet
     private OrthogonalTiledMapRenderer renderer; // funksjonalitet som viser spillebrettet
@@ -91,7 +91,7 @@ public class GamePlayerPhysicsTest {
         renderer = new OrthogonalTiledMapRenderer(map); // viser spillebrettet
                 
         floor = (TiledMapTileLayer) map.getLayers().get("graphics");
-		kurt = new GamePlayerPhysics(floor);
+		kurt = new GamePlayerLogic(floor);
 
 	}
 
@@ -102,9 +102,9 @@ public class GamePlayerPhysicsTest {
 	@Test
 	void kurtMovesLeft() {
 		kurt.setPosition(0, 0);
-		float startPos = kurt.bottom.x;
+		float startPos = kurt.hitbox.x;
 		kurt.moveLeft(10f);
-		float now = kurt.bottom.x;
+		float now = kurt.hitbox.x;
 		assertTrue(now < startPos);
 	}
 
