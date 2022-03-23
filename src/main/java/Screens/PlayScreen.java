@@ -15,6 +15,9 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Rectangle;
 import game.GamePlayer;
 import game.Mario;
+import game.GameEnemy;
+
+import java.util.Random;
 
 public class PlayScreen implements Screen {
     private Mario game;
@@ -22,7 +25,7 @@ public class PlayScreen implements Screen {
     private Viewport gamePort;
 
     private GamePlayer player1, player2;
-
+    private GameEnemy enemy;
     private SpriteBatch batch;
 
     private Rectangle floorHitbox;
@@ -61,6 +64,8 @@ public class PlayScreen implements Screen {
         player2 = new GamePlayer("src/resources/Elias16Transp.png"); // spiller 2
         player2.setPosition(50, 16); //p2
 
+        enemy = new GameEnemy("src/resources/Mario_and_Enemies3.png");
+        enemy.setPosition(100, 16);
     }
 
     @Override
@@ -101,6 +106,27 @@ public class PlayScreen implements Screen {
         renderer.setView(camera); // metoden som viser spillebrettet trenger å vite hva den skal oppdatere av spillebrettet
     }
 
+    /**
+     * får fienden til å følge etter spilleren
+     * @param dt
+     */
+    public void basicEnemyMovement(float dt){
+        if(player1.bottom.x > enemy.bottom.x){
+            enemy.moveRight(dt);
+        }
+        else enemy.moveLeft(dt);
+    }
+
+    /**
+     * oppdaterer fiendes posisjon og kamera
+     * @param dt
+     */
+    public void updateEnemy(float dt){
+        basicEnemyMovement(dt);
+        camera.update();
+        renderer.setView(camera);
+    }
+
     @Override
     public void render(float v) {
         update(v); // kaller på update metoden
@@ -120,9 +146,14 @@ public class PlayScreen implements Screen {
         player1.setPosition(player1.bottom.getX(), player1.bottom.getY());
         player2.setPosition(player2.bottom.getX(), player2.bottom.getY());
 
-        // oppdaterer spillere
+        //legg til fiende
+        enemy.draw(batch);
+        enemy.setPosition(enemy.bottom.getX(), enemy.bottom.getY());
+
+        // oppdaterer spillere og fiender
         player1.update(v);
         player2.update(v);
+        updateEnemy(v);
 
         batch.end(); // avslutter batch
 
