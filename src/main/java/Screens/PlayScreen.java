@@ -9,28 +9,33 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector3;
-
+import game.Collision;
 import game.GamePlayer;
 import game.Mario;
+import com.badlogic.gdx.math.Vector3;
+
 
 public class PlayScreen implements Screen {
     private Mario game;
     private OrthographicCamera camera;
     private Viewport gamePort;
     private GamePlayer player1, player2;
+    private Sprite player1Sprite, player2Sprite;
     private SpriteBatch batch;
     private Rectangle floorHitbox, startButtonRect;
     private Hud hud;
     private TmxMapLoader mapLoader; // funksjonalitet som laster inn spillebrettet
     private TiledMap map; // referanse til selve spillebrettet
     private OrthogonalTiledMapRenderer renderer; // funksjonalitet som viser spillebrettet
+    private TiledMapTileLayer floor;
+    private Collision collision;
     private int gameState = 1; //1 == mainMenu, 2 == mainGame, 3 == nextLevel, 4 == gameOver  
     private Sprite startButton;
     private Texture startText;
@@ -50,12 +55,13 @@ public class PlayScreen implements Screen {
         gamePort = new FitViewport(Mario.visionWidth, Mario.visionHeight, camera); // skalerer responsivt med vinduets størrelse, henter resolution størrelse fra Mario.java
         hud = new Hud(game.batch); // Hud som skal vise poeng/tid/info
 
-        floorHitbox = new Rectangle(0, 0, 1280, 16); // gulvet i spillet
-        
+//        floorHitbox = new Rectangle(0, 0, 1280, 16); // gulvet i spillet
 
         mapLoader = new TmxMapLoader(); // laster inn spillebrettet
         map = mapLoader.load("src/resources/1.tmx"); // henter ut hvilket spillebrett som skal brukes
         renderer = new OrthogonalTiledMapRenderer(map); // viser spillebrettet
+        
+        floor = (TiledMapTileLayer) map.getLayers().get("graphics");
 
         /*
         * når et kamera blir laget slik som gamePort er blitt, begynner det på posisjonen x:0 y:0
@@ -63,14 +69,25 @@ public class PlayScreen implements Screen {
         * bruker da halvparten av bredde og høyde for å "sentrere" spillebrettet på x- og y-aksen
         * */
         camera.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
+        
+        player1Sprite = createSprite("src/resources/Steffen16Transp.png");
+        player2Sprite = createSprite("src/resources/Elias16Transp.png");
+        
+        collision = new Collision(player1Sprite.getHeight(), player1Sprite.getWidth(), floor);
 
-        player1 = new GamePlayer("src/resources/Steffen16Transp.png"); // spiller 1
+        player1 = new GamePlayer(player1Sprite.getHeight(), player1Sprite.getWidth(), collision); // spiller 1
         player1.setPosition(20, 16);
 
-        player2 = new GamePlayer("src/resources/Elias16Transp.png"); // spiller 2
+        player2 = new GamePlayer(player2Sprite.getHeight(), player2Sprite.getWidth(), collision); // spiller 2
         player2.setPosition(50, 16); //p2
 
     }
+    
+    private Sprite createSprite(String string) {
+    	Texture texture = new Texture(Gdx.files.internal(string));
+    	return new Sprite(texture, 0, 0, 16, 16);
+    }
+    
 
     @Override
     public void show() {
@@ -78,9 +95,6 @@ public class PlayScreen implements Screen {
     }
 
     public void handleInput(float dt) { // sjekker input
-        if(player2.hits(floorHitbox) != -1) {
-            player2.action(1, 0, 16); // dersom spillerens hitbox treffer bakken skal den plasseres på gitte koordinater
-        }
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             player2.jump();
         }
@@ -89,9 +103,6 @@ public class PlayScreen implements Screen {
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             player2.moveRight(dt);
-        }
-        if(player1.hits(floorHitbox) != -1) {
-            player1.action(1, 0, 16); // dersom spillerens hitbox treffer bakken skal den plasseres på gitte koordinater
         }
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
             player1.jump();
@@ -116,6 +127,9 @@ public class PlayScreen implements Screen {
         camera.update(); // må oppdatere kamera hver gang det flytter på seg
 //        updateCamera();
         renderer.setView(camera); // metoden som viser spillebrettet trenger å vite hva den skal oppdatere av spillebrettet
+        
+        player1Sprite.setPosition(player1.hitbox.x, player1.hitbox.y);
+        player2Sprite.setPosition(player2.hitbox.x, player2.hitbox.y);
     }
 
     @Override
@@ -159,14 +173,14 @@ public class PlayScreen implements Screen {
         renderer.render(); // kaller på at spillebrettet skal vises
 
         batch.begin(); // starter batch
-        player1.draw(batch); // tegner spiller1
-        player2.draw(batch); // tegner spiller2
+        player1Sprite.draw(batch); // tegner spiller1
+        player2Sprite.draw(batch); // tegner spiller2
 
         /*
         * henter ut nåverende posisjon for spillere
         * */
-        player1.setPosition(player1.bottom.getX(), player1.bottom.getY());
-        player2.setPosition(player2.bottom.getX(), player2.bottom.getY());
+        player1.setPosition(player1.hitbox.getX(), player1.hitbox.getY());
+        player2.setPosition(player2.hitbox.getX(), player2.hitbox.getY());
 
         // oppdaterer spillere
         player1.update(v);
