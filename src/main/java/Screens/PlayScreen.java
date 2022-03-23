@@ -19,6 +19,10 @@ import com.badlogic.gdx.math.Rectangle;
 import game.Collision;
 import game.GamePlayer;
 import game.Mario;
+
+import game.GameEnemy;
+
+import java.util.Random;
 import com.badlogic.gdx.math.Vector3;
 
 
@@ -27,6 +31,7 @@ public class PlayScreen implements Screen {
     private OrthographicCamera camera;
     private Viewport gamePort;
     private GamePlayer player1, player2;
+    private GameEnemy enemy;
     private Sprite player1Sprite, player2Sprite;
     private SpriteBatch batch;
     private Rectangle floorHitbox, startButtonRect;
@@ -81,6 +86,8 @@ public class PlayScreen implements Screen {
         player2 = new GamePlayer(player2Sprite.getHeight(), player2Sprite.getWidth(), collision); // spiller 2
         player2.setPosition(50, 16); //p2
 
+        enemy = new GameEnemy("src/resources/Mario_and_Enemies3.png");
+        enemy.setPosition(100, 16);
     }
     
     private Sprite createSprite(String string) {
@@ -130,6 +137,27 @@ public class PlayScreen implements Screen {
         
         player1Sprite.setPosition(player1.hitbox.x, player1.hitbox.y);
         player2Sprite.setPosition(player2.hitbox.x, player2.hitbox.y);
+    }
+
+    /**
+     * får fienden til å følge etter spilleren
+     * @param dt
+     */
+    public void basicEnemyMovement(float dt){
+        if(player1.hitbox.x > enemy.bottom.x){
+            enemy.moveRight(dt);
+        }
+        else enemy.moveLeft(dt);
+    }
+
+    /**
+     * oppdaterer fiendes posisjon og kamera
+     * @param dt
+     */
+    public void updateEnemy(float dt){
+        basicEnemyMovement(dt);
+        camera.update();
+        renderer.setView(camera);
     }
 
     @Override
@@ -182,9 +210,14 @@ public class PlayScreen implements Screen {
         player1.setPosition(player1.hitbox.getX(), player1.hitbox.getY());
         player2.setPosition(player2.hitbox.getX(), player2.hitbox.getY());
 
-        // oppdaterer spillere
+        //legg til fiende
+        enemy.draw(batch);
+        enemy.setPosition(enemy.bottom.getX(), enemy.bottom.getY());
+
+        // oppdaterer spillere og fiender
         player1.update(v);
         player2.update(v);
+        updateEnemy(v);
 
         batch.end(); // avslutter batch
 

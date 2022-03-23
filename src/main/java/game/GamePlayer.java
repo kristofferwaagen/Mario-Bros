@@ -86,6 +86,7 @@ public class GamePlayer {
     public void jump() {
         if (velocityY == 0) // fjerner dobbelhopping
             velocityY = 7; // hvor høyt spilleren kan hoppe
+
     }
     
     public int hits(Rectangle r) {
