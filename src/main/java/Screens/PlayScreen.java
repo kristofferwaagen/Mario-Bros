@@ -1,4 +1,4 @@
- package Screens;
+package Screens;
 
 import Scene.Hud;
 import com.badlogic.gdx.Gdx;
@@ -51,6 +51,7 @@ public class PlayScreen implements Screen {
         hud = new Hud(game.batch); // Hud som skal vise poeng/tid/info
 
         floorHitbox = new Rectangle(0, 0, 1280, 16); // gulvet i spillet
+        
 
         mapLoader = new TmxMapLoader(); // laster inn spillebrettet
         map = mapLoader.load("src/resources/1.tmx"); // henter ut hvilket spillebrett som skal brukes
@@ -109,7 +110,7 @@ public class PlayScreen implements Screen {
         		gameState = 2;
         }
     }
-
+//    Gdx.app.exit();
     public void update(float dt){ // oppdaterer enheter
         handleInput(dt);
         camera.update(); // må oppdatere kamera hver gang det flytter på seg
