@@ -16,20 +16,29 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Rectangle;
+import game.Collision;
 import game.GamePlayer;
 import game.Mario;
+import com.badlogic.gdx.math.Vector3;
+
 
 public class PlayScreen implements Screen {
     private Mario game;
     private OrthographicCamera camera;
     private Viewport gamePort;
     private GamePlayer player1, player2;
+    private Sprite player1Sprite, player2Sprite;
     private SpriteBatch batch;
     private Rectangle floorHitbox, startButtonRect;
     private Hud hud;
     private TmxMapLoader mapLoader; // funksjonalitet som laster inn spillebrettet
     private TiledMap map; // referanse til selve spillebrettet
     private OrthogonalTiledMapRenderer renderer; // funksjonalitet som viser spillebrettet
+    private TiledMapTileLayer floor;
+    private Collision collision;
+    private int gameState = 1; //1 == mainMenu, 2 == mainGame, 3 == nextLevel, 4 == gameOver  
+    private Sprite startButton;
+    private Texture startText;
 
     public PlayScreen(Mario game){
         this.game = game;
