@@ -1,4 +1,4 @@
-package Screens;
+ package Screens;
 
 import Scene.Hud;
 import com.badlogic.gdx.Gdx;
@@ -16,8 +16,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Rectangle;
-
-import game.Collision;
 import game.GamePlayer;
 import game.Mario;
 
@@ -25,27 +23,25 @@ public class PlayScreen implements Screen {
     private Mario game;
     private OrthographicCamera camera;
     private Viewport gamePort;
-
     private GamePlayer player1, player2;
-    private Sprite player1Sprite, player2Sprite;
-
     private SpriteBatch batch;
-
-    private Rectangle floorHitbox;
-
+    private Rectangle floorHitbox, startButtonRect;
     private Hud hud;
-
     private TmxMapLoader mapLoader; // funksjonalitet som laster inn spillebrettet
     private TiledMap map; // referanse til selve spillebrettet
     private OrthogonalTiledMapRenderer renderer; // funksjonalitet som viser spillebrettet
-    private TiledMapTileLayer floor;
-    private Collision collision;
 
     public PlayScreen(Mario game){
         this.game = game;
 
         batch = game.batch;
-
+        
+        startText = new Texture(Gdx.files.internal("src/resources/StartButton.png")); // henter startButton.png
+        startButton = new Sprite(startText, 0, 0, 96, 32); 
+        startButton.setPosition(150, 100);
+        startButtonRect = new Rectangle(150, 100, 96, 32); // setter inn posisjonen til startButton sin Rectangle
+        
+        
         camera = new OrthographicCamera(); // kamera som skal følge spiller gjennom spillebrettet
         gamePort = new FitViewport(Mario.visionWidth, Mario.visionHeight, camera); // skalerer responsivt med vinduets størrelse, henter resolution størrelse fra Mario.java
         hud = new Hud(game.batch); // Hud som skal vise poeng/tid/info
@@ -108,6 +104,13 @@ public class PlayScreen implements Screen {
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
             player1.moveRight(dt);
         }
+        if(Gdx.input.isTouched()) {
+        	Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+        	camera.unproject(touchPos);
+        	Rectangle touch = new Rectangle(touchPos.x, touchPos.y, 0, 0);
+        	if(touch.overlaps(startButtonRect))
+        		gameState = 2;
+        }
     }
 
     public void update(float dt){ // oppdaterer enheter
@@ -121,6 +124,32 @@ public class PlayScreen implements Screen {
 
     @Override
     public void render(float v) {
+    	switch(this.gameState) {
+    	case 1:
+    		this.mainMenu(v);
+    		break;
+    	case 2:
+    		this.mainGame(v);
+    		break;
+    	}
+    }
+    
+    public void mainMenu(float v) {
+    	update(v);
+    	Gdx.gl.glClearColor(1, 1, 1, 1); // setter farge og alfa
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // tømmer skjermen
+        renderer.render();
+        
+        batch.begin();
+        startButton.draw(batch);
+        batch.end();
+        
+        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+        
+    }
+    
+    
+    public void mainGame(float v) {
         update(v); // kaller på update metoden
 
         Gdx.gl.glClearColor(1, 1, 1, 1); // setter farge og alfa
@@ -146,9 +175,8 @@ public class PlayScreen implements Screen {
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined); // bruker kamera definert i Hud.java for hva spilleren kan se i spillet
         hud.stage.draw(); // viser Hud til spillet
-
     }
-
+    
     @Override
     public void resize(int width, int height) {
         gamePort.update(width, height); // viewPort blir oppdatert når vinduet blir justert
