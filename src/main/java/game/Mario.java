@@ -2,7 +2,6 @@ package game;
 
 import Screens.PlayScreen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import static org.mockito.Mockito.mock;
 
 
 public class Mario extends com.badlogic.gdx.Game {
