@@ -9,6 +9,7 @@ public class CollisionUsedForTesting implements ICollision {
 	float floor = 10;
 	float roof = 50;
 	float wall = 100;
+	
 	@Override
 	public boolean collidesDownwards(float x, float y) {
 		if(y < floor) {
@@ -40,7 +41,6 @@ public class CollisionUsedForTesting implements ICollision {
 
 	@Override
 	public boolean isCellBlocked(float x, float y) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

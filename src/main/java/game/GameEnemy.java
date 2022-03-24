@@ -18,10 +18,12 @@ public class GameEnemy implements IGameFigures {
         sprite = new Sprite(texture, 0,0, 16, 16);
         velocityY = 0;
     }
+    
     @Override
     public void update(float delta){
 
     }
+    
     @Override
     public void setPosition(float x, float y) {
         bottom.x = x;
