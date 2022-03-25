@@ -15,6 +15,7 @@ public class Collision implements ICollision {
 		this.spriteHeight = spriteHeight; this.spriteWidth = spriteWidth;
 		this.collisionLayer = collisionLayer;
 	}
+	
 	public boolean collidesDownwards(float x, float y) {
 		if(isCellBlocked((x), (y))
 				|| isCellBlocked((x) + spriteWidth-1, (y))){
@@ -22,6 +23,7 @@ public class Collision implements ICollision {
 		}
 		return false;
 	}
+	
 	public boolean collidesUpwards(float x, float y) {
 		if(isCellBlocked((x), (y) + spriteHeight)
 				|| isCellBlocked((x) + spriteWidth-1, (y) + spriteHeight)){
@@ -38,6 +40,7 @@ public class Collision implements ICollision {
 		}
 		return false;
 	}
+	
 	public boolean collidesRightwards(float x, float y) {
 		for(float step = 0; step < spriteHeight; step += collisionLayer.getTileHeight() / 2) {
 			if(isCellBlocked((x) + spriteWidth, (y) + step)){
@@ -62,10 +65,12 @@ public class Collision implements ICollision {
 		}
 		return false;
 	}
+	
 	@Override
 	public float getTileWidth() {
 		return tileWidth;
 	}
+	
 	@Override
 	public float getTileHeight() {
 		return tileHeight;

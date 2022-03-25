@@ -11,6 +11,7 @@ public class GamePlayer extends AGameFigures{
     float spriteHeight, spriteWidth;
     ICollision collision;
     float velocityY;
+    
     /**
      * Tar for seg alt det logiske med spillerne.
      * @param spriteHeight
@@ -51,6 +52,22 @@ public class GamePlayer extends AGameFigures{
     	if(collision.collidesRightwards(hitbox.x, hitbox.y)) {
     		hitbox.x = (int) (hitbox.x / tileWidth) * tileWidth;
         }
+    }
+
+    
+    public void setVelocityY(float newVelY) {
+    	velocityY = newVelY;
+    }
+    
+    public void jump() {
+        if (velocityY == 0) // fjerner dobbelhopping
+            velocityY = 7; // hvor høyt spilleren kan hoppe
+    }
+    
+    public int hits(Rectangle r) {
+        if(hitbox.overlaps(r))
+            return 1;
+        return -1;
     }
 
 }

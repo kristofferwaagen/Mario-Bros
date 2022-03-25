@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
-
 public class GameEnemy implements IGameFigures {
     ICollision collision;
     float spriteHeight, spriteWidth, tileHeight, tileWidth;
@@ -24,6 +23,7 @@ public class GameEnemy implements IGameFigures {
         this.spriteWidth = spriteWidth;
         this.collision = collision;
     }
+    
     @Override
     public void update(float delta){
         float oldY = hitbox.y;
