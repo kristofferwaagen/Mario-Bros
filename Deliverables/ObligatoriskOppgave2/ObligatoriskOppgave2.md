@@ -56,11 +56,12 @@ Vi har allerede lagt inn to figurer hvor den ene spiller med WAD og den andre sp
 Brukerhistorier ligger i linken til trello under README.md.
 
 Hittill har vi fått laget et spillbrett, vist spiller 1 og spiller 2 på spillbrettet, hvor vi også kan flytte spillerene med taster. 
-I tillegg interagerer spilleren med terrenget, som bakke og hindringer i veien. Videre skal må vi få implementert et poengsystem hvor spesifikke 
+I tillegg interagerer spilleren med terrenget, som bakke og hindringer i veien. Videre skal vi få implementert et poengsystem hvor spesifikke 
 klosser kan inneholde bonuselementer. Vi må også få designet fiender for spillerene våres og utvikle en måte for spilleren å dø eller bekjempe fienden. 
 Som kjent fra standard Super Mario spill, vil dette kunne skje ved at spilleren hopper på fienden, eller dersom fienden treffer spilleren på en 
 annen måte vil spilleren dø. Vi må også designe et mål på spillbrettet. I vårt tilfelle vil dette være en sted spilleren når fram til for å så komme videre til neste nivå. (MVP 8 - 9). 
-Vi har delvis implementert MVP 10 med start skjerm, og MVP 11 ved å ha flere spillere som kan spille samtidig. Listen over MVP punkter blir gitt under arbeidsoppgaver.
+Siden sist gang har vi fått delvis implementert MVP 10 med start skjerm, og MVP 11 ved å ha flere spillere som kan spille samtidig. Vi har fikset interagering mellom
+spillere og terreng, og interagering mellom fiender og terreng (MVP 4 og MVP 6). Her mangler det at vi også får fienden og spilleren til å interagere med hverandre.
 
 Vi har ikke endret på noen av MVP kravene hittil. De passer godt til Kurt Mario og vi bruker
 de som en mal for å se hva vi må jobbe med. 
@@ -79,9 +80,9 @@ så vi har flere nivåer vi kan teste ut og la spillerene bevege seg mellom ved 
 nivå. Kristoffer har også ansvaret for hvordan skjermen fungerer og designe en HUD til spillet.
 
 I henhold til MVP punktene gitt i oblig1, vil vi fokusere på
-- spiller interagerer med terreng (MVP 4)
+
 - spiller har poeng og interagerer med poenggjenstander (MVP 5)
-- få fiender til å interagerer med terreng (MVP 6)
+- fiender og spillere interagerer med hverandre (MVP 6)
 - spiller kan dø (MVP 7)
 - mål for spillbrett (MVP 8)
 
