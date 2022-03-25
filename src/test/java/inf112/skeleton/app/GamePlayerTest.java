@@ -15,6 +15,7 @@ public class GamePlayerTest {
 	void setup() {
 		g = new GamePlayer(10f, 10f, new CollisionUsedForTesting());
 	}
+	
 	@Test
 	void movesLeftAndRight() {
 		float oldX = g.hitbox.getX();
@@ -23,6 +24,7 @@ public class GamePlayerTest {
 		g.moveRight(2f);
 		assertTrue(g.hitbox.getX()>oldX);
 	}
+	
 	@Test
 	void jumpsCauseElevation() {
 		float oldY = g.hitbox.getY();
@@ -30,6 +32,7 @@ public class GamePlayerTest {
 		g.update(0.04f); //may fail if this time is high enough for player to crash into ground again
 		assertTrue(oldY < g.hitbox.getY());
 	}
+	
 	@Test
 	void fallsOnUpdate() {
 		g.setPosition(g.hitbox.x, 20);
@@ -40,6 +43,7 @@ public class GamePlayerTest {
 		}
 		assertTrue(g.hitbox.getY() < oldY);
 	}
+	
 	@Test
 	void landsOnGround() {
 		g.setPosition(0, 10);
