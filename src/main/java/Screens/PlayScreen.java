@@ -30,7 +30,7 @@ public class PlayScreen implements Screen {
     private OrthographicCamera camera;
     private Viewport gamePort;
     private GamePlayer player1, player2;
-    private GameEnemy enemy1;
+    private GameEnemy enemy;
     private Sprite player1Sprite, player2Sprite;
     private Sprite enemySprite1;
     private SpriteBatch batch;
@@ -86,8 +86,8 @@ public class PlayScreen implements Screen {
 
         enemySprite1 = createSprite("src/resources/Mario_and_Enemies3.png");
         Collision collisionE = new Collision(enemySprite1.getHeight(), enemySprite1.getWidth(), floor);
-        enemy1 = new GameEnemy(enemySprite1.getHeight(), enemySprite1.getWidth(), collisionE);
-        enemy1.setPosition(80, 16);
+        enemy = new GameEnemy(enemySprite1.getHeight(), enemySprite1.getWidth(), collisionE);
+        enemy.setPosition(80, 16);
 
     }
     
@@ -136,7 +136,7 @@ public class PlayScreen implements Screen {
         
         player1Sprite.setPosition(player1.hitbox.x, player1.hitbox.y);
         player2Sprite.setPosition(player2.hitbox.x, player2.hitbox.y);
-        enemySprite1.setPosition(enemy1.hitbox.x, enemy1.hitbox.y);
+        enemySprite1.setPosition(enemy.hitbox.x, enemy.hitbox.y);
 
     }
 
@@ -197,14 +197,14 @@ public class PlayScreen implements Screen {
 
         //legg til fiende
         enemySprite1.draw(batch);
-        enemy1.setPosition(enemy1.hitbox.getX(), enemy1.hitbox.getY());
+        enemy.setPosition(enemy.hitbox.getX(), enemy.hitbox.getY());
 
 
         // oppdaterer spillere og fiender
         player1.update(v);
         player2.update(v);
-        updateEnemy(v, enemy1);
-        enemy1.update(v);
+        updateEnemy(v, enemy);
+        enemy.update(v);
         batch.end(); // avslutter batch
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined); // bruker kamera definert i Hud.java for hva spilleren kan se i spillet
