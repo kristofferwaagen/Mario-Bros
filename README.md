@@ -7,7 +7,7 @@ Kurtmario er et libGDX basert platformspill
 - [Kristoffer Wågen](https://git.app.uib.no/Kristoffer.Wagen)
 - [Anders Stene](https://git.app.uib.no/Anders.Stene)
 - [Samuel Berre](https://git.app.uib.no/Samuel.Berre)
-- [Johnny Nguyen](https://git.app.uib.no/Johnny.Nguyen)
+- [Johnny Nguyen](https://git.app.uib.no/J.Nguyen)
 - [André Normann](https://git.app.uib.no/Andre.Normann)
 ## Nødvendig programvare
 
@@ -20,7 +20,7 @@ Kurtmario er et libGDX basert platformspill
 
 Dersom du vil kjøre spillet fra en Java-IDE:
 
-* Laste ned Git-repo fra: https://git.app.uib.no/Samuel.Berre/plattformspill-tempe som en zip-fil eller klon prosjektet.
+* Laste ned Git-repo fra: https://git.app.uib.no/hackespett/plattformspill-temp som en zip-fil eller klon prosjektet.
 * Åpne prosjektet i din IDE. Eksempelvis Eclipse eller IntelliJ.
 * Finn main under directory: plattformspill-temp-master/src/main/java/main/Main.java
 * Kjør main. Da skal spillet starte.
