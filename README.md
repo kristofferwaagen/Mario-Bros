@@ -58,6 +58,10 @@ På Mac OS X:
 
 * På Macer med M1 prosessor er en nyere versjon av libGDX nødvendig. Maven [`pom.xml`](pom.xml) filen har blitt satt opp til å bruke denne `1.10.1-SNAPSHOT` automatisk.
 
+For spillet:
+
+* Er mulig for spiller å flytte seg før man har trykket på "Start" knappen. Resluterer i at spillerne begynner på andre koordianter enn hva som var tilegnet dem.
+
 ## Brukerstøtte
 
 For brukerstøtte, ta kontakt i vår Discord gruppe https://discord.gg/Zqsp3k7Q.
@@ -72,5 +76,7 @@ https://trello.com/invite/b/RknwjnfS/3604c83a56a6f5bdf2cc1b11ffdcaf95/kurt-mario
 ## Acknowledgements
 
 - En stor takk til [bee-m](https://bee-m.itch.io) for [Simple Platformer Premium 8x8 and 16x16](https://bee-m.itch.io/simple-platformer-premium-8x8-and-16x16) tilesettet
+- [Brent Aureli](https://github.com/BrentAureli) for [tileset_gutter](https://github.com/BrentAureli/SuperMario/blob/master/android/assets/tileset_gutter.png)
+- [Johnny Nguyen](https://git.app.uib.no/J.Nguyen) for png filene Elias16Transp.png og Steffen16Transp.png
 
 

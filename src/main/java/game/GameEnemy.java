@@ -1,19 +1,13 @@
 package game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
 public class GameEnemy implements IGameFigures {
     ICollision collision;
     float spriteHeight, spriteWidth, tileHeight, tileWidth;
     public Rectangle hitbox;
-    Sprite sprite;
-    Texture texture;
     float velocityY;
 
-    public GameEnemy(float spriteHeight, float spriteWidt, ICollision collision){
+    public GameEnemy(float spriteHeight, float spriteWidth, ICollision collision){
         hitbox = new Rectangle(0.0f, 0.0f, 128.0f, 128.0f);
         velocityY = 0;
         hitbox.x = 0; hitbox.y = 0;

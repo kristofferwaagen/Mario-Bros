@@ -1,12 +1,10 @@
 package game;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
 public class GamePlayer implements IGameFigures{
 
 	public Rectangle hitbox;
-    int action;
     float tileHeight, tileWidth;
     float spriteHeight, spriteWidth;
     ICollision collision;

@@ -162,6 +162,8 @@ public class PlayScreen implements Screen {
     	case 2:
     		this.mainGame(v); // når spillet pågår
     		break;
+        default:
+            break;
     	}
     }
     
