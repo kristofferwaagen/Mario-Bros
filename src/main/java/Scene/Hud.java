@@ -15,7 +15,6 @@ public class Hud {
     public Stage stage;
     private Viewport viewport; // når bakgrunnen flytter på seg vil man at hud skal vær lik, bruker da nytt kamera for hud
 
-    private float timeCount;
     private Integer score;
 
     // enkel tekst for de forskjellige hud elementene
@@ -24,7 +23,6 @@ public class Hud {
     Label marioLabel;
 
     public Hud(SpriteBatch Batch){
-        timeCount = 0;
         score = 0;
 
         viewport = new FitViewport(Mario.visionWidth, Mario.visionHeight, new OrthographicCamera()); // nye kamera for hud

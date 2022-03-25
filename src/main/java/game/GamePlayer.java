@@ -10,6 +10,7 @@ public class GamePlayer {
     float spriteHeight, spriteWidth;
     ICollision collision;
     float velocityY;
+    
     /**
      * Tar for seg alt det logiske med spillerne.
      * @param spriteHeight
@@ -83,10 +84,10 @@ public class GamePlayer {
     public void setVelocityY(float newVelY) {
     	velocityY = newVelY;
     }
+    
     public void jump() {
         if (velocityY == 0) // fjerner dobbelhopping
             velocityY = 7; // hvor høyt spilleren kan hoppe
-
     }
     
     public int hits(Rectangle r) {

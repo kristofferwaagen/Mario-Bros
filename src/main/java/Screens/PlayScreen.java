@@ -22,7 +22,6 @@ import game.Mario;
 
 import game.GameEnemy;
 
-import java.util.Random;
 import com.badlogic.gdx.math.Vector3;
 
 
@@ -34,7 +33,7 @@ public class PlayScreen implements Screen {
     private GameEnemy enemy;
     private Sprite player1Sprite, player2Sprite;
     private SpriteBatch batch;
-    private Rectangle floorHitbox, startButtonRect;
+    private Rectangle startButtonRect;
     private Hud hud;
     private TmxMapLoader mapLoader; // funksjonalitet som laster inn spillebrettet
     private TiledMap map; // referanse til selve spillebrettet
@@ -59,8 +58,6 @@ public class PlayScreen implements Screen {
         camera = new OrthographicCamera(); // kamera som skal følge spiller gjennom spillebrettet
         gamePort = new FitViewport(Mario.visionWidth, Mario.visionHeight, camera); // skalerer responsivt med vinduets størrelse, henter resolution størrelse fra Mario.java
         hud = new Hud(game.batch); // Hud som skal vise poeng/tid/info
-
-//        floorHitbox = new Rectangle(0, 0, 1280, 16); // gulvet i spillet
 
         mapLoader = new TmxMapLoader(); // laster inn spillebrettet
         map = mapLoader.load("src/resources/1.tmx"); // henter ut hvilket spillebrett som skal brukes
@@ -95,7 +92,6 @@ public class PlayScreen implements Screen {
     	return new Sprite(texture, 0, 0, 16, 16);
     }
     
-
     @Override
     public void show() {
 
@@ -128,11 +124,10 @@ public class PlayScreen implements Screen {
         		gameState = 2;
         }
     }
-//    Gdx.app.exit();
+    
     public void update(float dt){ // oppdaterer enheter
         handleInput(dt);
         camera.update(); // må oppdatere kamera hver gang det flytter på seg
-//        updateCamera();
         renderer.setView(camera); // metoden som viser spillebrettet trenger å vite hva den skal oppdatere av spillebrettet
         
         player1Sprite.setPosition(player1.hitbox.x, player1.hitbox.y);
@@ -164,16 +159,10 @@ public class PlayScreen implements Screen {
     public void render(float v) {
     	switch(this.gameState) {
     	case 1:
-    		this.mainMenu(v);
+    		this.mainMenu(v); //hoved meny
     		break;
     	case 2:
-    		this.mainGame(v);
-    		break;
-    	case 3:
-    		this.nextLevel();
-    		break;
-    	case 4:
-    		this.gameOver();
+    		this.mainGame(v); // når spillet pågår
     		break;
     	}
     }
@@ -225,14 +214,6 @@ public class PlayScreen implements Screen {
         hud.stage.draw(); // viser Hud til spillet
     }
     
-    public void nextLevel() {
-    	
-    }
-    
-    public void gameOver() {
-    	
-    }
-    
     @Override
     public void resize(int width, int height) {
         gamePort.update(width, height); // viewPort blir oppdatert når vinduet blir justert
@@ -257,9 +238,4 @@ public class PlayScreen implements Screen {
     public void dispose() {
 
     }
-    
-//    public void updateCamera() {
-//    	camera.position.x = player1.bottom.x * 4;
-//    	camera.update();
-//    }
 }
