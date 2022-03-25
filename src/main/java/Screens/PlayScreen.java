@@ -34,6 +34,7 @@ public class PlayScreen implements Screen {
     private GamePlayer player1, player2;
     private GameEnemy enemy;
     private Sprite player1Sprite, player2Sprite;
+    private Sprite enemySprite1;
     private SpriteBatch batch;
     private Rectangle startButtonRect;
     private Hud hud;
@@ -85,8 +86,11 @@ public class PlayScreen implements Screen {
         player2 = new GamePlayer(player2Sprite.getHeight(), player2Sprite.getWidth(), collision); // spiller 2
         player2.setPosition(50, 16); //p2
 
-        enemy = new GameEnemy("src/resources/Mario_and_Enemies3.png");
-        enemy.setPosition(100, 16);
+        enemySprite1 = createSprite("src/resources/Mario_and_Enemies3.png");
+        Collision collisionE = new Collision(enemySprite1.getHeight(), enemySprite1.getWidth(), floor);
+        enemy = new GameEnemy(enemySprite1.getHeight(), enemySprite1.getWidth(), collisionE);
+        enemy.setPosition(80, 16);
+
     }
     
     private Sprite createSprite(String string) {
@@ -134,25 +138,17 @@ public class PlayScreen implements Screen {
         
         player1Sprite.setPosition(player1.hitbox.x, player1.hitbox.y);
         player2Sprite.setPosition(player2.hitbox.x, player2.hitbox.y);
+        enemySprite1.setPosition(enemy.hitbox.x, enemy.hitbox.y);
+
     }
 
-    /**
-     * får fienden til å følge etter spilleren
-     * @param dt
-     */
-    public void basicEnemyMovement(float dt){
-        if(player1.hitbox.x > enemy.bottom.x){
-            enemy.moveRight(dt);
-        }
-        else enemy.moveLeft(dt);
-    }
 
     /**
      * oppdaterer fiendes posisjon og kamera
      * @param dt
      */
-    public void updateEnemy(float dt){
-        basicEnemyMovement(dt);
+    public void updateEnemy(float dt, GameEnemy enemy){
+        enemy.basicEnemyMovement(dt,player1, player2, enemy);
         camera.update();
         renderer.setView(camera);
     }
@@ -202,14 +198,15 @@ public class PlayScreen implements Screen {
         player2.setPosition(player2.hitbox.getX(), player2.hitbox.getY());
 
         //legg til fiende
-        enemy.draw(batch);
-        enemy.setPosition(enemy.bottom.getX(), enemy.bottom.getY());
+        enemySprite1.draw(batch);
+        enemy.setPosition(enemy.hitbox.getX(), enemy.hitbox.getY());
+
 
         // oppdaterer spillere og fiender
         player1.update(v);
         player2.update(v);
-        updateEnemy(v);
-
+        updateEnemy(v, enemy);
+        enemy.update(v);
         batch.end(); // avslutter batch
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined); // bruker kamera definert i Hud.java for hva spilleren kan se i spillet

@@ -2,6 +2,8 @@ package game;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import com.badlogic.gdx.math.Rectangle;
+
 /**
  * Interface for spill objekter som er bevegelige (fiender, spillere, bonusgjenstander)
  */
@@ -25,11 +27,6 @@ public interface IGameFigures {
      */
     void moveRight(float delta);
 
-    /**
-     * Tegner animasjonen
-     *
-     */
-    void draw(SpriteBatch batch);
 
     /**
      * Lar spilleren hoppe, men ikke dobbelthoppe
@@ -41,4 +38,9 @@ public interface IGameFigures {
      *
      */
     void update(float delta);
+
+    /**
+     * checks for hit if the hitboxes overlaps
+     */
+    int hits(Rectangle r);
 }
