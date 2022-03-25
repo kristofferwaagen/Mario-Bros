@@ -58,6 +58,10 @@ På Mac OS X:
 
 * På Macer med M1 prosessor er en nyere versjon av libGDX nødvendig. Maven [`pom.xml`](pom.xml) filen har blitt satt opp til å bruke denne `1.10.1-SNAPSHOT` automatisk.
 
+For spillet:
+
+* Er mulig for spiller å flytte seg før man har trykket på "Start" knappen. Resluterer i at spillerne begynner på andre koordianter enn hva som var tilegnet dem.
+
 ## Brukerstøtte
 
 For brukerstøtte, ta kontakt i vår Discord gruppe https://discord.gg/Zqsp3k7Q.
