@@ -71,7 +71,8 @@ Anders skal til innlevering 2 ferdigstille klassediagrammet og
 ObligatoriskOppgave2.md filen, i tillegg jobber han å lage fiender til spillet. Samuel skal jobbe med kollisjon mellom
 spiller, fiende og objekter. Han har som sagt også fokusert mer på tester, da dette var noe
 vi fikk lav score på sist oblig. Johnny skal jobbe med startskjerm og hvordan man kan
-exite spillet eller returnere til main menu. André skal jobbe med spillbrettene
+avslutte spillet eller returnere til main menu. Han skal også rydde kode, sjekke kodekvaliteten
+og se om det er metoder som kan abstraheres. André skal jobbe med spillbrettene
 så vi har flere nivåer vi kan teste ut og la spillerene bevege seg mellom ved fullført
 nivå. Kristoffer har også ansvaret for hvordan skjermen fungerer og designe en HUD til spillet.
 
@@ -81,6 +82,8 @@ I henhold til MVP punktene gitt i oblig1, vil vi fokusere på
 - få fiender til å interagerer med terreng (MVP 6)
 - spiller kan dø (MVP 7)
 - mål for spillbrett (MVP 8)
+
+I tillegg vil vi også lage et ferdigstilt interface for gameplayer, gamenemy og bevegelige objekter.
 
 Vi ser for oss at når vi har funnet ut av hvordan fiender og spillere 
 interagerer med hverandre, vil det å fullføre MVP 7 være relativt lett. 
@@ -98,5 +101,7 @@ nytt nivå / ta spiller tilbake til menyen når de er nær målet.
 
 ######Klassediagram
 Ligger som en egen bildefil under ObligatoriskOppgave2 mappen.
+
+
 
 
