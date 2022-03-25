@@ -1,6 +1,5 @@
 package game;
 
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 /**
  * Interface for checking for collision
  *

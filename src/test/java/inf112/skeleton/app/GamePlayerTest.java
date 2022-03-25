@@ -51,6 +51,15 @@ public class GamePlayerTest {
 		}
 		assertTrue(g.hitbox.getY() == 10);
 	}
+	@Test
+	void crashesIntoWalls() {
+		g.setPosition(10, 70);
+		for(int i = 50; i > 0; i--) {
+			g.moveRight(0.04f);
+			g.update(0.04f);
+		}
+		assertTrue(g.hitbox.getX() == 90f);
+	}
 
 }
 
