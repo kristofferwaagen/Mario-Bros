@@ -33,7 +33,7 @@ public class Collision implements ICollision {
 	}
 	
 	public boolean collidesLeftwards(float x, float y) {
-		for(float step = 0; step < spriteHeight; step += collisionLayer.getTileHeight() / 2) {
+		for(float step = 0; step < spriteHeight; step += collisionLayer.getTileHeight() / (float) 2) {
 			if(isCellBlocked((x), (y) + step)){
 				return true;
 			}
@@ -42,7 +42,7 @@ public class Collision implements ICollision {
 	}
 	
 	public boolean collidesRightwards(float x, float y) {
-		for(float step = 0; step < spriteHeight; step += collisionLayer.getTileHeight() / 2) {
+		for(float step = 0; step < spriteHeight; step += collisionLayer.getTileHeight() / (float) 2) {
 			if(isCellBlocked((x) + spriteWidth, (y) + step)){
 				return true;
 			}
