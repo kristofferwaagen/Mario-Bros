@@ -108,7 +108,7 @@ Ligger som en egen bildefil under ObligatoriskOppgave2 mappen.
 ######Analyseverktøy
 Tok i bruk analyseverktøyet SpotBugs. Kjørte det for hele prosjektet og resluterte i en god oversikt over
 problemer med koden. Det ga tilbakemelding om blant annet kode som ikke ble tatt i bruk eller initialisert, samt 
-kode som kan være problematisk fordi den er ufuflstendig. Det var mye nytte i å bruke dette verktøyet ettersom det
+kode som kan være problematisk fordi den er ufullstendig. Det var mye nytte i å bruke dette verktøyet ettersom det
 ga oss muligheten til å se problemer vi ikke la merke til i første omgang.
 
 
