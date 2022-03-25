@@ -48,6 +48,7 @@ For å kjøre tester
   run  GamePlayerTest.java 
 ```
 
+For å teste det grafiske i spillet går man inn i PlayScreen.java, kommenterer ut den første private String mapLocation, og kommenterer inn den andre som er laget for testing. Så kjører man spillet som beskrevet fra før. Man beveger karakterene med WASD og piltaster. Det som skal testes er at figurene beveger seg smooth, og ikke går gjennom blokker. Dette gjøres ved å bevege karakterene inn i blokker, hoppe oppå eller inn i fra undersiden.
 
 ## Kjente bugs og problemer
 

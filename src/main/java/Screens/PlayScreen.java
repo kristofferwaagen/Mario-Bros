@@ -26,6 +26,8 @@ import com.badlogic.gdx.math.Vector3;
 
 
 public class PlayScreen implements Screen {
+    private String mapLocation = "src/resources/1.tmx";
+//  private String mapLocation = "src/resources/test.tmx"; // used to test graphical features
     private Mario game;
     private OrthographicCamera camera;
     private Viewport gamePort;
@@ -60,7 +62,7 @@ public class PlayScreen implements Screen {
         hud = new Hud(game.batch); // Hud som skal vise poeng/tid/info
 
         mapLoader = new TmxMapLoader(); // laster inn spillebrettet
-        map = mapLoader.load("src/resources/1.tmx"); // henter ut hvilket spillebrett som skal brukes
+        map = mapLoader.load(mapLocation); // henter ut hvilket spillebrett som skal brukes
         renderer = new OrthogonalTiledMapRenderer(map); // viser spillebrettet
         
         floor = (TiledMapTileLayer) map.getLayers().get("graphics");

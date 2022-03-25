@@ -9,6 +9,7 @@ public class CollisionUsedForTesting implements ICollision {
 	float floor = 10;
 	float roof = 50;
 	float wall = 100;
+	float spriteHeightWidth = 10;
 	
 	@Override
 	public boolean collidesDownwards(float x, float y) {
@@ -20,7 +21,7 @@ public class CollisionUsedForTesting implements ICollision {
 
 	@Override
 	public boolean collidesUpwards(float x, float y) {
-		if(y > roof) {
+		if(y + spriteHeightWidth > roof) {
 			return true;
 		}
 		return false;
@@ -33,7 +34,7 @@ public class CollisionUsedForTesting implements ICollision {
 
 	@Override
 	public boolean collidesRightwards(float x, float y) {
-		if(x>wall) {
+		if(x + spriteHeightWidth >wall) {
 			return true;
 		}
 		return false;
