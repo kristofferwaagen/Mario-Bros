@@ -3,7 +3,7 @@ package game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
-public class GamePlayer extends AGameFigures{
+public class GamePlayer implements IGameFigures{
 
 	public Rectangle hitbox;
     int action;
@@ -26,7 +26,34 @@ public class GamePlayer extends AGameFigures{
         this.spriteHeight = spriteHeight; this.spriteWidth = spriteWidth;
         this.collision = collision;
     }
+    public void update(float delta) {
+        float oldY = hitbox.y;
+        hitbox.y += velocityY;
+        velocityY -= (25 * delta);
 
+        boolean collisionDown = false;
+        boolean collisionUpwards = false;
+
+        if(velocityY < 0) {
+            collisionDown = collision.collidesDownwards(hitbox.x, hitbox.y);
+        } else if(velocityY > 0) {
+            collisionUpwards = collision.collidesUpwards(hitbox.x, hitbox.y);
+        }
+        if(collisionDown) {
+            hitbox.y = (int) (oldY / tileHeight) * tileHeight;
+            velocityY = 0;
+        }
+        if(collisionUpwards) {
+            hitbox.y = (int) ((hitbox.y+spriteHeight/2) / tileHeight) * tileHeight;
+            if(velocityY > 0)
+                velocityY = 0;
+            velocityY -= (25 * delta);
+        }
+    }
+    public void setPosition(float x, float y) {
+        hitbox.x = x;
+        hitbox.y = y;
+    }
     public void action(int type, float x, float y) {
         if(type == 1) {
             velocityY = 0;
@@ -54,14 +81,13 @@ public class GamePlayer extends AGameFigures{
         }
     }
 
-    
     public void setVelocityY(float newVelY) {
     	velocityY = newVelY;
     }
     
     public void jump() {
-        if (velocityY == 0) // fjerner dobbelhopping
-            velocityY = 7; // hvor høyt spilleren kan hoppe
+        if (velocityY == 0)
+            velocityY = 7;
     }
     
     public int hits(Rectangle r) {

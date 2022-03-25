@@ -65,6 +65,8 @@ Vi har delvis implementert MVP 10 med start skjerm, og MVP 11 ved å ha flere sp
 Vi har ikke endret på noen av MVP kravene hittil. De passer godt til Kurt Mario og vi bruker
 de som en mal for å se hva vi må jobbe med. 
 
+Gjøremål, brukerhistorier og akeptansekrav ligger i project boarded i Trello som er linket i README.md.
+
 ######Arbeidsoppgaver rundt MVP punktene
 
 Anders skal til innlevering 2 ferdigstille klassediagrammet og 

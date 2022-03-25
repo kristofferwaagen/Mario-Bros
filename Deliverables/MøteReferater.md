@@ -34,3 +34,22 @@ blir det enklere å teste de.
 
 Siden vi fikk tilbakemelding på innlevering 1, diskurer vi også hva vi må
 være tydeligere på innleveringene.
+
+###Referat fra møte 25.03.2022
+
+####Deltakere
+- Kristoffer
+- Johnny
+- Anders
+- Samuel
+- André
+
+####Oppsummering
+Vi bestemte oss for å sette opp et møte før innleveringen av oblig2 for å høre hvordan folk ligger an med arbeidsoppgavene sine
+og om alle var klare for innlevering. Vi diskuterte hva vi hadde gjort og det hjelper med et par ekstra øyne for å se over
+sine egne oppgaver. Vi har prøvd å få laget en abstract class framfor et interface av GameFigures fordi GamePlayer og GameEnemy
+har flere like metoder (f.eks. setposition()). Fordelen med en abstract class er at vi kan ha ikke abstrakte metoder også. Interface tillater
+jo ikke metode bodies.
+Siden André har hatt problemer med innlogging på git har han sendt README.md filen i discord også laster Kristoffer den opp til git.
+Johnny har fått ryddet i koden fra sist møte, Anders har fått laget klassediagram, og Kristoffer har ryddet i project boarded på trello.
+Samuel oppdaterte oss også på tester han hadde skrevet - både automatiske og manuelle.

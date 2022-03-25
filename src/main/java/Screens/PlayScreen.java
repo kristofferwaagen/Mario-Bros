@@ -203,10 +203,8 @@ public class PlayScreen implements Screen {
         // oppdaterer spillere og fiender
         player1.update(v);
         player2.update(v);
-
-        enemy1.update(v);
         updateEnemy(v, enemy1);
-
+        enemy1.update(v);
         batch.end(); // avslutter batch
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined); // bruker kamera definert i Hud.java for hva spilleren kan se i spillet
