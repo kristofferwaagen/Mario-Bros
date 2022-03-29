@@ -63,10 +63,12 @@ Samuel oppdaterte oss også på tester han hadde skrevet - både automatiske og 
 - Anders
 
 ####Oppsummering
-Johnny oppdaterer oss på hvordan kameraet fungere og hvordan det må bli riktig konfigurert, slik at når man dør vil bakgrunnen stemme
+Johnny og Kristoffer oppdaterer oss på hvordan kameraet fungere og hvordan det må bli riktig konfigurert, slik at når man dør vil bakgrunnen stemme
 overens med hvor spilleren døde, og "Game over" kommer på det stedet.
 Samuel jobber med å se på hvordan det er best å implementere en spiller i spillet. Skal det være
 et eget objekt som man kan legge til i Tiled og definere som et objekt, eller skal det
 være en figur som legges på kartet i koden. Videre skal André lage nivåene spilleren skal bevege seg gjennom.
 Anders fikk problemer med SDK-en som Intellij bestemte seg for å bruke, så
 det gikk mye tid til å få fikset opp i dette. Til slutt ble det å klone forken på nytt igjen.
+Vi bestemte oss også for å forkaste abstrakt klasse for player og enemy, da dette
+kom til å gjøre det vanskeligere å lage tester. Det ble derfor enklere å bruke interface.
