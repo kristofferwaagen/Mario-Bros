@@ -53,3 +53,20 @@ jo ikke metode bodies.
 Siden André har hatt problemer med innlogging på git har han sendt README.md filen i discord også laster Kristoffer den opp til git.
 Johnny har fått ryddet i koden fra sist møte, Anders har fått laget klassediagram, og Kristoffer har ryddet i project boarded på trello.
 Samuel oppdaterte oss også på tester han hadde skrevet - både automatiske og manuelle.
+
+###Referat fra møte 29.03.2022
+####Deltakere
+- Kristoffer
+- Johnny
+- Samuel
+- André
+- Anders
+
+####Oppsummering
+Johnny oppdaterer oss på hvordan kameraet fungere og hvordan det må bli riktig konfigurert, slik at når man dør vil bakgrunnen stemme
+overens med hvor spilleren døde, og "Game over" kommer på det stedet.
+Samuel jobber med å se på hvordan det er best å implementere en spiller i spillet. Skal det være
+et eget objekt som man kan legge til i Tiled og definere som et objekt, eller skal det
+være en figur som legges på kartet i koden. Videre skal André lage nivåene spilleren skal bevege seg gjennom.
+Anders fikk problemer med SDK-en som Intellij bestemte seg for å bruke, så
+det gikk mye tid til å få fikset opp i dette. Til slutt ble det å klone forken på nytt igjen.
