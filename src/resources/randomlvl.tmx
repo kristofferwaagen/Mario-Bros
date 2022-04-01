@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.8" tiledversion="1.8.1" orientation="orthogonal" renderorder="right-down" width="240" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="49">
- <tileset firstgid="1" source="../../../../Desktop/complete_Tileset_16x16.tsx"/>
+ <tileset firstgid="1" source="complete_Tileset_16x16.tsx"/>
  <layer id="1" name="background" width="240" height="13">
   <data encoding="base64" compression="zlib">
    eJzt0rENwEAMAkDnh8j+s3iyVL9BCmRfcS0SiH6qGgAAAAAAAAAAAGCRU7v9sUNKRpqJndK8y92PTchIM7FTmg+pRf1K
