@@ -108,7 +108,7 @@ public class PlayScreen implements Screen {
         Body body;
 
         // Ground
-        for(MapObject o : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject o : map.getLayers().get(1).getObjects().getByType(RectangleMapObject.class)){
             Rectangle r = ((RectangleMapObject) o).getRectangle();
 
             bdef.type = BodyDef.BodyType.StaticBody;
@@ -122,7 +122,7 @@ public class PlayScreen implements Screen {
         }
 
         //Coin
-        for(MapObject o : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject o : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
             Rectangle r = ((RectangleMapObject) o).getRectangle();
 
             bdef.type = BodyDef.BodyType.StaticBody;
