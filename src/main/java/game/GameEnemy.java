@@ -82,25 +82,25 @@ public class GameEnemy implements IGameFigures {
      * får fienden til å følge etter den nærmeste spilleren
      * @param dt
      */
-    public void basicEnemyMovement(float dt, GamePlayer p1, GamePlayer p2, GameEnemy enemy){
-        float enemyPos = enemy.hitbox.x;
-        float p1Pos = p1.hitbox.x;
-        float p2Pos = p2.hitbox.x;
-
-        if(Math.abs(p1Pos-enemyPos) < Math.abs(p2Pos-enemyPos)){
-            if(p1.hitbox.x > enemy.hitbox.x){
-                enemy.moveRight(dt);
-            }
-            else
-                enemy.moveLeft(dt);
-        }
-        else{
-            if(p2.hitbox.x > enemy.hitbox.x){
-                enemy.moveRight(dt);
-            }
-            else
-                enemy.moveLeft(dt);
-        }
-
-    }
+//    public void basicEnemyMovement(float dt, GamePlayer p1, GamePlayer p2, GameEnemy enemy){
+//        float enemyPos = enemy.hitbox.x;
+//        float p1Pos = p1.hitbox.x;
+//        float p2Pos = p2.hitbox.x;
+//
+//        if(Math.abs(p1Pos-enemyPos) < Math.abs(p2Pos-enemyPos)){
+//            if(p1.hitbox.x > enemy.hitbox.x){
+//                enemy.moveRight(dt);
+//            }
+//            else
+//                enemy.moveLeft(dt);
+//        }
+//        else{
+//            if(p2.hitbox.x > enemy.hitbox.x){
+//                enemy.moveRight(dt);
+//            }
+//            else
+//                enemy.moveLeft(dt);
+//        }
+//
+//    }
 }

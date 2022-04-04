@@ -1,97 +1,28 @@
 package game;
 
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.physics.box2d.*;
 
-public class GamePlayer implements IGameFigures{
+public class GamePlayer extends Sprite {
+    public World world;
+    public Body b2body;
 
-	public Rectangle hitbox;
-    float tileHeight, tileWidth;
-    float spriteHeight, spriteWidth;
-    ICollision collision;
-    float velocityY;
-    
-    /**
-     * Tar for seg alt det logiske med spillerne.
-     * @param spriteHeight
-     * @param spriteWidth
-     * @param collision
-     */
-    public GamePlayer(float spriteHeight, float spriteWidth, ICollision collision) {
-        hitbox = new Rectangle(0.0f, 0.0f, 128.0f, 128.0f);
-        velocityY = 0;
-        hitbox.x = 0; hitbox.y = 0;
-        tileWidth = collision.getTileWidth(); tileHeight = collision.getTileHeight();
-        this.spriteHeight = spriteHeight; this.spriteWidth = spriteWidth;
-        this.collision = collision;
-    }
-    public void update(float delta) {
-        float oldY = hitbox.y;
-        hitbox.y += velocityY;
-        velocityY -= (25 * delta);
-
-        boolean collisionDown = false;
-        boolean collisionUpwards = false;
-
-        if(velocityY < 0) {
-            collisionDown = collision.collidesDownwards(hitbox.x, hitbox.y);
-        } else if(velocityY > 0) {
-            collisionUpwards = collision.collidesUpwards(hitbox.x, hitbox.y);
-        }
-        if(collisionDown) {
-            hitbox.y = (int) (oldY / tileHeight) * tileHeight;
-            velocityY = 0;
-        }
-        if(collisionUpwards) {
-            hitbox.y = (int) ((hitbox.y+spriteHeight/2) / tileHeight) * tileHeight;
-            if(velocityY > 0)
-                velocityY = 0;
-            velocityY -= (25 * delta);
-        }
-    }
-    public void setPosition(float x, float y) {
-        hitbox.x = x;
-        hitbox.y = y;
-    }
-    public void action(int type, float x, float y) {
-        if(type == 1) {
-            velocityY = 0;
-            setPosition(hitbox.x, y);
-        }
+    public GamePlayer(World world){
+        this.world = world;
+        definePlayer();
     }
 
-    /**
-     * Oppdaterer posisjonen til objektet, sjekker om den har kollidert oppover eller nedover, og korrigerer så posisjonen i henhold til det.
-     * @param delta
-     */
+    public void definePlayer(){
+        BodyDef bdef = new BodyDef();
+        bdef.position.set(32 / Mario.PPM, 32 / Mario.PPM);
+        bdef.type = BodyDef.BodyType.DynamicBody;
+        b2body = world.createBody(bdef);
 
-    @Override
-    public void moveLeft(float delta) {
-        hitbox.x -= (200 * delta);	// delta == "change of time" "for fluid change om motion"
-    	if(collision.collidesLeftwards(hitbox.x, hitbox.y)) {
-    		hitbox.x = (int) (hitbox.x / tileWidth) * tileWidth + spriteWidth;
-    	}
-    }
-    @Override
-    public void moveRight(float delta) {
-        hitbox.x += (200 * delta);	// (value) * delta, endre value for å endre movementspeed
-    	if(collision.collidesRightwards(hitbox.x, hitbox.y)) {
-    		hitbox.x = (int) (hitbox.x / tileWidth) * tileWidth;
-        }
-    }
+        FixtureDef fdef = new FixtureDef();
+        CircleShape shape = new CircleShape();
+        shape.setRadius(5 / Mario.PPM);
 
-    public void setVelocityY(float newVelY) {
-    	velocityY = newVelY;
+        fdef.shape = shape;
+        b2body.createFixture(fdef);
     }
-    
-    public void jump() {
-        if (velocityY == 0)
-            velocityY = 7;
-    }
-    
-    public int hits(Rectangle r) {
-        if(hitbox.overlaps(r))
-            return 1;
-        return -1;
-    }
-
 }
