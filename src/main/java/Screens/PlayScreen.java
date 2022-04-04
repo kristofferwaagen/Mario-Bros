@@ -8,10 +8,15 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.Input;
@@ -26,8 +31,8 @@ import com.badlogic.gdx.math.Vector3;
 
 
 public class PlayScreen implements Screen {
-    private String mapLocation = "src/resources/1.tmx";
-//  private String mapLocation = "src/resources/test.tmx"; // used to test graphical features
+   // private String mapLocation = "src/resources/randomlvl.tmx";
+    private String mapLocation = "src/resources/test.tmx"; // used to test graphical features
     private Mario game;
     private OrthographicCamera camera;
     private Viewport gamePort;
@@ -47,6 +52,9 @@ public class PlayScreen implements Screen {
     private Sprite startButton;
     private Texture startText;
 
+    private World world;
+    private Box2DDebugRenderer b2dr;
+
     public PlayScreen(Mario game){
         this.game = game;
 
@@ -65,7 +73,7 @@ public class PlayScreen implements Screen {
         mapLoader = new TmxMapLoader(); // laster inn spillebrettet
         map = mapLoader.load(mapLocation); // henter ut hvilket spillebrett som skal brukes
         renderer = new OrthogonalTiledMapRenderer(map); // viser spillebrettet
-        
+
         floor = (TiledMapTileLayer) map.getLayers().get("graphics");
 
         /*
@@ -74,7 +82,10 @@ public class PlayScreen implements Screen {
         * bruker da halvparten av bredde og høyde for å "sentrere" spillebrettet på x- og y-aksen
         * */
         camera.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
-        
+
+        world = new World(new Vector2(0, 0), true);
+        b2dr = new Box2DDebugRenderer();
+
         player1Sprite = createSprite("src/resources/Steffen16Transp.png");
         player2Sprite = createSprite("src/resources/Elias16Transp.png");
         
@@ -90,6 +101,39 @@ public class PlayScreen implements Screen {
         Collision collisionE = new Collision(enemySprite1.getHeight(), enemySprite1.getWidth(), floor);
         enemy = new GameEnemy(enemySprite1.getHeight(), enemySprite1.getWidth(), collisionE);
         enemy.setPosition(80, 16);
+
+        BodyDef bdef = new BodyDef();
+        PolygonShape shape = new PolygonShape();
+        FixtureDef fdef = new FixtureDef();
+        Body body;
+
+        // Ground
+        for(MapObject o : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
+            Rectangle r = ((RectangleMapObject) o).getRectangle();
+
+            bdef.type = BodyDef.BodyType.StaticBody;
+            bdef.position.set(r.getX() + r.getWidth() / 2, r.getY() + r.getHeight() / 2);
+
+            body = world.createBody(bdef);
+
+            shape.setAsBox(r.getWidth() / 2, r.getHeight() / 2);
+            fdef.shape = shape;
+            body.createFixture(fdef);
+        }
+
+        //Coin
+        for(MapObject o : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
+            Rectangle r = ((RectangleMapObject) o).getRectangle();
+
+            bdef.type = BodyDef.BodyType.StaticBody;
+            bdef.position.set(r.getX() + r.getWidth() / 2, r.getY() + r.getHeight() / 2);
+
+            body = world.createBody(bdef);
+
+            shape.setAsBox(r.getWidth() / 2, r.getHeight() / 2);
+            fdef.shape = shape;
+            body.createFixture(fdef);
+        }
 
     }
     
@@ -188,6 +232,8 @@ public class PlayScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // tømmer skjermen
 
         renderer.render(); // kaller på at spillebrettet skal vises
+
+        b2dr.render(world, camera.combined);
 
         batch.begin(); // starter batch
         player1Sprite.draw(batch); // tegner spiller1
