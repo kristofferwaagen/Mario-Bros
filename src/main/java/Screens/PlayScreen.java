@@ -48,7 +48,9 @@ public class PlayScreen implements Screen {
     private OrthogonalTiledMapRenderer renderer; // funksjonalitet som viser spillebrettet
     private TiledMapTileLayer floor;
     private Collision collision;
-    private int gameState = 2; //1 == mainMenu, 2 == mainGame, 3 == nextLevel, 4 == gameOver
+    private int gameState = 1; //1 == mainMenu, 2 == mainGame, 3 == nextLevel, 4 == gameOver
+    private float gWidth = 0;
+    private float gHeight = 0;
     private Sprite startButton;
     private Texture startText;
 
@@ -60,15 +62,16 @@ public class PlayScreen implements Screen {
 
         batch = game.batch;
         
-        startText = new Texture(Gdx.files.internal("src/resources/StartButton.png")); // henter startButton.png
-        startButton = new Sprite(startText, 0, 0, 96, 32); 
-        startButton.setPosition(150, 100);
-        startButtonRect = new Rectangle(150, 100, 96, 32); // setter inn posisjonen til startButton sin Rectangle
-        
-        
         camera = new OrthographicCamera(); // kamera som skal følge spiller gjennom spillebrettet
         gamePort = new FitViewport(Mario.visionWidth / Mario.PPM, Mario.visionHeight / Mario.PPM, camera); // skalerer responsivt med vinduets størrelse, henter resolution størrelse fra Mario.java
         hud = new Hud(game.batch); // Hud som skal vise poeng/tid/info
+
+        gWidth = gamePort.getWorldWidth() / 2;
+        gHeight = gamePort.getWorldHeight() / 2;
+
+        startButton = new Sprite(new Texture(Gdx.files.internal("src/resources/StartButton.png")));
+        startButtonRect = new Rectangle(gWidth, gHeight, 96, 32); // setter inn posisjonen til startButton sin Rectangle
+        startButton.setPosition(150,100);
 
         mapLoader = new TmxMapLoader(); // laster inn spillebrettet
         map = mapLoader.load(mapLocation); // henter ut hvilket spillebrett som skal brukes
@@ -81,12 +84,12 @@ public class PlayScreen implements Screen {
         * dette ønskes ikke ettersom spillebrettet er da lokalisert i kun positive verdier for x og y
         * bruker da halvparten av bredde og høyde for å "sentrere" spillebrettet på x- og y-aksen
         * */
-        camera.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
+        camera.position.set(gWidth, gHeight, 0);
 
         world = new World(new Vector2(0, -5), true);
         b2dr = new Box2DDebugRenderer();
 
-        player1Sprite = createSprite("src/resources/Steffen16Transp.png");
+      //  player1Sprite = createSprite("src/resources/Steffen16Transp.png");
 //        player2Sprite = createSprite("src/resources/Elias16Transp.png");
         
         //collision = new Collision(player1Sprite.getHeight(), player1Sprite.getWidth(), floor);
@@ -154,6 +157,12 @@ public class PlayScreen implements Screen {
             player1.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player1.b2body.getWorldCenter(), true);
         if (Gdx.input.isKeyPressed (Input.Keys.LEFT) && player1.b2body.getLinearVelocity().x >= -2)
             player1.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player1.b2body.getWorldCenter(), true);
+        if(Gdx.input.isKeyJustPressed (Input.Keys.W))
+            player2.b2body.applyLinearImpulse(new Vector2(0, 3f), player2.b2body.getWorldCenter(), true);
+        if (Gdx.input.isKeyPressed (Input.Keys.D) && player2.b2body.getLinearVelocity().x <= 2)
+            player2.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player2.b2body.getWorldCenter(), true);
+        if (Gdx.input.isKeyPressed (Input.Keys.A) && player2.b2body.getLinearVelocity().x >= -2)
+            player2.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player2.b2body.getWorldCenter(), true);
 //        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
 //            player2.jump();
 //        }
@@ -186,12 +195,14 @@ public class PlayScreen implements Screen {
 
         world.step(1/60f, 6, 2);
 
-        camera.position.x = player1.b2body.getPosition().x;
+        if(gameState == 2) {
+            camera.position.x = player1.b2body.getPosition().x;
+        }
 
         camera.update(); // må oppdatere kamera hver gang det flytter på seg
         renderer.setView(camera); // metoden som viser spillebrettet trenger å vite hva den skal oppdatere av spillebrettet
 
-        player1Sprite.setPosition(16,16);
+ //       player1Sprite.setPosition(player1.b2body.getPosition().x * Mario.PPM, player2.b2body.getPosition().y * Mario.PPM);
 //        player2Sprite.setPosition(player2.hitbox.x, player2.hitbox.y);
 //        enemySprite1.setPosition(enemy.hitbox.x, enemy.hitbox.y);
 
@@ -247,7 +258,8 @@ public class PlayScreen implements Screen {
         b2dr.render(world, camera.combined);
 
         batch.begin(); // starter batch
-        player1Sprite.draw(batch); // tegner spiller1
+        player1.playerRender(batch);
+//        player1Sprite.draw(batch); // tegner spiller1
 //        player2Sprite.draw(batch); // tegner spiller2
 
         /*
