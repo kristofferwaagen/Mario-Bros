@@ -34,8 +34,7 @@ public class PlayScreen implements Screen {
     private Viewport gamePort;
     private GamePlayer player1, player2;
     private GameEnemy enemy;
-    private Sprite player1Sprite, player2Sprite;
-    private Sprite enemySprite1;
+    private Sprite player1Sprite, player2Sprite, enemy1Sprite;
     private SpriteBatch batch;
     private Rectangle playButtonRect, exitButtonRect, retryButtonRect;
     private Hud hud;
@@ -50,13 +49,33 @@ public class PlayScreen implements Screen {
 
     public PlayScreen(Mario game){
         this.game = game;
-
         batch = game.batch;
         
-    	playText = new Texture(Gdx.files.internal("src/resources/PlayButton.png")); // henter startButton.png
+        // kamera
+        camera = new OrthographicCamera(); // kamera som skal følge spiller gjennom spillebrettet
+        gamePort = new FitViewport(Mario.visionWidth, Mario.visionHeight, camera); // skalerer responsivt med vinduets størrelse, henter resolution størrelse fra Mario.java
+        /*
+         * når et kamera blir laget slik som gamePort er blitt, begynner det på posisjonen x:0 y:0
+         * dette ønskes ikke ettersom spillebrettet er da lokalisert i kun positive verdier for x og y
+         * bruker da halvparten av bredde og høyde for å "sentrere" spillebrettet på x- og y-aksen
+         * */
+        camera.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
+        
+        // hud
+        hud = new Hud(game.batch); // Hud som skal vise poeng/tid/info
+        
+        // kart
+        mapLoader = new TmxMapLoader(); // laster inn spillebrettet
+        map = mapLoader.load(mapLocation); // henter ut hvilket spillebrett som skal brukes
+        renderer = new OrthogonalTiledMapRenderer(map); // viser spillebrettet
+        
+        floor = (TiledMapTileLayer) map.getLayers().get("graphics");
+        
+        // lager nye knapper 
+    	playText = new Texture(Gdx.files.internal("src/resources/PlayButton.png")); // henter playButton.png
         playButton = new Sprite(playText, 0, 0, 96, 32); 
         playButton.setPosition(150, 100);
-        playButtonRect = new Rectangle(150, 100, 96, 32); // setter inn posisjonen til startButton sin Rectangle
+        playButtonRect = new Rectangle(150, 100, 96, 32); // setter inn posisjonen til playButton sin Rectangle
         
         exitText = new Texture(Gdx.files.internal("src/resources/ExitButton.png"));
         exitButton = new Sprite(exitText, 0, 0, 96, 32); 
@@ -69,50 +88,26 @@ public class PlayScreen implements Screen {
         retryText = new Texture(Gdx.files.internal("src/resources/RetryButton.png"));
         retryButton = new Sprite(retryText, 0, 0, 96, 32);
         retryButtonRect = new Rectangle(150, 100, 96, 32);
-        
-        camera = new OrthographicCamera(); // kamera som skal følge spiller gjennom spillebrettet
-        gamePort = new FitViewport(Mario.visionWidth, Mario.visionHeight, camera); // skalerer responsivt med vinduets størrelse, henter resolution størrelse fra Mario.java
-        hud = new Hud(game.batch); // Hud som skal vise poeng/tid/info
 
-        mapLoader = new TmxMapLoader(); // laster inn spillebrettet
-        map = mapLoader.load(mapLocation); // henter ut hvilket spillebrett som skal brukes
-        renderer = new OrthogonalTiledMapRenderer(map); // viser spillebrettet
-        
-        floor = (TiledMapTileLayer) map.getLayers().get("graphics");
-
-        /*
-        * når et kamera blir laget slik som gamePort er blitt, begynner det på posisjonen x:0 y:0
-        * dette ønskes ikke ettersom spillebrettet er da lokalisert i kun positive verdier for x og y
-        * bruker da halvparten av bredde og høyde for å "sentrere" spillebrettet på x- og y-aksen
-        * */
-        camera.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
-        
+        // lager nye sprits
         player1Sprite = createSprite("src/resources/Steffen16Transp.png");
-        player2Sprite = createSprite("src/resources/Elias16Transp.png");
-        
-        collision = new Collision(player1Sprite.getHeight(), player1Sprite.getWidth(), floor);
-
+        collision = new Collision(player1Sprite.getHeight(), player1Sprite.getWidth(), floor); // setter p1 sin hitbox som utgangspunkt
         player1 = new GamePlayer(player1Sprite.getHeight(), player1Sprite.getWidth(), collision); // spiller 1
         player1.setPosition(20, 16);
 
+        collision = new Collision(player1Sprite.getHeight(), player1Sprite.getWidth(), floor);
+        player2Sprite = createSprite("src/resources/Elias16Transp.png");
         player2 = new GamePlayer(player2Sprite.getHeight(), player2Sprite.getWidth(), collision); // spiller 2
         player2.setPosition(50, 16); //p2
 
-        enemySprite1 = createSprite("src/resources/Mario_and_Enemies3.png");
-        Collision collisionE = new Collision(enemySprite1.getHeight(), enemySprite1.getWidth(), floor);
-        enemy = new GameEnemy(enemySprite1.getHeight(), enemySprite1.getWidth(), collisionE);
+        enemy1Sprite = createSprite("src/resources/Mario_and_Enemies3.png");
+        enemy = new GameEnemy(enemy1Sprite.getHeight(), enemy1Sprite.getWidth(), collision);
         enemy.setPosition(80, 16);
-
     }
     
     private Sprite createSprite(String string) {
     	Texture texture = new Texture(Gdx.files.internal(string));
     	return new Sprite(texture, 0, 0, 16, 16);
-    }
-    
-    @Override
-    public void show() {
-
     }
 
     public void handleInput(float dt) { // sjekker input
@@ -177,7 +172,7 @@ public class PlayScreen implements Screen {
         
         player1Sprite.setPosition(player1.hitbox.x, player1.hitbox.y);
         player2Sprite.setPosition(player2.hitbox.x, player2.hitbox.y);
-        enemySprite1.setPosition(enemy.hitbox.x, enemy.hitbox.y);
+        enemy1Sprite.setPosition(enemy.hitbox.x, enemy.hitbox.y);
 
     }
     
@@ -191,17 +186,6 @@ public class PlayScreen implements Screen {
     	}
     	camera.update();
     	batch.setProjectionMatrix(camera.combined);
-    }
-
-
-    /**
-     * oppdaterer fiendes posisjon og kamera
-     * @param dt
-     */
-    public void updateEnemy(float dt, GameEnemy enemy){
-        enemy.basicEnemyMovement(dt,player1, player2, enemy);
-        updateCamera();
-        renderer.setView(camera);
     }
 
     @Override
@@ -238,7 +222,7 @@ public class PlayScreen implements Screen {
     	
         player1Sprite.draw(batch); // tegner spiller1
         player2Sprite.draw(batch); // tegner spiller2
-        enemySprite1.draw(batch);
+        enemy1Sprite.draw(batch);
         playButton.draw(batch);
         exitButton.draw(batch);
         batch.end();
@@ -257,13 +241,14 @@ public class PlayScreen implements Screen {
         // oppdaterer spillere og fiender
         player1.update(v);
         player2.update(v);
-        updateEnemy(v, enemy);
         enemy.update(v);
+        enemy.basicEnemyMovement(v, player1, player2, enemy); // bevegelse på enemy
         
         player1Sprite.draw(batch); // tegner spiller1
         player2Sprite.draw(batch); // tegner spiller2
-        enemySprite1.draw(batch); //legg til fiende
+        enemy1Sprite.draw(batch); //legg til fiende
         batch.end(); // avslutter batch
+        
         hud.stage.draw(); // viser Hud til spillet
         }
     
@@ -272,14 +257,14 @@ public class PlayScreen implements Screen {
     	youDiedButton.setPosition(camera.position.x - 48, 140);
     	
     	retryButton.setPosition(camera.position.x - 48, 100);
-    	retryButtonRect.setPosition(camera.position.x - 48, 100); // = new Rectangle(camera.position.x -, 100, 96, 32);
+    	retryButtonRect.setPosition(camera.position.x - 48, 100);
     	
         exitButton.setPosition(camera.position.x - 48, 60);
-        exitButtonRect.setPosition(camera.position.x - 48, 60); // = new Rectangle(gamePort.getWorldWidth() / 2, 60, 96, 32);
+        exitButtonRect.setPosition(camera.position.x - 48, 60);
         
         player1Sprite.draw(batch); // tegner spiller1
         player2Sprite.draw(batch); // tegner spiller2
-        enemySprite1.draw(batch);
+        enemy1Sprite.draw(batch);
     	youDiedButton.draw(batch);
     	retryButton.draw(batch);
         exitButton.draw(batch);
@@ -291,6 +276,11 @@ public class PlayScreen implements Screen {
         gamePort.update(width, height); // viewPort blir oppdatert når vinduet blir justert
     }
 
+    @Override
+    public void show() {
+
+    }
+    
     @Override
     public void pause() {
 
