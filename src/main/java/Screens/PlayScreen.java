@@ -31,8 +31,8 @@ import com.badlogic.gdx.math.Vector3;
 
 
 public class PlayScreen implements Screen {
-   // private String mapLocation = "src/resources/randomlvl.tmx";
-    private String mapLocation = "src/resources/test.tmx"; // used to test graphical features
+    private String mapLocation = "src/resources/randomlvl.tmx";
+    //private String mapLocation = "src/resources/test.tmx"; // used to test graphical features
     private Mario game;
     private OrthographicCamera camera;
     private Viewport gamePort;
@@ -86,7 +86,7 @@ public class PlayScreen implements Screen {
         world = new World(new Vector2(0, -5), true);
         b2dr = new Box2DDebugRenderer();
 
-//        player1Sprite = createSprite("src/resources/Steffen16Transp.png");
+        player1Sprite = createSprite("src/resources/Steffen16Transp.png");
 //        player2Sprite = createSprite("src/resources/Elias16Transp.png");
         
         //collision = new Collision(player1Sprite.getHeight(), player1Sprite.getWidth(), floor);
@@ -98,9 +98,9 @@ public class PlayScreen implements Screen {
 //        player2.setPosition(50, 16); //p2
 
         enemySprite1 = createSprite("src/resources/Mario_and_Enemies3.png");
-        Collision collisionE = new Collision(enemySprite1.getHeight(), enemySprite1.getWidth(), floor);
-        enemy = new GameEnemy(enemySprite1.getHeight(), enemySprite1.getWidth(), collisionE);
-        enemy.setPosition(80, 16);
+        //Collision collisionE = new Collision(enemySprite1.getHeight(), enemySprite1.getWidth(), floor);
+        //enemy = new GameEnemy(enemySprite1.getHeight(), enemySprite1.getWidth(), collisionE);
+        //enemy.setPosition(80, 16);
 
         BodyDef bdef = new BodyDef();
         PolygonShape shape = new PolygonShape();
@@ -191,9 +191,9 @@ public class PlayScreen implements Screen {
         camera.update(); // må oppdatere kamera hver gang det flytter på seg
         renderer.setView(camera); // metoden som viser spillebrettet trenger å vite hva den skal oppdatere av spillebrettet
 
-//        player1Sprite.setPosition(player1.hitbox.x, player1.hitbox.y);
+        player1Sprite.setPosition(16,16);
 //        player2Sprite.setPosition(player2.hitbox.x, player2.hitbox.y);
-        enemySprite1.setPosition(enemy.hitbox.x, enemy.hitbox.y);
+//        enemySprite1.setPosition(enemy.hitbox.x, enemy.hitbox.y);
 
     }
 
@@ -203,7 +203,7 @@ public class PlayScreen implements Screen {
      * @param dt
      */
     public void updateEnemy(float dt, GameEnemy enemy){
-//        enemy.basicEnemyMovement(dt,player1, player2, enemy);
+        enemy.basicEnemyMovement(dt,player1, player2, enemy);
         camera.update();
         renderer.setView(camera);
     }
@@ -247,7 +247,7 @@ public class PlayScreen implements Screen {
         b2dr.render(world, camera.combined);
 
         batch.begin(); // starter batch
-//        player1Sprite.draw(batch); // tegner spiller1
+        player1Sprite.draw(batch); // tegner spiller1
 //        player2Sprite.draw(batch); // tegner spiller2
 
         /*
@@ -257,15 +257,15 @@ public class PlayScreen implements Screen {
 //        player2.setPosition(player2.hitbox.getX(), player2.hitbox.getY());
 
         //legg til fiende
-        enemySprite1.draw(batch);
-        enemy.setPosition(enemy.hitbox.getX(), enemy.hitbox.getY());
+        //enemySprite1.draw(batch);
+        //enemy.setPosition(enemy.hitbox.getX(), enemy.hitbox.getY());
 
 
         // oppdaterer spillere og fiender
 //        player1.update(v);
 //        player2.update(v);
-        updateEnemy(v, enemy);
-        enemy.update(v);
+        //updateEnemy(v, enemy);
+        //enemy.update(v);
         batch.end(); // avslutter batch
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined); // bruker kamera definert i Hud.java for hva spilleren kan se i spillet
