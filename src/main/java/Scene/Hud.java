@@ -7,11 +7,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import game.Mario;
 
-public class Hud {
+public class Hud implements Disposable {
     public Stage stage;
     private Viewport viewport; // når bakgrunnen flytter på seg vil man at hud skal vær lik, bruker da nytt kamera for hud
 
@@ -51,4 +52,8 @@ public class Hud {
         stage.addActor(table); // legger til tabellen til stage
     }
 
+    @Override
+    public void dispose() {
+        stage.dispose();
+    }
 }
