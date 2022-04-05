@@ -26,8 +26,9 @@ import com.badlogic.gdx.math.Vector3;
 
 
 public class PlayScreen implements Screen {
-    private String mapLocation = "src/resources/1.tmx";
-//	private String mapLocation = "src/resources/test.tmx"; // used to test graphical features
+//    private String mapLocation = "src/resources/1.tmx";
+	private String mapLocation = "src/resources/test.tmx"; // used to test graphical features
+//    private String mapLocation = "src/resources/1.randomlvl";
     private Mario game;
     private OrthographicCamera camera;
     private Viewport gamePort;
@@ -66,7 +67,7 @@ public class PlayScreen implements Screen {
         youDiedButton = new Sprite(youDiedText, 0, 0, 96, 32); 
         
         retryText = new Texture(Gdx.files.internal("src/resources/RetryButton.png"));
-        retryButton = new Sprite(retryText, 0, 0, 96, 32); ;
+        retryButton = new Sprite(retryText, 0, 0, 96, 32);
         retryButtonRect = new Rectangle(150, 100, 96, 32);
         
         camera = new OrthographicCamera(); // kamera som skal følge spiller gjennom spillebrettet
@@ -225,17 +226,19 @@ public class PlayScreen implements Screen {
     	}
     	
     	// bruker kamera definert i Hud.java for hva spilleren kan se i spillet
-    	game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+//    	game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
     }
     
     public void mainMenu(float v) {
-    
     	playButton.setPosition(camera.position.x - 48, 100);
         playButtonRect.setPosition(camera.position.x - 48, 100);
         
         exitButton.setPosition(camera.position.x - 48, 60);
         exitButtonRect.setPosition(camera.position.x - 48, 60);
     	
+        player1Sprite.draw(batch); // tegner spiller1
+        player2Sprite.draw(batch); // tegner spiller2
+        enemySprite1.draw(batch);
         playButton.draw(batch);
         exitButton.draw(batch);
         batch.end();
@@ -244,27 +247,23 @@ public class PlayScreen implements Screen {
     
     
     public void mainGame(float v) {
-        player1Sprite.draw(batch); // tegner spiller1
-        player2Sprite.draw(batch); // tegner spiller2
-
         /*
         * henter ut nåverende posisjon for spillere
         * */
         player1.setPosition(player1.hitbox.getX(), player1.hitbox.getY());
         player2.setPosition(player2.hitbox.getX(), player2.hitbox.getY());
-
-        //legg til fiende
-        enemySprite1.draw(batch);
         enemy.setPosition(enemy.hitbox.getX(), enemy.hitbox.getY());
-
 
         // oppdaterer spillere og fiender
         player1.update(v);
         player2.update(v);
         updateEnemy(v, enemy);
         enemy.update(v);
+        
+        player1Sprite.draw(batch); // tegner spiller1
+        player2Sprite.draw(batch); // tegner spiller2
+        enemySprite1.draw(batch); //legg til fiende
         batch.end(); // avslutter batch
-
         hud.stage.draw(); // viser Hud til spillet
         }
     
@@ -277,27 +276,10 @@ public class PlayScreen implements Screen {
     	
         exitButton.setPosition(camera.position.x - 48, 60);
         exitButtonRect.setPosition(camera.position.x - 48, 60); // = new Rectangle(gamePort.getWorldWidth() / 2, 60, 96, 32);
-
-        if(Gdx.input.isTouched()) {
-        	Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
-        	camera.unproject(touchPos);
-        	Rectangle touch = new Rectangle(touchPos.x, touchPos.y, 0, 0);
-        	if(touch.overlaps(retryButtonRect)) {
-        		Gdx.gl.glClearColor(1, 1, 1, 1); // setter farge og alfa
-                Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // tømmer skjermen	
-                renderer.render();
-                
-                this.player1.setPosition(20, 16);
-                this.player2.setPosition(50, 16);
-                this.enemy.setPosition(80, 16);
-                camera.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
-                
-                gameState = 2;
-        	}
-        	if(touch.overlaps(exitButtonRect))
-        		Gdx.app.exit();
-        }
         
+        player1Sprite.draw(batch); // tegner spiller1
+        player2Sprite.draw(batch); // tegner spiller2
+        enemySprite1.draw(batch);
     	youDiedButton.draw(batch);
     	retryButton.draw(batch);
         exitButton.draw(batch);
