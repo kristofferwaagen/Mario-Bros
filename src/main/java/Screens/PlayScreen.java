@@ -21,11 +21,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Rectangle;
-import game.Collision;
-import game.GamePlayer;
-import game.Mario;
-
-import game.GameEnemy;
+import game.*;
 
 import com.badlogic.gdx.math.Vector3;
 
@@ -89,6 +85,7 @@ public class PlayScreen implements Screen {
         world = new World(new Vector2(0, -5), true);
         b2dr = new Box2DDebugRenderer();
 
+        new WorldGenerator(world, map);
       //  player1Sprite = createSprite("src/resources/Steffen16Transp.png");
 //        player2Sprite = createSprite("src/resources/Elias16Transp.png");
         
@@ -104,39 +101,6 @@ public class PlayScreen implements Screen {
         //Collision collisionE = new Collision(enemySprite1.getHeight(), enemySprite1.getWidth(), floor);
         //enemy = new GameEnemy(enemySprite1.getHeight(), enemySprite1.getWidth(), collisionE);
         //enemy.setPosition(80, 16);
-
-        BodyDef bdef = new BodyDef();
-        PolygonShape shape = new PolygonShape();
-        FixtureDef fdef = new FixtureDef();
-        Body body;
-
-        // Ground
-        for(MapObject o : map.getLayers().get(1).getObjects().getByType(RectangleMapObject.class)){
-            Rectangle r = ((RectangleMapObject) o).getRectangle();
-
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((r.getX() + r.getWidth() / 2) / Mario.PPM, (r.getY() + r.getHeight() / 2) / Mario.PPM);
-
-            body = world.createBody(bdef);
-
-            shape.setAsBox((r.getWidth() / 2) / Mario.PPM, (r.getHeight() / 2) / Mario.PPM);
-            fdef.shape = shape;
-            body.createFixture(fdef);
-        }
-
-        //Coin
-        for(MapObject o : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
-            Rectangle r = ((RectangleMapObject) o).getRectangle();
-
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((r.getX() + r.getWidth() / 2) / Mario.PPM, (r.getY() + r.getHeight() / 2) / Mario.PPM);
-
-            body = world.createBody(bdef);
-
-            shape.setAsBox((r.getWidth() / 2) / Mario.PPM, (r.getHeight() / 2) / Mario.PPM);
-            fdef.shape = shape;
-            body.createFixture(fdef);
-        }
 
     }
     
