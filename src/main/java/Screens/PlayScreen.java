@@ -36,7 +36,7 @@ public class PlayScreen implements Screen {
     private Sprite player1Sprite, player2Sprite;
     private Sprite enemySprite1;
     private SpriteBatch batch;
-    private Rectangle startButtonRect, exitButtonRect;
+    private Rectangle playButtonRect, exitButtonRect, retryButtonRect;
     private Hud hud;
     private TmxMapLoader mapLoader; // funksjonalitet som laster inn spillebrettet
     private TiledMap map; // referanse til selve spillebrettet
@@ -44,23 +44,30 @@ public class PlayScreen implements Screen {
     private TiledMapTileLayer floor;
     private Collision collision;
     private int gameState = 1; //1 == mainMenu, 2 == mainGame, 3 == nextLevel, 4 == gameOver  
-    private Sprite startButton, exitButton;
-    private Texture startText, exitText;
+    private Sprite playButton, exitButton, retryButton, youDiedButton;
+    private Texture playText, exitText, retryText, youDiedText;
 
     public PlayScreen(Mario game){
         this.game = game;
 
         batch = game.batch;
         
-        startText = new Texture(Gdx.files.internal("src/resources/StartButton.png")); // henter startButton.png
-        startButton = new Sprite(startText, 0, 0, 96, 32); 
-        startButton.setPosition(150, 100);
-        startButtonRect = new Rectangle(150, 100, 96, 32); // setter inn posisjonen til startButton sin Rectangle
+    	playText = new Texture(Gdx.files.internal("src/resources/PlayButton.png")); // henter startButton.png
+        playButton = new Sprite(playText, 0, 0, 96, 32); 
+        playButton.setPosition(150, 100);
+        playButtonRect = new Rectangle(150, 100, 96, 32); // setter inn posisjonen til startButton sin Rectangle
         
-        exitText = new Texture(Gdx.files.internal("src/resources/ExitButton.png")); // henter startButton.png
+        exitText = new Texture(Gdx.files.internal("src/resources/ExitButton.png"));
         exitButton = new Sprite(exitText, 0, 0, 96, 32); 
         exitButton.setPosition(150, 60);
         exitButtonRect = new Rectangle(150, 60, 96, 32);
+        
+    	youDiedText = new Texture(Gdx.files.internal("src/resources/YouDied.png"));
+        youDiedButton = new Sprite(youDiedText, 0, 0, 96, 32); 
+        
+        retryText = new Texture(Gdx.files.internal("src/resources/RetryButton.png"));
+        retryButton = new Sprite(retryText, 0, 0, 96, 32); ;
+        retryButtonRect = new Rectangle(150, 100, 96, 32);
         
         camera = new OrthographicCamera(); // kamera som skal følge spiller gjennom spillebrettet
         gamePort = new FitViewport(Mario.visionWidth, Mario.visionHeight, camera); // skalerer responsivt med vinduets størrelse, henter resolution størrelse fra Mario.java
@@ -108,39 +115,63 @@ public class PlayScreen implements Screen {
     }
 
     public void handleInput(float dt) { // sjekker input
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            player2.jump();
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            player2.moveLeft(dt);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            player2.moveRight(dt);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            player1.jump();
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            player1.moveLeft(dt);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            player1.moveRight(dt);
-        }
-        if(Gdx.input.isTouched()) {
+    	if(this.gameState == 2) {
+            if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+                player2.jump();
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+                player2.moveLeft(dt);
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+                player2.moveRight(dt);
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+                player1.jump();
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+                player1.moveLeft(dt);
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+                player1.moveRight(dt);
+            }
+            if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            	gameState = 1;
+            }
+    	}
+    	
+    	if(Gdx.input.isTouched()) {
         	Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
         	camera.unproject(touchPos);
         	Rectangle touch = new Rectangle(touchPos.x, touchPos.y, 0, 0);
-        	if(touch.overlaps(startButtonRect))
-        		gameState = 2;
-        	if(touch.overlaps(exitButtonRect))
-        		Gdx.app.exit();
+        	if(this.gameState == 1) {
+            	if(touch.overlaps(playButtonRect))
+            		gameState = 2;        		
+            	if(touch.overlaps(exitButtonRect))
+            		Gdx.app.exit();
+        	}
+        	if(gameState == 4) {
+        		if(touch.overlaps(retryButtonRect)) {
+            		Gdx.gl.glClearColor(1, 1, 1, 1); // setter farge og alfa
+                    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // tømmer skjermen	
+                    renderer.render();
+                    
+                    this.player1.setPosition(20, 16);
+                    this.player2.setPosition(50, 16);
+                    this.enemy.setPosition(80, 16);
+                    camera.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
+                    
+                    gameState = 2;
+            	}
+        		if(touch.overlaps(exitButtonRect))
+            		Gdx.app.exit();
+        	}
         }
+    	
     }
     
     public void update(float dt){ // oppdaterer enheter
         handleInput(dt);
-//        camera.update(); // må oppdatere kamera hver gang det flytter på seg
-        updateCamera();
+        updateCamera();  // må oppdatere kamera hver gang det flytter på seg
         renderer.setView(camera); // metoden som viser spillebrettet trenger å vite hva den skal oppdatere av spillebrettet
         
         player1Sprite.setPosition(player1.hitbox.x, player1.hitbox.y);
@@ -150,18 +181,15 @@ public class PlayScreen implements Screen {
     }
     
     public void updateCamera() {
-//    	camera.position.x = player1.hitbox.x + 180;
-    	
     	if(player1.hitbox.x > (camera.position.x + 180)) {
-//    		camera.position.x += 10;
-    		camera.position.x = player2.hitbox.x + 200;
-//    		hitbox.x += (200 * player1.)
+    		camera.position.set((player1.hitbox.x - 180), gamePort.getWorldHeight() / 2, 0);
+
     	}
     	if(player2.hitbox.x > (camera.position.x + 180)) {
-    		camera.position.x = player1.hitbox.x + 200;
+    		camera.position.set((player2.hitbox.x - 180), gamePort.getWorldHeight() / 2, 0);
     	}
-//    	camera.position.x
     	camera.update();
+    	batch.setProjectionMatrix(camera.combined);
     }
 
 
@@ -171,7 +199,6 @@ public class PlayScreen implements Screen {
      */
     public void updateEnemy(float dt, GameEnemy enemy){
         enemy.basicEnemyMovement(dt,player1, player2, enemy);
-//        camera.update();
         updateCamera();
         renderer.setView(camera);
     }
@@ -191,6 +218,8 @@ public class PlayScreen implements Screen {
     	case 2:
     		this.mainGame(v); // når spillet pågår
     		break;
+    	case 4:
+    		this.gameOver(v);
         default:
             break;
     	}
@@ -200,7 +229,14 @@ public class PlayScreen implements Screen {
     }
     
     public void mainMenu(float v) {
-        startButton.draw(batch);
+    
+    	playButton.setPosition(camera.position.x - 48, 100);
+        playButtonRect.setPosition(camera.position.x - 48, 100);
+        
+        exitButton.setPosition(camera.position.x - 48, 60);
+        exitButtonRect.setPosition(camera.position.x - 48, 60);
+    	
+        playButton.draw(batch);
         exitButton.draw(batch);
         batch.end();
         
@@ -231,6 +267,42 @@ public class PlayScreen implements Screen {
 
         hud.stage.draw(); // viser Hud til spillet
         }
+    
+    public void gameOver(float v) {
+        
+    	youDiedButton.setPosition(camera.position.x - 48, 140);
+    	
+    	retryButton.setPosition(camera.position.x - 48, 100);
+    	retryButtonRect.setPosition(camera.position.x - 48, 100); // = new Rectangle(camera.position.x -, 100, 96, 32);
+    	
+        exitButton.setPosition(camera.position.x - 48, 60);
+        exitButtonRect.setPosition(camera.position.x - 48, 60); // = new Rectangle(gamePort.getWorldWidth() / 2, 60, 96, 32);
+
+        if(Gdx.input.isTouched()) {
+        	Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+        	camera.unproject(touchPos);
+        	Rectangle touch = new Rectangle(touchPos.x, touchPos.y, 0, 0);
+        	if(touch.overlaps(retryButtonRect)) {
+        		Gdx.gl.glClearColor(1, 1, 1, 1); // setter farge og alfa
+                Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // tømmer skjermen	
+                renderer.render();
+                
+                this.player1.setPosition(20, 16);
+                this.player2.setPosition(50, 16);
+                this.enemy.setPosition(80, 16);
+                camera.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
+                
+                gameState = 2;
+        	}
+        	if(touch.overlaps(exitButtonRect))
+        		Gdx.app.exit();
+        }
+        
+    	youDiedButton.draw(batch);
+    	retryButton.draw(batch);
+        exitButton.draw(batch);
+        batch.end();
+    }
     
     @Override
     public void resize(int width, int height) {
