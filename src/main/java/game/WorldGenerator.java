@@ -1,5 +1,6 @@
 package game;
 
+import Sprites.Coin;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -32,14 +33,7 @@ public class WorldGenerator {
         for(MapObject o : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
             Rectangle r = ((RectangleMapObject) o).getRectangle();
 
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((r.getX() + r.getWidth() / 2) / Mario.PPM, (r.getY() + r.getHeight() / 2) / Mario.PPM);
-
-            body = world.createBody(bdef);
-
-            shape.setAsBox((r.getWidth() / 2) / Mario.PPM, (r.getHeight() / 2) / Mario.PPM);
-            fdef.shape = shape;
-            body.createFixture(fdef);
+            new Coin(world, map, r);
         }
     }
 }
