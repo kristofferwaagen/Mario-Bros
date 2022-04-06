@@ -1,6 +1,7 @@
 package Screens;
 
 import Scene.Hud;
+import Sprites.GamePlayer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -8,13 +9,10 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -83,15 +81,15 @@ public class PlayScreen implements Screen {
         b2dr = new Box2DDebugRenderer();
 
         new WorldGenerator(world, map);
-        //  player1Sprite = createSprite("src/resources/Steffen16Transp.png");
-//        player2Sprite = createSprite("src/resources/Elias16Transp.png");
 
         //collision = new Collision(player1Sprite.getHeight(), player1Sprite.getWidth(), floor);
 
 
+        player1Sprite = createSprite("src/resources/Steffen16Transp.png");
         player1 = new GamePlayer(world); // spiller 1
 //        player1.setPosition(20, 16);
 //
+        player2Sprite = createSprite("src/resources/Elias16Transp.png");
         player2 = new GamePlayer(world); // spiller 2
 //        player2.setPosition(50, 16); //p2
 
@@ -174,6 +172,9 @@ public class PlayScreen implements Screen {
 
         world.step(1/60f, 6, 2);
 
+        player1.render(dt);
+        player2.render(dt);
+
         if(gameState == 2) {
             camera.position.x = player1.b2body.getPosition().x;
         }
@@ -232,7 +233,9 @@ public class PlayScreen implements Screen {
 
         b2dr.render(world, camera.combined);
 
-        player1.playerRender(batch);
+        game.batch.setProjectionMatrix(camera.combined);
+        player1.draw(game.batch);
+        player2.draw(game.batch);
 
         batch.end(); // avslutter batch
 

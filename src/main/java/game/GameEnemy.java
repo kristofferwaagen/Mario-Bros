@@ -1,4 +1,5 @@
 package game;
+import Sprites.GamePlayer;
 import com.badlogic.gdx.math.Rectangle;
 
 public class GameEnemy implements IGameFigures {

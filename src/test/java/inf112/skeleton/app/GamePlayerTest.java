@@ -6,7 +6,7 @@
 //import org.junit.jupiter.api.Test;
 //
 //import game.CollisionUsedForTesting;
-//import game.GamePlayer;
+//import Sprites.GamePlayer;
 //
 //public class GamePlayerTest {
 //	GamePlayer g;

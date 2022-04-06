@@ -1,18 +1,26 @@
-package game;
+package Sprites;
 
+import Screens.PlayScreen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.*;
+import game.Mario;
 
 public class GamePlayer extends Sprite {
     public World world;
     public Body b2body;
-    private Sprite playerSprite1 = new Sprite(new Texture("src/resources/Steffen16Transp.png"));
+    private Texture t = new Texture("src/resources/Steffen16Transp.png");
 
     public GamePlayer(World world){
         this.world = world;
         definePlayer();
+        setBounds(0,0,16 / Mario.PPM, 16 / Mario.PPM);
+        setRegion(t);
+    }
+
+    public void render(float dt){
+        setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
     }
 
     public void definePlayer(){
@@ -28,14 +36,4 @@ public class GamePlayer extends Sprite {
         fdef.shape = shape;
         b2body.createFixture(fdef);
     }
-
-    public void playerRender(SpriteBatch batch){
-        float x = b2body.getPosition().x * Mario.PPM;
-        float y = b2body.getPosition().y * Mario.PPM;
-        playerSprite1.setPosition(x, y);
-
-        // Then we simply draw it as a normal sprite.
-        playerSprite1.draw(batch);
-    }
-
 }
