@@ -9,6 +9,11 @@ public class Mario extends com.badlogic.gdx.Game {
     public static final int visionHeight= 208; // høyde for spillet
     public static final float PPM = 100;
 
+    public static final short defaultBit = 1;
+    public static final short bit = 2;
+    public static final short coinBit = 4;
+    public static final short removed = 8;
+
     public SpriteBatch batch; // container for forskjellige bilder
 
     @Override

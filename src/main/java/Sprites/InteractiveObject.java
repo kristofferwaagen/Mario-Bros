@@ -2,6 +2,7 @@ package Sprites;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
 import game.Mario;
@@ -35,4 +36,15 @@ public abstract class InteractiveObject {
     }
 
     public abstract void onTouch();
+
+    public void categoryFilter(short bit){
+        Filter filter = new Filter();
+        filter.categoryBits = bit;
+        fixture.setFilterData(filter);
+    }
+
+    public TiledMapTileLayer.Cell getTileCell(){
+     TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(4);
+     return layer.getCell((int) (body.getPosition().x * Mario.PPM / 16), (int) (body.getPosition().y * Mario.PPM / 16));
+    }
 }

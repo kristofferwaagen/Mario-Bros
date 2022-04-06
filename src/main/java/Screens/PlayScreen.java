@@ -178,6 +178,8 @@ public class PlayScreen implements Screen {
         player1.render(dt);
         player2.render(dt);
 
+        hud.update(dt);
+
         if(gameState == 2) {
             camera.position.x = player1.b2body.getPosition().x;
         }

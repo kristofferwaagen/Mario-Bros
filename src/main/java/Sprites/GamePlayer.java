@@ -33,6 +33,8 @@ public class GamePlayer extends Sprite {
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(5 / Mario.PPM);
+        fdef.filter.categoryBits = Mario.bit;
+        fdef.filter.maskBits = Mario.defaultBit | Mario.coinBit;
 
         fdef.shape = shape;
         b2body.createFixture(fdef);
