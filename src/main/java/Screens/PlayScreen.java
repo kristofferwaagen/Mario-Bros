@@ -118,6 +118,8 @@ public class PlayScreen implements Screen {
         retryButton.setPosition(150,100);
         retryButtonRect = new Rectangle(150, 100, 96, 32);
 
+        world.setContactListener(new WorldContact());
+
     }
 
     private Sprite createSprite(String string) {
@@ -127,21 +129,22 @@ public class PlayScreen implements Screen {
 
     public void handleInput(float dt) { // sjekker input
         if (this.gameState == 2) {
-            if(Gdx.input.isKeyJustPressed (Input.Keys.UP))
+            if(Gdx.input.isKeyJustPressed (Input.Keys.UP)) {
                 player1.b2body.applyLinearImpulse(new Vector2(0, 1.5f), player1.b2body.getWorldCenter(), true);
-            if (Gdx.input.isKeyPressed (Input.Keys.RIGHT) && player1.b2body.getLinearVelocity().x <= 2)
+            }if (Gdx.input.isKeyPressed (Input.Keys.RIGHT) && player1.b2body.getLinearVelocity().x <= 2) {
                 player1.b2body.applyLinearImpulse(new Vector2(0.03f, 0), player1.b2body.getWorldCenter(), true);
-            if (Gdx.input.isKeyPressed (Input.Keys.LEFT) && player1.b2body.getLinearVelocity().x >= -2)
+            }if (Gdx.input.isKeyPressed (Input.Keys.LEFT) && player1.b2body.getLinearVelocity().x >= -2) {
                 player1.b2body.applyLinearImpulse(new Vector2(-0.03f, 0), player1.b2body.getWorldCenter(), true);
-            if(Gdx.input.isKeyJustPressed (Input.Keys.W))
+            }if(Gdx.input.isKeyJustPressed (Input.Keys.W)) {
                 player2.b2body.applyLinearImpulse(new Vector2(0, 1.5f), player2.b2body.getWorldCenter(), true);
-            if (Gdx.input.isKeyPressed (Input.Keys.D) && player2.b2body.getLinearVelocity().x <= 2)
+            }if (Gdx.input.isKeyPressed (Input.Keys.D) && player2.b2body.getLinearVelocity().x <= 2) {
                 player2.b2body.applyLinearImpulse(new Vector2(0.03f, 0), player2.b2body.getWorldCenter(), true);
-            if (Gdx.input.isKeyPressed (Input.Keys.A) && player2.b2body.getLinearVelocity().x >= -2)
+            }if (Gdx.input.isKeyPressed (Input.Keys.A) && player2.b2body.getLinearVelocity().x >= -2) {
                 player2.b2body.applyLinearImpulse(new Vector2(-0.03f, 0), player2.b2body.getWorldCenter(), true);
-
-            if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE))
+            }
+            if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
                 gameState = 4;
+            }
         }
 
         if (Gdx.input.isTouched()) {

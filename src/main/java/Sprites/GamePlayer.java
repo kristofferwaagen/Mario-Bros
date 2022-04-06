@@ -4,6 +4,7 @@ import Screens.PlayScreen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import game.Mario;
 
@@ -35,5 +36,12 @@ public class GamePlayer extends Sprite {
 
         fdef.shape = shape;
         b2body.createFixture(fdef);
+
+        EdgeShape top = new EdgeShape();
+        top.set(new Vector2(-2 / Mario.PPM, 5 / Mario.PPM), new Vector2(2 / Mario.PPM, 5 / Mario.PPM));
+        fdef.shape = top;
+        fdef.isSensor = true;
+
+        b2body.createFixture(fdef).setUserData("top");
     }
 }
