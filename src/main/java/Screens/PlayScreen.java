@@ -1,7 +1,9 @@
 package Screens;
 
 import Scene.Hud;
+import Sprites.AdvancedEnemy;
 import Sprites.BasicEnemy;
+import Sprites.Enemy;
 import Sprites.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -51,7 +53,8 @@ public class PlayScreen implements Screen {
     private World world;
     private Box2DDebugRenderer b2dr;
 
-    private BasicEnemy basicEnemy, basicEnemy2;
+    private BasicEnemy basicEnemy;
+    private AdvancedEnemy advancedEnemy;
 
     public PlayScreen(Mario game){
         this.game = game;
@@ -98,7 +101,7 @@ public class PlayScreen implements Screen {
 
         enemy1Sprite = createSprite("src/resources/Mario_and_Enemies3.png");
         basicEnemy = new BasicEnemy(this, 1447 / Mario.PPM, 32 / Mario.PPM);
-        basicEnemy2 = new BasicEnemy(this, 1680 / Mario.PPM, 32 / Mario.PPM);
+        advancedEnemy = new AdvancedEnemy(this, 1680 / Mario.PPM, 32 / Mario.PPM);
         //Collision collisionE = new Collision(enemySprite1.getHeight(), enemySprite1.getWidth(), floor);
         //enemy = new GameEnemy(enemySprite1.getHeight(), enemySprite1.getWidth(), collisionE);
         //enemy.setPosition(80, 16);
@@ -125,6 +128,15 @@ public class PlayScreen implements Screen {
 
         world.setContactListener(new WorldContact());
 
+    }
+
+    public Player getClosest(Enemy t){
+        float pos = t.b2body.getPosition().x;
+        if (Math.abs(player1.getX() - pos) > Math.abs(player2.getX() - pos)){
+            return player2;
+        } else {
+            return player1;
+        }
     }
 
     private Sprite createSprite(String string) {
@@ -184,10 +196,10 @@ public class PlayScreen implements Screen {
         player2.render(dt);
 
         basicEnemy.update(dt);
-        basicEnemy2.update(dt);
+        advancedEnemy.update(dt);
         if(basicEnemy.getX() < player1.getX() + 224 / Mario.PPM){
             basicEnemy.b2body.setActive(true);
-            basicEnemy2.b2body.setActive(true);
+            advancedEnemy.b2body.setActive(true);
         }
 
         hud.update(dt);
