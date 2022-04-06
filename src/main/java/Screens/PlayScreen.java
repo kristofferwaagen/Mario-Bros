@@ -182,8 +182,13 @@ public class PlayScreen implements Screen {
 
         player1.render(dt);
         player2.render(dt);
+
         basicEnemy.update(dt);
         basicEnemy2.update(dt);
+        if(basicEnemy.getX() < player1.getX() + 224 / Mario.PPM){
+            basicEnemy.b2body.setActive(true);
+            basicEnemy2.b2body.setActive(true);
+        }
 
         hud.update(dt);
 
