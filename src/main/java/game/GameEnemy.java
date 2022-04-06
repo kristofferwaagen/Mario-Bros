@@ -1,5 +1,5 @@
 package game;
-import Sprites.GamePlayer;
+import Sprites.Player;
 import com.badlogic.gdx.math.Rectangle;
 
 public class GameEnemy implements IGameFigures {
@@ -83,7 +83,7 @@ public class GameEnemy implements IGameFigures {
      * får fienden til å følge etter den nærmeste spilleren
      * @param dt
      */
-    public void basicEnemyMovement(float dt, GamePlayer p1, GamePlayer p2, GameEnemy enemy){
+    public void basicEnemyMovement(float dt, Player p1, Player p2, GameEnemy enemy){
         float enemyPos = enemy.hitbox.x;
         float p1Pos = p1.b2body.getPosition().x;
         float p2Pos = p2.b2body.getPosition().x;

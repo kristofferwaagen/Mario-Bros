@@ -1,7 +1,8 @@
 package Screens;
 
 import Scene.Hud;
-import Sprites.GamePlayer;
+import Sprites.BasicEnemy;
+import Sprites.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -30,7 +31,7 @@ public class PlayScreen implements Screen {
     private Mario game;
     private OrthographicCamera camera;
     private Viewport gamePort;
-    private GamePlayer player1, player2;
+    private Player player1, player2;
     private GameEnemy enemy;
     private Sprite player1Sprite, player2Sprite, enemy1Sprite;
     private SpriteBatch batch;
@@ -49,6 +50,8 @@ public class PlayScreen implements Screen {
 
     private World world;
     private Box2DDebugRenderer b2dr;
+
+    private BasicEnemy basicEnemy, basicEnemy2;
 
     public PlayScreen(Mario game){
         this.game = game;
@@ -86,14 +89,16 @@ public class PlayScreen implements Screen {
 
 
         player1Sprite = createSprite("src/resources/Steffen16Transp.png");
-        player1 = new GamePlayer(world); // spiller 1
+        player1 = new Player(world); // spiller 1
 //        player1.setPosition(20, 16);
 //
         player2Sprite = createSprite("src/resources/Elias16Transp.png");
-        player2 = new GamePlayer(world); // spiller 2
+        player2 = new Player(world); // spiller 2
 //        player2.setPosition(50, 16); //p2
 
         enemy1Sprite = createSprite("src/resources/Mario_and_Enemies3.png");
+        basicEnemy = new BasicEnemy(this, 1447 / Mario.PPM, 32 / Mario.PPM);
+        basicEnemy2 = new BasicEnemy(this, 1680 / Mario.PPM, 32 / Mario.PPM);
         //Collision collisionE = new Collision(enemySprite1.getHeight(), enemySprite1.getWidth(), floor);
         //enemy = new GameEnemy(enemySprite1.getHeight(), enemySprite1.getWidth(), collisionE);
         //enemy.setPosition(80, 16);
@@ -177,6 +182,8 @@ public class PlayScreen implements Screen {
 
         player1.render(dt);
         player2.render(dt);
+        basicEnemy.update(dt);
+        basicEnemy2.update(dt);
 
         hud.update(dt);
 
@@ -255,6 +262,14 @@ public class PlayScreen implements Screen {
         exitButton.draw(batch);
         batch.end();
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+    }
+
+    public World getWorld(){
+        return world;
+    }
+
+    public TiledMap getMap(){
+        return map;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package game;
 
+import Sprites.Enemy;
 import Sprites.InteractiveObject;
 import com.badlogic.gdx.physics.box2d.*;
 
@@ -9,6 +10,8 @@ public class WorldContact implements ContactListener {
         Fixture a = contact.getFixtureA();
         Fixture b = contact.getFixtureB();
 
+        int contactDef = a.getFilterData().categoryBits | b.getFilterData().categoryBits;
+
         if(a.getUserData() == "top" || b.getUserData() == "top"){
             Fixture top = a.getUserData() == "top" ? a : b;
             Fixture object = top == a ? b : a;
@@ -16,6 +19,29 @@ public class WorldContact implements ContactListener {
             if(object.getUserData() != null && InteractiveObject.class.isAssignableFrom(object.getUserData().getClass())){
                 ((InteractiveObject) object.getUserData()).onTouch();
             }
+        }
+
+        switch (contactDef){
+            case Mario.enemyTop | Mario.bit:
+                if(a.getFilterData().categoryBits == Mario.enemyTop){
+                    ((Enemy)a.getUserData()).contactTop();
+                }else{
+                    ((Enemy)b.getUserData()).contactTop();
+                }
+                break;
+            case Mario.enemyBit | Mario.objectBit:
+                if(a.getFilterData().categoryBits == Mario.enemyBit){
+                    ((Enemy)a.getUserData()).flipSpeed(true, false);
+                }else{
+                    ((Enemy)b.getUserData()).flipSpeed(true, false);
+                }
+                break;
+            case Mario.bit | Mario.enemyBit:
+                System.out.println("You died");
+                break;
+            case Mario.enemyBit | Mario.enemyBit:
+                ((Enemy)a.getUserData()).flipSpeed(true, false);
+                ((Enemy)b.getUserData()).flipSpeed(true, false);
         }
     }
 

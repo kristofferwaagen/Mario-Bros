@@ -44,7 +44,7 @@ public abstract class InteractiveObject {
     }
 
     public TiledMapTileLayer.Cell getTileCell(){
-     TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(4);
+     TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(5);
      return layer.getCell((int) (body.getPosition().x * Mario.PPM / 16), (int) (body.getPosition().y * Mario.PPM / 16));
     }
 }

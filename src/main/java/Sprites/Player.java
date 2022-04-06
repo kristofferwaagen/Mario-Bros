@@ -1,19 +1,17 @@
 package Sprites;
 
-import Screens.PlayScreen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import game.Mario;
 
-public class GamePlayer extends Sprite {
+public class Player extends Sprite {
     public World world;
     public Body b2body;
     private Texture t = new Texture("src/resources/Steffen16Transp.png");
 
-    public GamePlayer(World world){
+    public Player(World world){
         this.world = world;
         definePlayer();
         setBounds(0,0,16 / Mario.PPM, 16 / Mario.PPM);
@@ -34,7 +32,7 @@ public class GamePlayer extends Sprite {
         CircleShape shape = new CircleShape();
         shape.setRadius(5 / Mario.PPM);
         fdef.filter.categoryBits = Mario.bit;
-        fdef.filter.maskBits = Mario.defaultBit | Mario.coinBit;
+        fdef.filter.maskBits = Mario.groundBit | Mario.coinBit | Mario.enemyBit | Mario.objectBit | Mario.enemyTop;
 
         fdef.shape = shape;
         b2body.createFixture(fdef);
