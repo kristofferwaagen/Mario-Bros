@@ -190,6 +190,10 @@ public class PlayScreen implements Screen {
     public void update(float dt){ // oppdaterer enheter
         handleInput(dt);
 
+        if(player1.isDead && player2.isDead){
+            gameState = 4;
+        }
+
         world.step(1/60f, 6, 2);
 
         player1.update(dt);
@@ -204,8 +208,12 @@ public class PlayScreen implements Screen {
 
         hud.update(dt);
 
-        if(gameState == 2 && !player1.isDead) {
-            camera.position.x = player1.b2body.getPosition().x;
+        if(gameState == 2) {
+            if(player1.isDead){
+                camera.position.x = player2.getX();
+            } else{
+                camera.position.x = player1.getX();
+            }
         }
 
         camera.update(); // må oppdatere kamera hver gang det flytter på seg
@@ -271,15 +279,6 @@ public class PlayScreen implements Screen {
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw(); // viser Hud til spillet
 
-        if(player1.isDead){
-            camera.position.x = player2.getX();
-        }else if (player2.isDead){
-            camera.position.x = player1.getX();
-        }else if(player1.isDead && player2.isDead){
-            System.out.println("both players are dead");
-            gameState = 4;
-            gameOver(v);
-        }
     }
 
     public void gameOver(float v) {
