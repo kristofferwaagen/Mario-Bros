@@ -8,27 +8,26 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Polygon;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Rectangle;
-import game.*;
+import game.Collision;
+import game.GamePlayer;
+import game.Mario;
+
+import game.GameEnemy;
 
 import com.badlogic.gdx.math.Vector3;
 
 
 public class PlayScreen implements Screen {
-    private String mapLocation = "src/resources/randomlvl.tmx";
-    //private String mapLocation = "src/resources/test.tmx"; // used to test graphical features
+    private String mapLocation = "src/resources/1.tmx";
+//  private String mapLocation = "src/resources/test.tmx"; // used to test graphical features
     private Mario game;
     private OrthographicCamera camera;
     private Viewport gamePort;
@@ -44,35 +43,29 @@ public class PlayScreen implements Screen {
     private OrthogonalTiledMapRenderer renderer; // funksjonalitet som viser spillebrettet
     private TiledMapTileLayer floor;
     private Collision collision;
-    private int gameState = 1; //1 == mainMenu, 2 == mainGame, 3 == nextLevel, 4 == gameOver
-    private float gWidth = 0;
-    private float gHeight = 0;
+    private int gameState = 1; //1 == mainMenu, 2 == mainGame, 3 == nextLevel, 4 == gameOver  
     private Sprite startButton;
     private Texture startText;
-
-    private World world;
-    private Box2DDebugRenderer b2dr;
 
     public PlayScreen(Mario game){
         this.game = game;
 
         batch = game.batch;
         
+        startText = new Texture(Gdx.files.internal("src/resources/StartButton.png")); // henter startButton.png
+        startButton = new Sprite(startText, 0, 0, 96, 32); 
+        startButton.setPosition(150, 100);
+        startButtonRect = new Rectangle(150, 100, 96, 32); // setter inn posisjonen til startButton sin Rectangle
+        
+        
         camera = new OrthographicCamera(); // kamera som skal følge spiller gjennom spillebrettet
-        gamePort = new FitViewport(Mario.visionWidth / Mario.PPM, Mario.visionHeight / Mario.PPM, camera); // skalerer responsivt med vinduets størrelse, henter resolution størrelse fra Mario.java
+        gamePort = new FitViewport(Mario.visionWidth, Mario.visionHeight, camera); // skalerer responsivt med vinduets størrelse, henter resolution størrelse fra Mario.java
         hud = new Hud(game.batch); // Hud som skal vise poeng/tid/info
-
-        gWidth = gamePort.getWorldWidth() / 2;
-        gHeight = gamePort.getWorldHeight() / 2;
-
-        startButton = new Sprite(new Texture(Gdx.files.internal("src/resources/StartButton.png")));
-        startButtonRect = new Rectangle(gWidth, gHeight, 96, 32); // setter inn posisjonen til startButton sin Rectangle
-        startButton.setPosition(150,100);
 
         mapLoader = new TmxMapLoader(); // laster inn spillebrettet
         map = mapLoader.load(mapLocation); // henter ut hvilket spillebrett som skal brukes
-        renderer = new OrthogonalTiledMapRenderer(map, 1 / Mario.PPM); // viser spillebrettet
-
+        renderer = new OrthogonalTiledMapRenderer(map); // viser spillebrettet
+        
         floor = (TiledMapTileLayer) map.getLayers().get("graphics");
 
         /*
@@ -80,27 +73,23 @@ public class PlayScreen implements Screen {
         * dette ønskes ikke ettersom spillebrettet er da lokalisert i kun positive verdier for x og y
         * bruker da halvparten av bredde og høyde for å "sentrere" spillebrettet på x- og y-aksen
         * */
-        camera.position.set(gWidth, gHeight, 0);
-
-        world = new World(new Vector2(0, -5), true);
-        b2dr = new Box2DDebugRenderer();
-
-        new WorldGenerator(world, map);
-      //  player1Sprite = createSprite("src/resources/Steffen16Transp.png");
-//        player2Sprite = createSprite("src/resources/Elias16Transp.png");
+        camera.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
         
-        //collision = new Collision(player1Sprite.getHeight(), player1Sprite.getWidth(), floor);
+        player1Sprite = createSprite("src/resources/Steffen16Transp.png");
+        player2Sprite = createSprite("src/resources/Elias16Transp.png");
+        
+        collision = new Collision(player1Sprite.getHeight(), player1Sprite.getWidth(), floor);
 
-        player1 = new GamePlayer(world); // spiller 1
-//        player1.setPosition(20, 16);
-//
-        player2 = new GamePlayer(world); // spiller 2
-//        player2.setPosition(50, 16); //p2
+        player1 = new GamePlayer(player1Sprite.getHeight(), player1Sprite.getWidth(), collision); // spiller 1
+        player1.setPosition(20, 16);
+
+        player2 = new GamePlayer(player2Sprite.getHeight(), player2Sprite.getWidth(), collision); // spiller 2
+        player2.setPosition(50, 16); //p2
 
         enemySprite1 = createSprite("src/resources/Mario_and_Enemies3.png");
-        //Collision collisionE = new Collision(enemySprite1.getHeight(), enemySprite1.getWidth(), floor);
-        //enemy = new GameEnemy(enemySprite1.getHeight(), enemySprite1.getWidth(), collisionE);
-        //enemy.setPosition(80, 16);
+        Collision collisionE = new Collision(enemySprite1.getHeight(), enemySprite1.getWidth(), floor);
+        enemy = new GameEnemy(enemySprite1.getHeight(), enemySprite1.getWidth(), collisionE);
+        enemy.setPosition(80, 16);
 
     }
     
@@ -115,36 +104,24 @@ public class PlayScreen implements Screen {
     }
 
     public void handleInput(float dt) { // sjekker input
-        if(Gdx.input.isKeyJustPressed (Input.Keys.UP))
-            player1.b2body.applyLinearImpulse(new Vector2(0, 3f), player1.b2body.getWorldCenter(), true);
-        if (Gdx.input.isKeyPressed (Input.Keys.RIGHT) && player1.b2body.getLinearVelocity().x <= 2)
-            player1.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player1.b2body.getWorldCenter(), true);
-        if (Gdx.input.isKeyPressed (Input.Keys.LEFT) && player1.b2body.getLinearVelocity().x >= -2)
-            player1.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player1.b2body.getWorldCenter(), true);
-        if(Gdx.input.isKeyJustPressed (Input.Keys.W))
-            player2.b2body.applyLinearImpulse(new Vector2(0, 3f), player2.b2body.getWorldCenter(), true);
-        if (Gdx.input.isKeyPressed (Input.Keys.D) && player2.b2body.getLinearVelocity().x <= 2)
-            player2.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player2.b2body.getWorldCenter(), true);
-        if (Gdx.input.isKeyPressed (Input.Keys.A) && player2.b2body.getLinearVelocity().x >= -2)
-            player2.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player2.b2body.getWorldCenter(), true);
-//        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-//            player2.jump();
-//        }
-//        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-//            player2.moveLeft(dt);
-//        }
-//        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-//            player2.moveRight(dt);
-//        }
-//        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-//            player1.jump();
-//        }
-//        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-//            player1.moveLeft(dt);
-//        }
-//        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-//            player1.moveRight(dt);
-//        }
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            player2.jump();
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            player2.moveLeft(dt);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            player2.moveRight(dt);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+            player1.jump();
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+            player1.moveLeft(dt);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+            player1.moveRight(dt);
+        }
         if(Gdx.input.isTouched()) {
         	Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
         	camera.unproject(touchPos);
@@ -156,19 +133,12 @@ public class PlayScreen implements Screen {
     
     public void update(float dt){ // oppdaterer enheter
         handleInput(dt);
-
-        world.step(1/60f, 6, 2);
-
-        if(gameState == 2) {
-            camera.position.x = player1.b2body.getPosition().x;
-        }
-
         camera.update(); // må oppdatere kamera hver gang det flytter på seg
         renderer.setView(camera); // metoden som viser spillebrettet trenger å vite hva den skal oppdatere av spillebrettet
-
- //       player1Sprite.setPosition(player1.b2body.getPosition().x * Mario.PPM, player2.b2body.getPosition().y * Mario.PPM);
-//        player2Sprite.setPosition(player2.hitbox.x, player2.hitbox.y);
-//        enemySprite1.setPosition(enemy.hitbox.x, enemy.hitbox.y);
+        
+        player1Sprite.setPosition(player1.hitbox.x, player1.hitbox.y);
+        player2Sprite.setPosition(player2.hitbox.x, player2.hitbox.y);
+        enemySprite1.setPosition(enemy.hitbox.x, enemy.hitbox.y);
 
     }
 
@@ -219,29 +189,26 @@ public class PlayScreen implements Screen {
 
         renderer.render(); // kaller på at spillebrettet skal vises
 
-        b2dr.render(world, camera.combined);
-
         batch.begin(); // starter batch
-        player1.playerRender(batch);
-//        player1Sprite.draw(batch); // tegner spiller1
-//        player2Sprite.draw(batch); // tegner spiller2
+        player1Sprite.draw(batch); // tegner spiller1
+        player2Sprite.draw(batch); // tegner spiller2
 
         /*
         * henter ut nåverende posisjon for spillere
         * */
-//        player1.setPosition(player1.hitbox.getX(), player1.hitbox.getY());
-//        player2.setPosition(player2.hitbox.getX(), player2.hitbox.getY());
+        player1.setPosition(player1.hitbox.getX(), player1.hitbox.getY());
+        player2.setPosition(player2.hitbox.getX(), player2.hitbox.getY());
 
         //legg til fiende
-        //enemySprite1.draw(batch);
-        //enemy.setPosition(enemy.hitbox.getX(), enemy.hitbox.getY());
+        enemySprite1.draw(batch);
+        enemy.setPosition(enemy.hitbox.getX(), enemy.hitbox.getY());
 
 
         // oppdaterer spillere og fiender
-//        player1.update(v);
-//        player2.update(v);
-        //updateEnemy(v, enemy);
-        //enemy.update(v);
+        player1.update(v);
+        player2.update(v);
+        updateEnemy(v, enemy);
+        enemy.update(v);
         batch.end(); // avslutter batch
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined); // bruker kamera definert i Hud.java for hva spilleren kan se i spillet
@@ -270,10 +237,6 @@ public class PlayScreen implements Screen {
 
     @Override
     public void dispose() {
-        map.dispose();
-        renderer.dispose();
-        world.dispose();
-        b2dr.dispose();
-        hud.dispose();
+
     }
 }
