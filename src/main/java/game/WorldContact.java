@@ -2,6 +2,7 @@ package game;
 
 import Sprites.Enemy;
 import Sprites.InteractiveObject;
+import Sprites.Player;
 import com.badlogic.gdx.physics.box2d.*;
 
 public class WorldContact implements ContactListener {
@@ -37,7 +38,11 @@ public class WorldContact implements ContactListener {
                 }
                 break;
             case Mario.bit | Mario.enemyBit:
-                System.out.println("You died");
+                if(a.getFilterData().categoryBits == Mario.bit){
+                    ((Player)a.getUserData()).hit();
+                }else{
+                    ((Player)b.getUserData()).hit();
+                }
                 break;
             case Mario.enemyBit | Mario.enemyBit:
                 ((Enemy)a.getUserData()).flipSpeed(true, false);

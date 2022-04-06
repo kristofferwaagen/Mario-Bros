@@ -92,11 +92,11 @@ public class PlayScreen implements Screen {
 
 
         player1Sprite = createSprite("src/resources/Steffen16Transp.png");
-        player1 = new Player(world); // spiller 1
+        player1 = new Player(this); // spiller 1
 //        player1.setPosition(20, 16);
 //
         player2Sprite = createSprite("src/resources/Elias16Transp.png");
-        player2 = new Player(world); // spiller 2
+        player2 = new Player(this); // spiller 2
 //        player2.setPosition(50, 16); //p2
 
         enemy1Sprite = createSprite("src/resources/Mario_and_Enemies3.png");
@@ -192,8 +192,8 @@ public class PlayScreen implements Screen {
 
         world.step(1/60f, 6, 2);
 
-        player1.render(dt);
-        player2.render(dt);
+        player1.update(dt);
+        player2.update(dt);
 
         basicEnemy.update(dt);
         advancedEnemy.update(dt);
@@ -204,7 +204,7 @@ public class PlayScreen implements Screen {
 
         hud.update(dt);
 
-        if(gameState == 2) {
+        if(gameState == 2 && !player1.isDead) {
             camera.position.x = player1.b2body.getPosition().x;
         }
 
@@ -270,6 +270,16 @@ public class PlayScreen implements Screen {
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw(); // viser Hud til spillet
+
+        if(player1.isDead){
+            camera.position.x = player2.getX();
+        }else if (player2.isDead){
+            camera.position.x = player1.getX();
+        }else if(player1.isDead && player2.isDead){
+            System.out.println("both players are dead");
+            gameState = 4;
+            gameOver(v);
+        }
     }
 
     public void gameOver(float v) {
