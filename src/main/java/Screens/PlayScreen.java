@@ -110,12 +110,12 @@ public class PlayScreen implements Screen {
         playText = new Texture(Gdx.files.internal("src/resources/PlayButton.png")); // henter playButton.png
         playButton = new Sprite(playText, 0, 0, 96, 32);
         playButton.setPosition(150, 100);
-        playButtonRect = new Rectangle(150, 100, 96, 32); // setter inn posisjonen til playButton sin Rectangle
+        playButtonRect = new Rectangle(150 / Mario.PPM, 100 / Mario.PPM, 96 / Mario.PPM, 32 / Mario.PPM); // setter inn posisjonen til playButton sin Rectangle
 
         exitText = new Texture(Gdx.files.internal("src/resources/ExitButton.png"));
         exitButton = new Sprite(exitText, 0, 0, 96, 32);
         exitButton.setPosition(150, 60);
-        exitButtonRect = new Rectangle(150, 60, 96, 32);
+        exitButtonRect = new Rectangle(150 / Mario.PPM, 60/Mario.PPM, 96 / Mario.PPM, 32 / Mario.PPM);
 
         youDiedText = new Texture(Gdx.files.internal("src/resources/YouDied.png"));
         youDiedButton = new Sprite(youDiedText, 0, 0, 96, 32);
@@ -124,7 +124,7 @@ public class PlayScreen implements Screen {
         retryText = new Texture(Gdx.files.internal("src/resources/RetryButton.png"));
         retryButton = new Sprite(retryText, 0, 0, 96, 32);
         retryButton.setPosition(150,100);
-        retryButtonRect = new Rectangle(150, 100, 96, 32);
+        retryButtonRect = new Rectangle(150 / Mario.PPM, 100 / Mario.PPM, 96 / Mario.PPM, 32 / Mario.PPM);
 
         world.setContactListener(new WorldContact());
 
@@ -170,18 +170,18 @@ public class PlayScreen implements Screen {
             Rectangle touch = new Rectangle(touchPos.x, touchPos.y, 0, 0);
             if (this.gameState == 1) {
                 if (touch.overlaps(playButtonRect))
-                    System.out.println();
                 gameState = 2;
-                if (touch.overlaps(exitButtonRect))
+                if (touch.overlaps(exitButtonRect)) {
                     Gdx.app.exit();
+                }
             }
             if (gameState == 4) {
                 if (touch.overlaps(retryButtonRect)) {
-                    System.out.println();
                     gameState = 2;
                 }
-                if (touch.overlaps(exitButtonRect))
+                if (touch.overlaps(exitButtonRect)) {
                     Gdx.app.exit();
+                }
             }
         }
 
@@ -282,6 +282,11 @@ public class PlayScreen implements Screen {
     }
 
     public void gameOver(float v) {
+        float retryValue = retryButtonRect.getX();
+        retryButtonRect.x = retryValue - retryValue;
+
+        float exitValue = exitButtonRect.getX();
+        exitButtonRect.x = exitValue - exitValue;
 
         youDiedButton.draw(batch);
         retryButton.draw(batch);
