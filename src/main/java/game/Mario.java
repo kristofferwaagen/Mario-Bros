@@ -22,7 +22,7 @@ public class Mario extends com.badlogic.gdx.Game {
     @Override
     public void create() {
         batch = new SpriteBatch();
-        setScreen(new PlayScreen(this)); // funksjonalitet or å endre aktiv skjerm
+        setScreen(new PlayScreen(this)); // funksjonalitet for å endre aktiv skjerm
     }
 
     @Override

@@ -22,6 +22,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Rectangle;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import game.*;
 
 import com.badlogic.gdx.math.Vector3;
@@ -30,13 +31,13 @@ import com.badlogic.gdx.math.Vector3;
 public class PlayScreen implements Screen {
     private String mapLocation = "src/resources/randomlvl.tmx";
     //private String mapLocation = "src/resources/test.tmx"; // used to test graphical features
-    private Mario game;
+    public  Mario game;
     private OrthographicCamera camera;
     private Viewport gamePort;
     private Player player1, player2;
     private GameEnemy enemy;
     private Sprite player1Sprite, player2Sprite, enemy1Sprite;
-    private SpriteBatch batch;
+    private  SpriteBatch batch;
     private Rectangle playButtonRect, exitButtonRect, retryButtonRect;
     private Hud hud;
     private TmxMapLoader mapLoader; // funksjonalitet som laster inn spillebrettet
@@ -72,9 +73,6 @@ public class PlayScreen implements Screen {
         mapLoader = new TmxMapLoader(); // laster inn spillebrettet
         map = mapLoader.load(mapLocation); // henter ut hvilket spillebrett som skal brukes
         renderer = new OrthogonalTiledMapRenderer(map, 1 / Mario.PPM); // viser spillebrettet
-
-        floor = (TiledMapTileLayer) map.getLayers().get("graphics");
-
 
         /*
          * når et kamera blir laget slik som gamePort er blitt, begynner det på posisjonen x:0 y:0
@@ -224,6 +222,7 @@ public class PlayScreen implements Screen {
 //        enemySprite1.setPosition(enemy.hitbox.x, enemy.hitbox.y);
     }
 
+    @SuppressFBWarnings("SF_SWITCH_NO_DEFAULT")
     @Override
     public void render(float v) {
         update(v);
@@ -282,11 +281,9 @@ public class PlayScreen implements Screen {
     }
 
     public void gameOver(float v) {
-        float retryValue = retryButtonRect.getX();
-        retryButtonRect.x = retryValue - retryValue;
-
-        float exitValue = exitButtonRect.getX();
-        exitButtonRect.x = exitValue - exitValue;
+        float moveValue = camera.position.x - 50 / Mario.PPM;
+        retryButtonRect.x = moveValue;
+        exitButtonRect.x = moveValue;
 
         youDiedButton.draw(batch);
         retryButton.draw(batch);

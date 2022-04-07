@@ -4,8 +4,10 @@ import Sprites.Enemy;
 import Sprites.InteractiveObject;
 import Sprites.Player;
 import com.badlogic.gdx.physics.box2d.*;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class WorldContact implements ContactListener {
+    @SuppressFBWarnings("SF_SWITCH_NO_DEFAULT")
     @Override
     public void beginContact(Contact contact) {
         Fixture a = contact.getFixtureA();
@@ -47,6 +49,8 @@ public class WorldContact implements ContactListener {
             case Mario.enemyBit | Mario.enemyBit:
                 ((Enemy)a.getUserData()).flipSpeed(true, false);
                 ((Enemy)b.getUserData()).flipSpeed(true, false);
+            default:
+                break;
         }
     }
 
