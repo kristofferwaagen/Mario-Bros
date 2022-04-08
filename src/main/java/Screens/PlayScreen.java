@@ -37,7 +37,7 @@ public class PlayScreen implements Screen {
     private Player player1, player2;
     private GameEnemy enemy;
     private Sprite player1Sprite, player2Sprite, enemy1Sprite;
-    private  SpriteBatch batch;
+    private SpriteBatch batch;
     private Rectangle playButtonRect, exitButtonRect, retryButtonRect;
     private Hud hud;
     private TmxMapLoader mapLoader; // funksjonalitet som laster inn spillebrettet
