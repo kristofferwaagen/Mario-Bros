@@ -72,3 +72,20 @@ Anders fikk problemer med SDK-en som Intellij bestemte seg for å bruke, så
 det gikk mye tid til å få fikset opp i dette. Til slutt ble det å klone forken på nytt igjen.
 Vi bestemte oss også for å forkaste abstrakt klasse for player og enemy, da dette
 kom til å gjøre det vanskeligere å lage tester. Det ble derfor enklere å bruke interface.
+
+
+###Referat fra møte 05.04.2022
+####Deltakere
+- Kristoffer
+- André
+- Anders
+- Johnny
+- Samuel
+
+####Oppsummering
+André har fått fikset innlogging til GitLab, så endelig har alle full tilgang til prosjektet.
+Kristoffer som har jobbet med kollisjon har implementert
+spilleren som et layer i kartet vårt. Da er det enklere for spilleren å interagere med objectlayers
+som er definert i level.tmx filen. Vi har valgt å gå videre med box2d, for å gjøre
+det enklere for oss med kollidering mellom spiller og objekter på kartet.
+Dette fører til at vi må gjøre endringer i tester, men det skal gå fint.
