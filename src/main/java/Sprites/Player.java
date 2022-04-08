@@ -13,10 +13,10 @@ public class Player extends Sprite {
     private Boolean removed;
     public World world;
     public Body b2body;
-    
+
     public Player(PlayScreen screen){
         this(screen.getWorld());
-        Texture t = new Texture("src/resources/Steffen16Transp.png");
+        Texture t = new Texture("src/resources/objects/Steffen16Transp.png");
         setRegion(t);
     }
     /**

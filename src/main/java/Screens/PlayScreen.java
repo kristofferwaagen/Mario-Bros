@@ -29,13 +29,12 @@ import com.badlogic.gdx.math.Vector3;
 
 
 public class PlayScreen implements Screen {
-    private String mapLocation = "src/resources/randomlvl.tmx";
+    private String mapLocation = "src/resources/levels/randomlvl.tmx";
     //private String mapLocation = "src/resources/test.tmx"; // used to test graphical features
     public  Mario game;
     private OrthographicCamera camera;
     private Viewport gamePort;
     private Player player1, player2;
-    private GameEnemy enemy;
     private Sprite player1Sprite, player2Sprite, enemy1Sprite;
     private SpriteBatch batch;
     private Rectangle playButtonRect, exitButtonRect, retryButtonRect;
@@ -44,7 +43,6 @@ public class PlayScreen implements Screen {
     private TiledMap map; // referanse til selve spillebrettet
     private OrthogonalTiledMapRenderer renderer; // funksjonalitet som viser spillebrettet
     private TiledMapTileLayer floor;
-    private Collision collision;
     private int gameState = 1; //1 == mainMenu, 2 == mainGame, 3 == nextLevel, 4 == gameOver
     private float gWidth = 0;
     private float gHeight = 0;
@@ -89,15 +87,15 @@ public class PlayScreen implements Screen {
         //collision = new Collision(player1Sprite.getHeight(), player1Sprite.getWidth(), floor);
 
 
-        player1Sprite = createSprite("src/resources/Steffen16Transp.png");
+        player1Sprite = createSprite("src/resources/objects/Steffen16Transp.png");
         player1 = new Player(this); // spiller 1
 //        player1.setPosition(20, 16);
 //
-        player2Sprite = createSprite("src/resources/Elias16Transp.png");
+        player2Sprite = createSprite("src/resources/objects/Elias16Transp.png");
         player2 = new Player(this); // spiller 2
 //        player2.setPosition(50, 16); //p2
 
-        enemy1Sprite = createSprite("src/resources/Mario_and_Enemies3.png");
+        enemy1Sprite = createSprite("src/resources/objects/Mario_and_Enemies3.png");
         basicEnemy = new BasicEnemy(this, 1447 / Mario.PPM, 32 / Mario.PPM);
         advancedEnemy = new AdvancedEnemy(this, 1680 / Mario.PPM, 32 / Mario.PPM);
         //Collision collisionE = new Collision(enemySprite1.getHeight(), enemySprite1.getWidth(), floor);
@@ -105,21 +103,21 @@ public class PlayScreen implements Screen {
         //enemy.setPosition(80, 16);
 
         // lager nye knapper
-        playText = new Texture(Gdx.files.internal("src/resources/PlayButton.png")); // henter playButton.png
+        playText = new Texture(Gdx.files.internal("src/resources/objects/PlayButton.png")); // henter playButton.png
         playButton = new Sprite(playText, 0, 0, 96, 32);
         playButton.setPosition(150, 100);
         playButtonRect = new Rectangle(150 / Mario.PPM, 100 / Mario.PPM, 96 / Mario.PPM, 32 / Mario.PPM); // setter inn posisjonen til playButton sin Rectangle
 
-        exitText = new Texture(Gdx.files.internal("src/resources/ExitButton.png"));
+        exitText = new Texture(Gdx.files.internal("src/resources/objects/ExitButton.png"));
         exitButton = new Sprite(exitText, 0, 0, 96, 32);
         exitButton.setPosition(150, 60);
         exitButtonRect = new Rectangle(150 / Mario.PPM, 60/Mario.PPM, 96 / Mario.PPM, 32 / Mario.PPM);
 
-        youDiedText = new Texture(Gdx.files.internal("src/resources/YouDied.png"));
+        youDiedText = new Texture(Gdx.files.internal("src/resources/objects/YouDied.png"));
         youDiedButton = new Sprite(youDiedText, 0, 0, 96, 32);
         youDiedButton.setPosition(150, 140);
 
-        retryText = new Texture(Gdx.files.internal("src/resources/RetryButton.png"));
+        retryText = new Texture(Gdx.files.internal("src/resources/objects/RetryButton.png"));
         retryButton = new Sprite(retryText, 0, 0, 96, 32);
         retryButton.setPosition(150,100);
         retryButtonRect = new Rectangle(150 / Mario.PPM, 100 / Mario.PPM, 96 / Mario.PPM, 32 / Mario.PPM);
