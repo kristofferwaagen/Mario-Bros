@@ -53,3 +53,57 @@ jo ikke metode bodies.
 Siden André har hatt problemer med innlogging på git har han sendt README.md filen i discord også laster Kristoffer den opp til git.
 Johnny har fått ryddet i koden fra sist møte, Anders har fått laget klassediagram, og Kristoffer har ryddet i project boarded på trello.
 Samuel oppdaterte oss også på tester han hadde skrevet - både automatiske og manuelle.
+
+###Referat fra møte 29.03.2022
+####Deltakere
+- Kristoffer
+- Johnny
+- Samuel
+- André
+- Anders
+
+####Oppsummering
+Johnny og Kristoffer oppdaterer oss på hvordan kameraet fungere og hvordan det må bli riktig konfigurert, slik at når man dør vil bakgrunnen stemme
+overens med hvor spilleren døde, og "Game over" kommer på det stedet.
+Samuel jobber med å se på hvordan det er best å implementere en spiller i spillet. Skal det være
+et eget objekt som man kan legge til i Tiled og definere som et objekt, eller skal det
+være en figur som legges på kartet i koden. Videre skal André lage nivåene spilleren skal bevege seg gjennom.
+Anders fikk problemer med SDK-en som Intellij bestemte seg for å bruke, så
+det gikk mye tid til å få fikset opp i dette. Til slutt ble det å klone forken på nytt igjen.
+Vi bestemte oss også for å forkaste abstrakt klasse for player og enemy, da dette
+kom til å gjøre det vanskeligere å lage tester. Det ble derfor enklere å bruke interface.
+
+
+###Referat fra møte 05.04.2022
+####Deltakere
+- Kristoffer
+- André
+- Anders
+- Johnny
+- Samuel
+
+####Oppsummering
+André har fått fikset innlogging til GitLab, så endelig har alle full tilgang til prosjektet.
+Kristoffer som har jobbet med kollisjon har implementert
+spilleren som et layer i kartet vårt. Da er det enklere for spilleren å interagere med objectlayers
+som er definert i level.tmx filen. Vi har valgt å gå videre med box2d, for å gjøre
+det enklere for oss med kollidering mellom spiller og objekter på kartet.
+Dette fører til at vi må gjøre endringer i tester, men det skal gå fint.
+
+
+###Referat fra møte 08.04.2022
+####Deltakere
+- Kristoffer
+- André
+- Johnny
+- Samuel
+- Anders
+
+####Oppsummering
+Vi har fått implementert box2d som skal gjøre det enklere for senere implementasjon av kollisjon og interaksjon mellom
+spiller og objekter. Nå som vi har lagt inn box2d så må spilltestene endres.
+Vi snakker om poengdeling i spillet, og en ide kan være at man får x antall poeng for mynter, x antall poeng for fiender
+og x antall poeng for hvor mye tid som er igjen på klokken. Vi tenker også at for å fullføre nivået så 
+må man plukke opp en nøkkel og ta den med til mål. 
+Gjennom møtet har Samuel fått oppdatert et par av testene så det går riktig vei. Vi har også fjernet overflødige klasser
+som ikke lenger brukes etter box2d ble innført.

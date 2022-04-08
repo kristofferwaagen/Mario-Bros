@@ -24,6 +24,7 @@ Dersom du vil kjøre spillet fra en Java-IDE:
 * Åpne prosjektet i din IDE. Eksempelvis Eclipse eller IntelliJ.
 * Finn main under directory: plattformspill-temp-master/src/main/java/main/Main.java
 * Kjør main. Da skal spillet starte.
+
 ## Hvordan spille spillet
 
 *Spillet er fortsatt under utvikling*

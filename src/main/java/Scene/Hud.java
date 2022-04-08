@@ -7,22 +7,27 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import game.Mario;
 
-public class Hud {
+public class Hud implements Disposable {
     public Stage stage;
     private Viewport viewport; // når bakgrunnen flytter på seg vil man at hud skal vær lik, bruker da nytt kamera for hud
 
-    private Integer score;
+    private static Integer score;
+    private Integer timer;
+    private float counter;
 
     // enkel tekst for de forskjellige hud elementene
-    Label scoreLabel;
+    static Label scoreLabel;
     Label timeLabel;
     Label marioLabel;
 
     public Hud(SpriteBatch Batch){
+        timer = 300;
+        counter = 0;
         score = 0;
 
         viewport = new FitViewport(Mario.visionWidth, Mario.visionHeight, new OrthographicCamera()); // nye kamera for hud
@@ -36,9 +41,9 @@ public class Hud {
         table.top();
         table.setFillParent(true);
 
-        scoreLabel = new Label(String.format("%06d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE)); // tekst for "score", har 6 nummer (%06)
-        timeLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.WHITE)); // teskt for tid brukt
-        marioLabel = new Label("MARIO", new Label.LabelStyle(new BitmapFont(), Color.WHITE)); // tekst for spiller
+        scoreLabel = new Label(String.format("%04d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE)); // tekst for "score", har 6 nummer (%06)
+        timeLabel = new Label(String.format("%03d", timer), new Label.LabelStyle(new BitmapFont(), Color.WHITE)); // teskt for tid brukt
+        marioLabel = new Label("KURT MARIO", new Label.LabelStyle(new BitmapFont(), Color.WHITE)); // tekst for spiller
 
         /*
         * expandX strekker kolonnen fra ende til ende i vinduet, om det blir brukt flere kolonner på samme rad blir de organisert på strekningen
@@ -51,4 +56,22 @@ public class Hud {
         stage.addActor(table); // legger til tabellen til stage
     }
 
+    public void update(float dt){
+        counter += dt;
+        if(counter >= 1){
+            timer--;
+            timeLabel.setText(String.format("%03d", timer));
+            counter = 0;
+        }
+    }
+
+    public static void scoreAdder(int x){
+        score += x;
+        scoreLabel.setText(String.format("%06d", score));
+    }
+
+    @Override
+    public void dispose() {
+        stage.dispose();
+    }
 }
