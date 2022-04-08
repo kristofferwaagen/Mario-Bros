@@ -192,6 +192,8 @@ public class PlayScreen implements Screen {
 
         world.step(1/60f, 6, 2);
 
+        fallsOff();
+
         player1.update(dt);
         player2.update(dt);
 
@@ -255,8 +257,6 @@ public class PlayScreen implements Screen {
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
     }
 
-
-
     public void mainGame(float v) {
         update(v); // kaller på update metoden
 
@@ -294,8 +294,13 @@ public class PlayScreen implements Screen {
         return world;
     }
 
-    public TiledMap getMap(){
-        return map;
+    public void fallsOff(){
+        if (player1.getY() < -1){
+            player1.isDead = true;
+        }
+        if (player2.getY() < -1){
+            player2.isDead = true;
+        }
     }
 
     @Override
