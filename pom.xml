@@ -95,12 +95,12 @@
 			<version>5.5.2</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.github.spotbugs</groupId>
-			<artifactId>spotbugs-annotations</artifactId>
-			<version>RELEASE</version>
-			<scope>compile</scope>
-		</dependency>
+        <dependency>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs-annotations</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.badlogicgames.gdx/gdx-box2d -->
 		<dependency>
@@ -122,7 +122,7 @@
 			<classifier>natives-desktop</classifier>
 		</dependency>
 
-	</dependencies>
+    </dependencies>
 
 	<build>
 		<plugins>

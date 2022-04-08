@@ -25,21 +25,30 @@ I tillegg må vi oppdatere hverandre når større endringer i prosjektet blir gj
 implementert box2D, som fører til at oppsettet av prosjektet blir annerledes og mange klasser blir påvirket.
 Derfor har vi erfart at når sånt skjer så blir vi satt tilbake i prosjektet, men målt opp mot hvordan det kan gjøre
 det enklere for oss senere, så vil det være verdt det. 
-Klassene må også bli mer delt opp og være beskrivende for hver funksjon i spillet.
+Klassene må også bli mer delt opp og være beskrivende for hver funksjon i spillet. Dette har vi nå gjort med mappen resources
+da det ble veldig rotete med alle bilder, tilesets og tsx filer om hverandre. 
+
 #####Forbedringspunkter
 Som sist gang og som sagt i retrospektiv diskusjon må vi forberdre den jevne innsatsen og prioritering
 av prosjektet. I tillegg kan vi bli flinkere til å stykke opp klassene og bruke interfaces / abstrakte klasser for å
-gjemme kode og redusere duplisering av kode.
+gjemme kode. 
+
 #####Problemer
 Vi har hatt problemer der kollisjonen ikke følger kartet når spilleren beveger seg
 ved at collision referte til posisjoner på skjermen. Vi håper dette løser seg 
-når vi bruker box2D og lar spilleren være et layer på kartet.
+når vi bruker box2d. Dit vi har kommet til nå med implementeringen av box2d så går det rett vei. 
+Vi har derimot fått problemer med de tidligere testene som er laget, og de må omkonstrueres for å passe til
+med den nye logikken i spillet. 
+Dersom spilleren dør så skal man kunne trykke retry, men akkurat nå er ikke det lov fordi spillerene ikke eksisterer 
+etter at de har dødd. 
 
 ###Deloppgave 2
 
 ######Stretch goal
 Som beskrevet i ObligatoriskOppgave2.md ønsker vi å få implementert multiplayer mellom
-to spillere lokalt på en PC.
+to spillere lokalt på en PC. Hittil så er man to spillere på brettet og dersom begge dør får man muligheten til 
+å starte på nytt igjen. Kameraet er låst på spiller 1 tradisjonen tro, helt til spiller 1 dør. Da bytter det over til 
+spiller 2. 
 
 #####MVP og arbeidsoppgaver
 Anders skal lage klassediagram for ObligatoriskOppgave3 og få skrevet
@@ -49,15 +58,19 @@ viste seg å være en større oppgave enn forventet da vi nylig har måttet gjø
 endringer i hvordan det skal implementeres. André jobber med å lage nivåer og hvordan man skal 
 kunne vinne et nivå. Foreløpig er en tanke at man kan lete etter en nøkkel som plukkes opp av
 spilleren, og når man kommer til målobjektet så sjekker man om spilleren har nøkkelen. Ved å bruke en
-slik regel tvinger man spilleren til å utforske hele nivået. Vi har dessverre
-ikke kommet så langt videre fra innlevering2 som ønsket og vi fortsetter med å jobbe med de 
-samme MVP-punktene, men på en ny måte.
+slik regel tvinger man spilleren til å utforske hele nivået. Johnny jobber videre med meny og gameover skjermen. 
+Dersom spillerene dør, så vil man få valget mellom å restarte eller exit spillet. Han har også lagt inn at "esc" er
+pause i spillet. Samuel har i oppgave å fikse testene som følge av bruken av box2d. Vi må også få implementert en sprite for
+spillere og fiender. Per nå er de bare definert som sirkler.
 
 
 ###Deloppgave 3
 ######Dette har vi fikset siden sist
 - vi har endret hvordan kollidering fungere
-- Siden vi enda ikke har fått tilbakemelding på oblig2 så er det fortsatt uvisst over andre forbedringspunkter.
+- vi kan legge inn flere fiender
+- spiller og fiende kolliderer med hverandre
+- spiller kan dø
+
 
 ######Klassediagram
 Ligger som en egen bildefil under ObligatoriskOppgave3 mappen.

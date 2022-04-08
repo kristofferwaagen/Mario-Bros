@@ -11,7 +11,7 @@
    <property name="collide" value=""/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJzt11EKgkAUBdDRHVQ7ybZaQbWOCqq99QJFmI+wSDQ9By5+jIIf784wKQEAtLZlSrvIvhz6T4BPnaO3l8h14P7aR5iiQ8zzMXKa+FyPZR+BX7rFPN8jD3MNAGTcX6FV1Oli2fXFHrm/Mnff1HARH1WR1Qg6DHNWZM98LT+TX91d1/3d6DAM6l1/c82523S3cg5DLwoR+ds8AVhWEz8=
+   eJzt11sKgzAUhOEkO2jdiXarVrCuoxfa7q0jNSh5aSwGbfp/MAiC4MOZHGIMAADAqHbGHJXGrf0nAOY6q7cX5bpyfzlHkKNW83xSuszneivnCLCku+b5oTyZawAAEOD+Coxu7p0Ye5v2X2Jwf8U/sUPCd3Pt9FGlFBvoMJCj2GrZyTPst9/H053cd7cc+nugw0AS3/T3E793fXcr9jCQhCWE/GxeewkW5w==
   </data>
  </layer>
  <objectgroup id="3" name="ground" visible="0">

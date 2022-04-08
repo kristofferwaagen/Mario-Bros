@@ -89,3 +89,21 @@ spilleren som et layer i kartet vårt. Da er det enklere for spilleren å intera
 som er definert i level.tmx filen. Vi har valgt å gå videre med box2d, for å gjøre
 det enklere for oss med kollidering mellom spiller og objekter på kartet.
 Dette fører til at vi må gjøre endringer i tester, men det skal gå fint.
+
+
+###Referat fra møte 08.04.2022
+####Deltakere
+- Kristoffer
+- André
+- Johnny
+- Samuel
+- Anders
+
+####Oppsummering
+Vi har fått implementert box2d som skal gjøre det enklere for senere implementasjon av kollisjon og interaksjon mellom
+spiller og objekter. Nå som vi har lagt inn box2d så må spilltestene endres.
+Vi snakker om poengdeling i spillet, og en ide kan være at man får x antall poeng for mynter, x antall poeng for fiender
+og x antall poeng for hvor mye tid som er igjen på klokken. Vi tenker også at for å fullføre nivået så 
+må man plukke opp en nøkkel og ta den med til mål. 
+Gjennom møtet har Samuel fått oppdatert et par av testene så det går riktig vei. Vi har også fjernet overflødige klasser
+som ikke lenger brukes etter box2d ble innført.
