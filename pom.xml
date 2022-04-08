@@ -95,19 +95,31 @@
 			<version>5.5.2</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.github.spotbugs</groupId>
+			<artifactId>spotbugs-annotations</artifactId>
+			<version>RELEASE</version>
+			<scope>compile</scope>
+		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/com.badlogicgames.gdx/gdx-box2d -->
 		<dependency>
 			<groupId>com.badlogicgames.gdx</groupId>
 			<artifactId>gdx-box2d</artifactId>
-			<version>1.10.0</version>
+			<version>${libgdx.version}</version>
 		</dependency>
-
+		<!-- Platform-specific libraries -->
+		<dependency>
+			<groupId>com.badlogicgames.gdx</groupId>
+			<artifactId>gdx-platform</artifactId>
+			<version>${libgdx.version}</version>
+			<classifier>natives-desktop</classifier>
+		</dependency>
 		<dependency>
 			<groupId>com.badlogicgames.gdx</groupId>
 			<artifactId>gdx-box2d-platform</artifactId>
+			<version>${libgdx.version}</version>
 			<classifier>natives-desktop</classifier>
-			<version>1.10.0</version>
-			<scope>compile</scope>
 		</dependency>
 
 	</dependencies>
@@ -115,7 +127,20 @@
 	<build>
 		<plugins>
 			<!-- Run app through Maven -->
-
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<configuration>
+					<!-- mainClass>${main.class}</mainClass -->
+					<executable>${java.home}/bin/java</executable>
+					<arguments>
+						<argument>${jvm.extra.args}</argument>
+						<argument>-classpath</argument>
+						<classpath />
+						<argument>${main.class}</argument>
+					</arguments>
+				</configuration>
+			</plugin>
 			<!-- Build a fat uber-jar with all dependencies -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
