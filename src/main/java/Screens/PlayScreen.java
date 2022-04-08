@@ -5,6 +5,7 @@ import Sprites.AdvancedEnemy;
 import Sprites.BasicEnemy;
 import Sprites.Enemy;
 import Sprites.Player;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -43,7 +44,7 @@ public class PlayScreen implements Screen {
     private TiledMap map; // referanse til selve spillebrettet
     private OrthogonalTiledMapRenderer renderer; // funksjonalitet som viser spillebrettet
     private TiledMapTileLayer floor;
-    private int gameState = 1; //1 == mainMenu, 2 == mainGame, 3 == nextLevel, 4 == gameOver
+    private int gameState = 2; //1 == mainMenu, 2 == mainGame, 3 == nextLevel, 4 == gameOver
     private float gWidth = 0;
     private float gHeight = 0;
     private Sprite playButton, exitButton, retryButton, youDiedButton;
@@ -228,16 +229,16 @@ public class PlayScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // tømmer skjermen
         renderer.render();
 
-        batch.begin();
+        //batch.begin();
         switch(this.gameState) {
             case 1:
-                this.mainMenu(v); //hoved meny
+                this.mainMenu(); //hoved meny
                 break;
             case 2:
                 this.mainGame(v); // når spillet pågår
                 break;
             case 4:
-                this.gameOver(v);
+                this.gameOver();
             default:
                 break;
         }
@@ -246,13 +247,8 @@ public class PlayScreen implements Screen {
 //    	game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
     }
 
-    public void mainMenu(float v) {
-
-        playButton.draw(batch);
-        exitButton.draw(batch);
-        batch.end();
-
-        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+    public void mainMenu() {
+        game.setScreen(new MenuScreen(game));
     }
 
 
@@ -266,6 +262,7 @@ public class PlayScreen implements Screen {
         renderer.render(); // kaller på at spillebrettet skal vises
 
         b2dr.render(world, camera.combined);
+        batch.begin();
 
         game.batch.setProjectionMatrix(camera.combined);
         player1.draw(game.batch);
@@ -278,16 +275,8 @@ public class PlayScreen implements Screen {
 
     }
 
-    public void gameOver(float v) {
-        float moveValue = camera.position.x - 50 / Mario.PPM;
-        retryButtonRect.x = moveValue;
-        exitButtonRect.x = moveValue;
-
-        youDiedButton.draw(batch);
-        retryButton.draw(batch);
-        exitButton.draw(batch);
-        batch.end();
-        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+    public void gameOver() {
+        game.setScreen(new GameOverScreen(game));
     }
 
     public World getWorld(){
