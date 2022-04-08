@@ -41,7 +41,7 @@ public class Hud implements Disposable {
         table.top();
         table.setFillParent(true);
 
-        scoreLabel = new Label(String.format("%06d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE)); // tekst for "score", har 6 nummer (%06)
+        scoreLabel = new Label(String.format("%04d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE)); // tekst for "score", har 6 nummer (%06)
         timeLabel = new Label(String.format("%03d", timer), new Label.LabelStyle(new BitmapFont(), Color.WHITE)); // teskt for tid brukt
         marioLabel = new Label("KURT MARIO", new Label.LabelStyle(new BitmapFont(), Color.WHITE)); // tekst for spiller
 
