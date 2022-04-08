@@ -115,20 +115,7 @@
 	<build>
 		<plugins>
 			<!-- Run app through Maven -->
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<configuration>
-					<!-- mainClass>${main.class}</mainClass -->
-					<executable>${java.home}/bin/java</executable>
-					<arguments>
-						<argument>${jvm.extra.args}</argument>
-						<argument>-classpath</argument>
-						<classpath />
-						<argument>${main.class}</argument>
-					</arguments>
-				</configuration>
-			</plugin>
+
 			<!-- Build a fat uber-jar with all dependencies -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
