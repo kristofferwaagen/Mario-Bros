@@ -33,7 +33,7 @@ public class PlayerTest {
 	void setup() {
         world = new World(new Vector2(0, -5), true);
         world.setContactListener(new WorldContact());
-        g = new Player(world, 16, 16);
+        g = new Player(world);
 	}
 
 	@Test

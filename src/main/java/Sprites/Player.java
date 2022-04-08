@@ -13,18 +13,16 @@ public class Player extends Sprite {
     private Boolean removed;
     public World world;
     public Body b2body;
-//    private Texture t = new Texture("src/resources/Steffen16Transp.png");
-
+    
     public Player(PlayScreen screen){
-        this.world = screen.getWorld();
-        definePlayer();
-        setBounds(0,0,16 / Mario.PPM, 16 / Mario.PPM);
+        this(screen.getWorld());
+        Texture t = new Texture("src/resources/Steffen16Transp.png");
         setRegion(t);
-        isDead = false;
-        removed = false;
-        hp = 1;
     }
-    public Player(World world, int width, int height) {
+    /**
+     * Konstruktør som ikke er avhengig av textures og sprites, brukes for testing
+     */
+    public Player(World world) {
     	this.world = world;
         definePlayer();
         setBounds(0,0,16 / Mario.PPM, 16 / Mario.PPM);
