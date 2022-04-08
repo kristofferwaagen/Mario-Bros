@@ -19,7 +19,11 @@ import game.WorldContact;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+/**
+ * Simulerer 50 updates av Player i World med bevegelse
+ * @author samit
+ *
+ */
 public class PlayerTest {
 	Player g;
 	private Body b2body;
@@ -77,7 +81,7 @@ public class PlayerTest {
 	}
 	
 
-
+// !! Disse må oppdateres !!
 //
 //	@Test
 //	void landsOnGround() {
