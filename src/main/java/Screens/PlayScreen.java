@@ -34,20 +34,22 @@ public class PlayScreen implements Screen {
     public  Mario game;
     private OrthographicCamera camera;
     private Viewport gamePort;
+
     private Player player1, player2;
-    private Sprite player1Sprite, player2Sprite, enemy1Sprite;
-    private  SpriteBatch batch;
-    private Rectangle playButtonRect, exitButtonRect, retryButtonRect;
+    private SpriteBatch batch;
     private Hud hud;
+
     private TmxMapLoader mapLoader; // funksjonalitet som laster inn spillebrettet
     private TiledMap map; // referanse til selve spillebrettet
     private OrthogonalTiledMapRenderer renderer; // funksjonalitet som viser spillebrettet
-    private TiledMapTileLayer floor;
+
+    private Sprite playButton, exitButton, retryButton, youDiedButton;
+    private Rectangle playButtonRect, exitButtonRect, retryButtonRect;
+    private Texture playText, exitText, retryText, youDiedText;
+
     private int gameState = 1; //1 == mainMenu, 2 == mainGame, 3 == nextLevel, 4 == gameOver
     private float gWidth = 0;
     private float gHeight = 0;
-    private Sprite playButton, exitButton, retryButton, youDiedButton;
-    private Texture playText, exitText, retryText, youDiedText;
 
     private World world;
     private Box2DDebugRenderer b2dr;
@@ -84,23 +86,11 @@ public class PlayScreen implements Screen {
 
         new WorldGenerator(world, map);
 
-        //collision = new Collision(player1Sprite.getHeight(), player1Sprite.getWidth(), floor);
-
-
-        player1Sprite = createSprite("src/resources/Steffen16Transp.png");
         player1 = new Player(this); // spiller 1
-//        player1.setPosition(20, 16);
-//
-        player2Sprite = createSprite("src/resources/Elias16Transp.png");
         player2 = new Player(this); // spiller 2
-//        player2.setPosition(50, 16); //p2
 
-        enemy1Sprite = createSprite("src/resources/Mario_and_Enemies3.png");
         basicEnemy = new BasicEnemy(this, 1447 / Mario.PPM, 32 / Mario.PPM);
         advancedEnemy = new AdvancedEnemy(this, 1680 / Mario.PPM, 32 / Mario.PPM);
-        //Collision collisionE = new Collision(enemySprite1.getHeight(), enemySprite1.getWidth(), floor);
-        //enemy = new GameEnemy(enemySprite1.getHeight(), enemySprite1.getWidth(), collisionE);
-        //enemy.setPosition(80, 16);
 
         // lager nye knapper
         playText = new Texture(Gdx.files.internal("src/resources/PlayButton.png")); // henter playButton.png
@@ -165,14 +155,20 @@ public class PlayScreen implements Screen {
             camera.unproject(touchPos);
             Rectangle touch = new Rectangle(touchPos.x, touchPos.y, 0, 0);
             if (this.gameState == 1) {
-                if (touch.overlaps(playButtonRect))
-                gameState = 2;
+                if (touch.overlaps(playButtonRect)) {
+                    gameState = 2;
+                }
                 if (touch.overlaps(exitButtonRect)) {
                     Gdx.app.exit();
                 }
             }
             if (gameState == 4) {
                 if (touch.overlaps(retryButtonRect)) {
+                    /*
+                    * Merk at denne implementasjonen foreløpig fortsetter spiller og ikke starter det på nytt.
+                    * Dermed om begge spillere dør (b2body blir ødelagt), så blir gameState satt til 2 når man trykker på "retry" knappen
+                    * men spillet fortsetter ikke ettersom det ikke lengre er noen spillere på brettet.
+                    * */
                     gameState = 2;
                 }
                 if (touch.overlaps(exitButtonRect)) {
@@ -216,9 +212,6 @@ public class PlayScreen implements Screen {
         camera.update(); // må oppdatere kamera hver gang det flytter på seg
         renderer.setView(camera); // metoden som viser spillebrettet trenger å vite hva den skal oppdatere av spillebrettet
 
-        //       player1Sprite.setPosition(player1.b2body.getPosition().x * Mario.PPM, player2.b2body.getPosition().y * Mario.PPM);
-//        player2Sprite.setPosition(player2.hitbox.x, player2.hitbox.y);
-//        enemySprite1.setPosition(enemy.hitbox.x, enemy.hitbox.y);
     }
 
     @SuppressFBWarnings("SF_SWITCH_NO_DEFAULT")
@@ -242,13 +235,9 @@ public class PlayScreen implements Screen {
             default:
                 break;
         }
-
-        // bruker kamera definert i Hud.java for hva spilleren kan se i spillet
-//    	game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
     }
 
     public void mainMenu(float v) {
-
         playButton.draw(batch);
         exitButton.draw(batch);
         batch.end();
@@ -302,10 +291,6 @@ public class PlayScreen implements Screen {
         if (player2.getY() < -1){
             player2.isDead = true;
         }
-    }
-
-    public TiledMap getMap(){
-        return map;
     }
 
     @Override
