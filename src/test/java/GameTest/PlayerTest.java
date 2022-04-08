@@ -4,46 +4,84 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import Screens.PlayScreen;
 import Sprites.Player;
+
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.EdgeShape;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.World;
+
 import game.Mario;
+import game.WorldContact;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+/**
+ * Simulerer 50 updates av Player i World med bevegelse
+ * @author samit
+ *
+ */
 public class PlayerTest {
 	Player g;
-
+	private Body b2body;
+	public World world;
+	
 	@BeforeEach
 	void setup() {
-        g = new Player(new PlayScreen(new Mario()));
+        world = new World(new Vector2(0, -5), true);
+        world.setContactListener(new WorldContact());
+        g = new Player(world);
 	}
 
 	@Test
-	void movesLeftAndRight() {
+	void movesRight() {
 		float oldX = g.getX();
-		g.b2body.applyLinearImpulse(new Vector2(-1f, 0), g.b2body.getWorldCenter(), true);
-		assertTrue(g.getX()<oldX);
-        g.b2body.applyLinearImpulse(new Vector2(1f, 0), g.b2body.getWorldCenter(), true);
+        for(int i = 50; i > 0; i--) {
+        	world.step(1/60f, 6, 2);
+        	g.b2body.applyLinearImpulse(new Vector2(0.03f, 0), g.b2body.getWorldCenter(), true);
+        	g.update(0);
+        }
+//        System.out.println(g.getX()); // Sjekk hvor langt spilleren har bevegd seg i løpet av 50 updates
 		assertTrue(g.getX()>oldX);
 	}
+	
+	@Test
+	void movesLeft() {
+		float oldX = g.getX();
+		for(int i = 50; i > 0; i --) {
+			world.step(1/60f,  6,  2);
+        	g.b2body.applyLinearImpulse(new Vector2(-0.03f, 0), g.b2body.getWorldCenter(), true);
+        	g.update(0);
+		}
+		assertTrue(g.getX()<oldX);
+	}
+	
+	@Test
+	void jumpsCauseElevation() {
+		float oldY = g.getY();
+		for(int i = 50; i > 0; i--) {
+			world.step(1/60f,  6,  2);
+        	g.b2body.applyLinearImpulse(new Vector2(0, 1.5f), g.b2body.getWorldCenter(), true);
+        	g.update(0);
+		}
+		assertTrue(g.getY() > oldY);
+	}
+	
+	@Test
+	void fallsOnUpdate() {
+		float oldY = g.getY();
+		for(int i = 50; i > 0; i--) {
+			world.step(1/60f,  6,  2);
+        	g.update(0);
+		}
+		assertTrue(g.getY() < oldY);
+	}
+	
 
-//	@Test
-//	void jumpsCauseElevation() {
-//		float oldY = g.hitbox.getY();
-//		g.jump();
-//		g.update(0.04f); //may fail if this time is high enough for player to crash into ground again
-//		assertTrue(oldY < g.hitbox.getY());
-//	}
-//
-//	@Test
-//	void fallsOnUpdate() {
-//		g.setPosition(g.hitbox.x, 20);
-//		float oldY = g.hitbox.getY();
-//		g.setVelocityY(1);
-//		for(int i = 50; i > 0; i--) { // Simulates 50 frames played in game.
-//			g.update(0.04f);
-//		}
-//		assertTrue(g.hitbox.getY() < oldY);
-//	}
+// !! Disse må oppdateres !!
 //
 //	@Test
 //	void landsOnGround() {
