@@ -29,25 +29,22 @@ import com.badlogic.gdx.math.Vector3;
 
 
 public class PlayScreen implements Screen {
-    private String mapLocation = "src/resources/levels/randomlvl.tmx";
     //private String mapLocation = "src/resources/test.tmx"; // used to test graphical features
     public  Mario game;
     private OrthographicCamera camera;
     private Viewport gamePort;
-    private Player player1, player2;
-    private Sprite player1Sprite, player2Sprite, enemy1Sprite;
-    private SpriteBatch batch;
-    private Rectangle playButtonRect, exitButtonRect, retryButtonRect;
+
     private Hud hud;
-    private TmxMapLoader mapLoader; // funksjonalitet som laster inn spillebrettet
     private TiledMap map; // referanse til selve spillebrettet
     private OrthogonalTiledMapRenderer renderer; // funksjonalitet som viser spillebrettet
-    private TiledMapTileLayer floor;
-    private int gameState = 1; //1 == mainMenu, 2 == mainGame, 3 == nextLevel, 4 == gameOver
-    private float gWidth = 0;
-    private float gHeight = 0;
-    private Sprite playButton, exitButton, retryButton, youDiedButton;
+
+    private Player player1, player2;
+    private SpriteBatch batch;
+    private Rectangle playButtonRect, exitButtonRect, retryButtonRect;
+    private Sprite playButton, exitButton, retryButton, youDiedButton, player1Sprite, player2Sprite, enemy1Sprite;
     private Texture playText, exitText, retryText, youDiedText;
+
+    private int gameState = 1; //1 == mainMenu, 2 == mainGame, 3 == nextLevel, 4 == gameOver
 
     private World world;
     private Box2DDebugRenderer b2dr;
@@ -64,11 +61,12 @@ public class PlayScreen implements Screen {
         gamePort = new FitViewport(Mario.visionWidth / Mario.PPM, Mario.visionHeight / Mario.PPM, camera); // skalerer responsivt med vinduets størrelse, henter resolution størrelse fra Mario.java
         hud = new Hud(game.batch); // Hud som skal vise poeng/tid/info
 
-        gWidth = gamePort.getWorldWidth() / 2;
-        gHeight = gamePort.getWorldHeight() / 2;
+        float gWidth = gamePort.getWorldWidth() / 2;
+        float gHeight = gamePort.getWorldHeight() / 2;
 
         // kart
-        mapLoader = new TmxMapLoader(); // laster inn spillebrettet
+        TmxMapLoader mapLoader = new TmxMapLoader(); // laster inn spillebrettet
+        String mapLocation = "src/resources/levels/randomlvl.tmx";
         map = mapLoader.load(mapLocation); // henter ut hvilket spillebrett som skal brukes
         renderer = new OrthogonalTiledMapRenderer(map, 1 / Mario.PPM); // viser spillebrettet
 
@@ -84,23 +82,15 @@ public class PlayScreen implements Screen {
 
         new WorldGenerator(world, map);
 
-        //collision = new Collision(player1Sprite.getHeight(), player1Sprite.getWidth(), floor);
-
-
         player1Sprite = createSprite("src/resources/objects/Steffen16Transp.png");
         player1 = new Player(this); // spiller 1
-//        player1.setPosition(20, 16);
-//
+
         player2Sprite = createSprite("src/resources/objects/Elias16Transp.png");
         player2 = new Player(this); // spiller 2
-//        player2.setPosition(50, 16); //p2
 
         enemy1Sprite = createSprite("src/resources/objects/Mario_and_Enemies3.png");
         basicEnemy = new BasicEnemy(this, 1447 / Mario.PPM, 32 / Mario.PPM);
         advancedEnemy = new AdvancedEnemy(this, 1680 / Mario.PPM, 32 / Mario.PPM);
-        //Collision collisionE = new Collision(enemySprite1.getHeight(), enemySprite1.getWidth(), floor);
-        //enemy = new GameEnemy(enemySprite1.getHeight(), enemySprite1.getWidth(), collisionE);
-        //enemy.setPosition(80, 16);
 
         // lager nye knapper
         playText = new Texture(Gdx.files.internal("src/resources/objects/PlayButton.png")); // henter playButton.png
@@ -173,6 +163,11 @@ public class PlayScreen implements Screen {
             }
             if (gameState == 4) {
                 if (touch.overlaps(retryButtonRect)) {
+                    /*
+                     * Merk at denne implementasjonen foreløpig fortsetter spiller og ikke starter det på nytt.
+                     * Dermed om begge spillere dør (b2body blir ødelagt), så blir gameState satt til 2 når man trykker på "retry" knappen
+                     * men spillet fortsetter ikke ettersom det ikke lengre er noen spillere på brettet.
+                     * */
                     gameState = 2;
                 }
                 if (touch.overlaps(exitButtonRect)) {
@@ -191,6 +186,8 @@ public class PlayScreen implements Screen {
         }
 
         world.step(1/60f, 6, 2);
+
+        fallsOff();
 
         player1.update(dt);
         player2.update(dt);
@@ -214,10 +211,6 @@ public class PlayScreen implements Screen {
 
         camera.update(); // må oppdatere kamera hver gang det flytter på seg
         renderer.setView(camera); // metoden som viser spillebrettet trenger å vite hva den skal oppdatere av spillebrettet
-
-        //       player1Sprite.setPosition(player1.b2body.getPosition().x * Mario.PPM, player2.b2body.getPosition().y * Mario.PPM);
-//        player2Sprite.setPosition(player2.hitbox.x, player2.hitbox.y);
-//        enemySprite1.setPosition(enemy.hitbox.x, enemy.hitbox.y);
     }
 
     @SuppressFBWarnings("SF_SWITCH_NO_DEFAULT")
@@ -254,8 +247,6 @@ public class PlayScreen implements Screen {
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
     }
-
-
 
     public void mainGame(float v) {
         update(v); // kaller på update metoden
@@ -294,8 +285,13 @@ public class PlayScreen implements Screen {
         return world;
     }
 
-    public TiledMap getMap(){
-        return map;
+    public void fallsOff(){
+        if (player1.getY() < -1){
+            player1.isDead = true;
+        }
+        if (player2.getY() < -1){
+            player2.isDead = true;
+        }
     }
 
     @Override
