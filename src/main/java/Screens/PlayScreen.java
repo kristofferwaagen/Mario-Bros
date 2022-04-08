@@ -35,7 +35,6 @@ public class PlayScreen implements Screen {
     private OrthographicCamera camera;
     private Viewport gamePort;
     private Player player1, player2;
-    private GameEnemy enemy;
     private Sprite player1Sprite, player2Sprite, enemy1Sprite;
     private  SpriteBatch batch;
     private Rectangle playButtonRect, exitButtonRect, retryButtonRect;
@@ -44,7 +43,6 @@ public class PlayScreen implements Screen {
     private TiledMap map; // referanse til selve spillebrettet
     private OrthogonalTiledMapRenderer renderer; // funksjonalitet som viser spillebrettet
     private TiledMapTileLayer floor;
-    private Collision collision;
     private int gameState = 1; //1 == mainMenu, 2 == mainGame, 3 == nextLevel, 4 == gameOver
     private float gWidth = 0;
     private float gHeight = 0;
@@ -182,15 +180,10 @@ public class PlayScreen implements Screen {
                 }
             }
         }
-
     }
 
     public void update(float dt){ // oppdaterer enheter
         handleInput(dt);
-
-        if(player1.isDead && player2.isDead){
-            gameState = 4;
-        }
 
         world.step(1/60f, 6, 2);
 
@@ -206,12 +199,18 @@ public class PlayScreen implements Screen {
 
         hud.update(dt);
 
+        fallsOff(dt);
+
         if(gameState == 2) {
             if(player1.isDead){
                 camera.position.x = player2.getX();
             } else{
                 camera.position.x = player1.getX();
             }
+        }
+
+        if(player1.isDead && player2.isDead){
+            gameState = 4;
         }
 
         camera.update(); // må oppdatere kamera hver gang det flytter på seg
@@ -294,6 +293,15 @@ public class PlayScreen implements Screen {
 
     public World getWorld(){
         return world;
+    }
+
+    public void fallsOff(float dt){
+        if (player1.getY() < -1){
+            player1.isDead = true;
+        }
+        if (player2.getY() < -1){
+            player2.isDead = true;
+        }
     }
 
     public TiledMap getMap(){
