@@ -48,9 +48,9 @@ public class GameOverScreen implements Screen {
         TextButton.TextButtonStyle gameoverStyle = new TextButton.TextButtonStyle();
         TextButton.TextButtonStyle retryStyle = new TextButton.TextButtonStyle();
 
-        gameoverStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("src/resources/gameover.png")));
-        retryStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("src/resources/retry.png")));
-        exitStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("src/resources/exit.png")));
+        gameoverStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("src/resources/button/gameover.png")));
+        retryStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("src/resources/button/retry.png")));
+        exitStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("src/resources/button/exit.png")));
 
         retryStyle.font = white;
         gameoverStyle.font = white;
@@ -58,7 +58,7 @@ public class GameOverScreen implements Screen {
         TextButton quitButton = new TextButton("", exitStyle);
         TextButton gameoverButton = new TextButton("", gameoverStyle);
         TextButton retryButton = new TextButton("", retryStyle);
-        backgroundImage = new Image(new Texture("src/resources/backgroundForMeny.png"));
+        backgroundImage = new Image(new Texture("src/resources/button/backgroundForMeny.png"));
 
         //set background
         backgroundTable.add(backgroundImage);

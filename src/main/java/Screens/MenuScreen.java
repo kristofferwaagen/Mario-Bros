@@ -49,9 +49,9 @@ public class MenuScreen implements Screen {
         TextButton.TextButtonStyle singleStyle = new TextButton.TextButtonStyle();
         TextButton.TextButtonStyle multiStyle = new TextButton.TextButtonStyle();
 
-        singleStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("src/resources/play.png")));
-        multiStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("src/resources/twoplayer.png")));
-        exitStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("src/resources/exit.png")));
+        singleStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("src/resources/button/play.png")));
+        multiStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("src/resources/button/twoplayer.png")));
+        exitStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("src/resources/button/exit.png")));
 
         multiStyle.font = white;
         singleStyle.font = white;
@@ -59,7 +59,7 @@ public class MenuScreen implements Screen {
         quitButton = new TextButton("", exitStyle);
         soloButton = new TextButton("", singleStyle);
         duosButton = new TextButton("", multiStyle);
-        backgroundImage = new Image(new Texture("src/resources/backgroundForMeny.png"));
+        backgroundImage = new Image(new Texture("src/resources/button/backgroundForMeny.png"));
 
         //set background
         backgroundTable.add(backgroundImage);
