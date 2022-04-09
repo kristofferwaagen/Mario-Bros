@@ -40,11 +40,9 @@ public class PlayScreen implements Screen {
 
     private Player player1, player2;
     private SpriteBatch batch;
-    private Rectangle playButtonRect, exitButtonRect, retryButtonRect;
-    private Sprite playButton, exitButton, retryButton, youDiedButton, player1Sprite, player2Sprite, enemy1Sprite;
-    private Texture playText, exitText, retryText, youDiedText;
+    private Sprite  player1Sprite, player2Sprite, enemy1Sprite;
 
-    private int gameState = 1; //1 == mainMenu, 2 == mainGame, 3 == nextLevel, 4 == gameOver
+    private int gameState = 2; //1 == mainMenu, 2 == mainGame, 3 == nextLevel, 4 == gameOver
 
     private World world;
     private Box2DDebugRenderer b2dr;
@@ -92,25 +90,6 @@ public class PlayScreen implements Screen {
         basicEnemy = new BasicEnemy(this, 1447 / Mario.PPM, 32 / Mario.PPM);
         advancedEnemy = new AdvancedEnemy(this, 1680 / Mario.PPM, 32 / Mario.PPM);
 
-        // lager nye knapper
-        playText = new Texture(Gdx.files.internal("src/resources/objects/PlayButton.png")); // henter playButton.png
-        playButton = new Sprite(playText, 0, 0, 96, 32);
-        playButton.setPosition(150, 100);
-        playButtonRect = new Rectangle(150 / Mario.PPM, 100 / Mario.PPM, 96 / Mario.PPM, 32 / Mario.PPM); // setter inn posisjonen til playButton sin Rectangle
-
-        exitText = new Texture(Gdx.files.internal("src/resources/objects/ExitButton.png"));
-        exitButton = new Sprite(exitText, 0, 0, 96, 32);
-        exitButton.setPosition(150, 60);
-        exitButtonRect = new Rectangle(150 / Mario.PPM, 60/Mario.PPM, 96 / Mario.PPM, 32 / Mario.PPM);
-
-        youDiedText = new Texture(Gdx.files.internal("src/resources/objects/YouDied.png"));
-        youDiedButton = new Sprite(youDiedText, 0, 0, 96, 32);
-        youDiedButton.setPosition(150, 140);
-
-        retryText = new Texture(Gdx.files.internal("src/resources/objects/RetryButton.png"));
-        retryButton = new Sprite(retryText, 0, 0, 96, 32);
-        retryButton.setPosition(150,100);
-        retryButtonRect = new Rectangle(150 / Mario.PPM, 100 / Mario.PPM, 96 / Mario.PPM, 32 / Mario.PPM);
 
         world.setContactListener(new WorldContact());
 
@@ -150,31 +129,7 @@ public class PlayScreen implements Screen {
             }
         }
 
-        if (Gdx.input.isTouched()) {
-            Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
-            camera.unproject(touchPos);
-            Rectangle touch = new Rectangle(touchPos.x, touchPos.y, 0, 0);
-            if (this.gameState == 1) {
-                if (touch.overlaps(playButtonRect))
-                gameState = 2;
-                if (touch.overlaps(exitButtonRect)) {
-                    Gdx.app.exit();
-                }
-            }
-            if (gameState == 4) {
-                if (touch.overlaps(retryButtonRect)) {
-                    /*
-                     * Merk at denne implementasjonen foreløpig fortsetter spiller og ikke starter det på nytt.
-                     * Dermed om begge spillere dør (b2body blir ødelagt), så blir gameState satt til 2 når man trykker på "retry" knappen
-                     * men spillet fortsetter ikke ettersom det ikke lengre er noen spillere på brettet.
-                     * */
-                    gameState = 2;
-                }
-                if (touch.overlaps(exitButtonRect)) {
-                    Gdx.app.exit();
-                }
-            }
-        }
+
 
     }
 
@@ -221,16 +176,15 @@ public class PlayScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // tømmer skjermen
         renderer.render();
 
-        batch.begin();
         switch(this.gameState) {
             case 1:
-                this.mainMenu(v); //hoved meny
+                this.mainMenu(); //hoved meny
                 break;
             case 2:
                 this.mainGame(v); // når spillet pågår
                 break;
             case 4:
-                this.gameOver(v);
+                this.gameOver();
             default:
                 break;
         }
@@ -239,13 +193,9 @@ public class PlayScreen implements Screen {
 //    	game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
     }
 
-    public void mainMenu(float v) {
+    public void mainMenu() {
 
-        playButton.draw(batch);
-        exitButton.draw(batch);
-        batch.end();
-
-        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+        game.setScreen(new MenuScreen(game));
     }
 
     public void mainGame(float v) {
@@ -257,7 +207,7 @@ public class PlayScreen implements Screen {
         renderer.render(); // kaller på at spillebrettet skal vises
 
         b2dr.render(world, camera.combined);
-
+        batch.begin();
         game.batch.setProjectionMatrix(camera.combined);
         player1.draw(game.batch);
         player2.draw(game.batch);
@@ -269,16 +219,8 @@ public class PlayScreen implements Screen {
 
     }
 
-    public void gameOver(float v) {
-        float moveValue = camera.position.x - 50 / Mario.PPM;
-        retryButtonRect.x = moveValue;
-        exitButtonRect.x = moveValue;
-
-        youDiedButton.draw(batch);
-        retryButton.draw(batch);
-        exitButton.draw(batch);
-        batch.end();
-        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+    public void gameOver() {
+        game.setScreen(new GameOverScreen(game));
     }
 
     public World getWorld(){
