@@ -1,6 +1,7 @@
 package game;
 
 import Sprites.Enemy;
+import Sprites.Goal;
 import Sprites.InteractiveObject;
 import Sprites.Player;
 import com.badlogic.gdx.physics.box2d.*;
@@ -49,6 +50,9 @@ public class WorldContact implements ContactListener {
             case Mario.enemyBit | Mario.enemyBit:
                 ((Enemy)a.getUserData()).flipSpeed(true, false);
                 ((Enemy)b.getUserData()).flipSpeed(true, false);
+                break;
+            case Mario.bit | Mario.goalBit:
+                ((Goal)a.getUserData()).onTouch();
             default:
                 break;
         }

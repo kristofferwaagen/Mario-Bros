@@ -2,19 +2,12 @@ package GameTest;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import Screens.PlayScreen;
 import Sprites.Player;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.EdgeShape;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 
-import game.Mario;
+
 import game.WorldContact;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +19,6 @@ import org.junit.jupiter.api.Test;
  */
 public class PlayerTest {
 	Player g;
-	private Body b2body;
 	public World world;
 	
 	@BeforeEach
@@ -79,7 +71,12 @@ public class PlayerTest {
 		}
 		assertTrue(g.getY() < oldY);
 	}
-	
+
+	@Test
+	void playerDies(){
+		g.hit();
+		assertTrue(g.isDead);
+	}
 
 // !! Disse må oppdateres !!
 //

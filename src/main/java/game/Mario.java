@@ -1,5 +1,6 @@
 package game;
 
+import Screens.MenuScreen;
 import Screens.PlayScreen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -16,13 +17,14 @@ public class Mario extends com.badlogic.gdx.Game {
     public static final short enemyBit = 16;
     public static final short objectBit = 32;
     public static final short enemyTop = 64;
+    public static final short goalBit = 128;
 
     public SpriteBatch batch; // container for forskjellige bilder
 
     @Override
     public void create() {
         batch = new SpriteBatch();
-        setScreen(new PlayScreen(this)); // funksjonalitet for å endre aktiv skjerm
+        setScreen(new MenuScreen(this)); // funksjonalitet for å endre aktiv skjerm
     }
 
     @Override
