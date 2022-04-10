@@ -17,6 +17,7 @@ public class Mario extends com.badlogic.gdx.Game {
     public static final short enemyBit = 16;
     public static final short objectBit = 32;
     public static final short enemyTop = 64;
+    public static final short goalBit = 128;
 
     public SpriteBatch batch; // container for forskjellige bilder
 

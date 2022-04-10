@@ -1,6 +1,7 @@
 package game;
 
 import Sprites.Coin;
+import Sprites.Goal;
 import Sprites.Object;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -40,6 +41,12 @@ public class WorldGenerator {
         for(MapObject o : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
             Rectangle r = ((RectangleMapObject) o).getRectangle();
             new Coin(world, map, r);
+        }
+
+        //Goal
+        for(MapObject o : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
+            Rectangle r = ((RectangleMapObject) o).getRectangle();
+            new Goal(world, map, r);
         }
     }
 }
