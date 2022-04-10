@@ -13,7 +13,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -21,11 +20,11 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.math.Rectangle;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import game.*;
 
-import com.badlogic.gdx.math.Vector3;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class PlayScreen implements Screen {
@@ -42,7 +41,7 @@ public class PlayScreen implements Screen {
     private SpriteBatch batch;
     private Sprite  player1Sprite, player2Sprite, enemy1Sprite;
 
-    private int gameState = 2; //1 == mainMenu, 2 == mainGame, 3 == nextLevel, 4 == gameOver
+    private static int gameState = 2; //1 == mainMenu, 2 == mainGame, 3 == nextLevel, 4 == gameOver
 
     private World world;
     private Box2DDebugRenderer b2dr;
@@ -93,6 +92,12 @@ public class PlayScreen implements Screen {
 
         world.setContactListener(new WorldContact());
 
+    }
+
+    public static void isFinished(boolean b){
+        if(b){
+            gameState = 4;
+        }
     }
 
     public Player getClosest(Enemy t){
@@ -194,7 +199,6 @@ public class PlayScreen implements Screen {
     }
 
     public void mainMenu() {
-
         game.setScreen(new MenuScreen(game));
     }
 
