@@ -67,10 +67,15 @@ spillere og fiender. Per nå er de bare definert som sirkler.
 
 ###Deloppgave 3
 ######Dette har vi fikset siden sist
-- vi har endret hvordan kollidering fungere
+- vi har endret hvordan kollidering fungerer
 - vi kan legge inn flere fiender
 - spiller og fiende kolliderer med hverandre
+- fiender interagerer riktig med terreng
+- spiller interagerer med terreng og objekter
 - spiller kan dø
+- spiller vinner spillet ved å berøre mål (per nå satt til GameOverScreen ved seier)
+- poeng blir oppdatert basert på mynter samlet og fiender drept
+- hud oppdaters med poeng og gjenværende tid
 
 
 ######Klassediagram
