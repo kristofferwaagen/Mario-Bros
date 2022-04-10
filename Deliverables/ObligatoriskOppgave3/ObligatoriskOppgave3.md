@@ -48,7 +48,8 @@ etter at de har dødd.
 Som beskrevet i ObligatoriskOppgave2.md ønsker vi å få implementert multiplayer mellom
 to spillere lokalt på en PC. Hittil så er man to spillere på brettet og dersom begge dør får man muligheten til 
 å starte på nytt igjen. Kameraet er låst på spiller 1 tradisjonen tro, helt til spiller 1 dør. Da bytter det over til 
-spiller 2. 
+spiller 2. Det samme gjelder andre vegen. Litt mer spesifikt om stretch goal så er planen å implementere KryoNet slik at man kan spille spillet med flere
+terminaler på samme pc. Planen er da at i terminal 1 følger kameraet spiller 1 og i terminal 2 følger kameraet spiller 2.
 
 #####MVP og arbeidsoppgaver
 Anders skal lage klassediagram for ObligatoriskOppgave3 og få skrevet
