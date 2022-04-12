@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.8" tiledversion="1.8.1" orientation="orthogonal" renderorder="right-down" width="240" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="7">
+ <tileset firstgid="1" source="tilesets/NES - Super Mario Bros - Tileset.tsx"/>
+ <layer id="1" name="background" width="240" height="13">
+  <data encoding="base64" compression="zlib">
+   eJztw7ENAAAMAiDT/z928YpukNBLqqqqqqqqqqqqqqqq+ngvgAwl
+  </data>
+ </layer>
+ <layer id="2" name="graphics" width="240" height="13">
+  <properties>
+   <property name="collide" value=""/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJzt11EKgkAUBdDRHVQ7ybZaQbWOCqq99QJFmI+wSDQ9By5+jIIf784wKQEAtLZlSrvIvhz6T4BPnaO3l8h14P7aR5iiQ8zzMXKa+FyPZR+BX7rFPN8jD3MNAGTcX6FV1Oli2fXFHrm/Mnff1HARH1WR1Qg6DHNWZM98LT+TX91d1/3d6DAM6l1/c82523S3cg5DLwoR+ds8AVhWEz8=
+  </data>
+ </layer>
+ <objectgroup id="3" name="ground" visible="0">
+  <object id="5" x="0.5" y="192.5" width="446.5" height="14.5"/>
+ </objectgroup>
+ <objectgroup id="4" name="pipes"/>
+ <objectgroup id="5" name="coins"/>
+ <objectgroup id="6" name="bricks"/>
+</map>

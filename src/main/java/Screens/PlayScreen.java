@@ -23,8 +23,6 @@ import com.badlogic.gdx.Input;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import game.*;
 
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class PlayScreen implements Screen {
@@ -41,7 +39,7 @@ public class PlayScreen implements Screen {
     private SpriteBatch batch;
     private Sprite  player1Sprite, player2Sprite, enemy1Sprite;
 
-    private static int gameState = 2; //1 == mainMenu, 2 == mainGame, 3 == nextLevel, 4 == gameOver
+    public static int gameState = 2; //1 == mainMenu, 2 == mainGame, 3 == nextLevel, 4 == gameOver
 
     private World world;
     private Box2DDebugRenderer b2dr;
@@ -49,21 +47,25 @@ public class PlayScreen implements Screen {
     private BasicEnemy basicEnemy;
     private AdvancedEnemy advancedEnemy;
 
-    public PlayScreen(Mario game){
+    public static Boolean singlePlayer;
+
+    public PlayScreen(Mario game, Boolean singlePlayer, int level){
+        this.singlePlayer = singlePlayer;
         this.game = game;
         batch = game.batch;
 
         // kamera
         camera = new OrthographicCamera(); // kamera som skal følge spiller gjennom spillebrettet
         gamePort = new FitViewport(Mario.visionWidth / Mario.PPM, Mario.visionHeight / Mario.PPM, camera); // skalerer responsivt med vinduets størrelse, henter resolution størrelse fra Mario.java
-        hud = new Hud(game.batch); // Hud som skal vise poeng/tid/info
+        hud = new Hud(game.batch, singlePlayer); // Hud som skal vise poeng/tid/info
 
         float gWidth = gamePort.getWorldWidth() / 2;
         float gHeight = gamePort.getWorldHeight() / 2;
 
         // kart
+
         TmxMapLoader mapLoader = new TmxMapLoader(); // laster inn spillebrettet
-        String mapLocation = "src/resources/levels/randomlvl.tmx";
+        String mapLocation = "src/resources/levels/"+Integer.toString(level)+".tmx";
         map = mapLoader.load(mapLocation); // henter ut hvilket spillebrett som skal brukes
         renderer = new OrthogonalTiledMapRenderer(map, 1 / Mario.PPM); // viser spillebrettet
 
@@ -78,28 +80,35 @@ public class PlayScreen implements Screen {
         b2dr = new Box2DDebugRenderer();
 
         new WorldGenerator(world, map);
-
         player1Sprite = createSprite("src/resources/objects/Steffen16Transp.png");
-        player1 = new Player(this); // spiller 1
-
-        player2Sprite = createSprite("src/resources/objects/Elias16Transp.png");
-        player2 = new Player(this); // spiller 2
+        player1 = new Player(this,"src/resources/objects/Steffen16Transp.png" );
+        if(!singlePlayer) {
+            player2Sprite = createSprite("src/resources/objects/Elias16Transp.png");
+            player2 = new Player(this,"src/resources/objects/Elias16Transp.png"); // spiller 2
+        }
 
         enemy1Sprite = createSprite("src/resources/objects/Mario_and_Enemies3.png");
         basicEnemy = new BasicEnemy(this, 1447 / Mario.PPM, 32 / Mario.PPM);
-        advancedEnemy = new AdvancedEnemy(this, 1680 / Mario.PPM, 32 / Mario.PPM);
-
+        advancedEnemy = new AdvancedEnemy(this, 1680 / Mario.PPM, 32 / Mario.PPM, singlePlayer);
 
         world.setContactListener(new WorldContact());
 
     }
 
+    /**
+     * true dersom man har kommet til mål og da setter man nytt level
+     * @param b
+     */
     public static void isFinished(boolean b){
         if(b){
-            gameState = 4;
+            gameState = 3;
         }
     }
 
+    /**
+     * henter nærmeste spiller til fienden for at den skal følge den.
+     *
+     */
     public Player getClosest(Enemy t){
         float pos = t.b2body.getPosition().x;
         if (Math.abs(player1.getX() - pos) > Math.abs(player2.getX() - pos)){
@@ -114,20 +123,42 @@ public class PlayScreen implements Screen {
         return new Sprite(texture, 0, 0, 16, 16);
     }
 
+    /**
+     * håndterer input fra klientene - sjekker om det er two eller single player
+     * @param dt
+     */
     public void handleInput(float dt) { // sjekker input
         if (this.gameState == 2) {
-            if(Gdx.input.isKeyJustPressed (Input.Keys.UP)) {
-                player1.b2body.applyLinearImpulse(new Vector2(0, 1.5f), player1.b2body.getWorldCenter(), true);
-            }if (Gdx.input.isKeyPressed (Input.Keys.RIGHT) && player1.b2body.getLinearVelocity().x <= 2) {
-                player1.b2body.applyLinearImpulse(new Vector2(0.03f, 0), player1.b2body.getWorldCenter(), true);
-            }if (Gdx.input.isKeyPressed (Input.Keys.LEFT) && player1.b2body.getLinearVelocity().x >= -2) {
-                player1.b2body.applyLinearImpulse(new Vector2(-0.03f, 0), player1.b2body.getWorldCenter(), true);
-            }if(Gdx.input.isKeyJustPressed (Input.Keys.W)) {
-                player2.b2body.applyLinearImpulse(new Vector2(0, 1.5f), player2.b2body.getWorldCenter(), true);
-            }if (Gdx.input.isKeyPressed (Input.Keys.D) && player2.b2body.getLinearVelocity().x <= 2) {
-                player2.b2body.applyLinearImpulse(new Vector2(0.03f, 0), player2.b2body.getWorldCenter(), true);
-            }if (Gdx.input.isKeyPressed (Input.Keys.A) && player2.b2body.getLinearVelocity().x >= -2) {
-                player2.b2body.applyLinearImpulse(new Vector2(-0.03f, 0), player2.b2body.getWorldCenter(), true);
+            if(!singlePlayer) {
+                if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+                    player1.b2body.applyLinearImpulse(new Vector2(0, 1.5f), player1.b2body.getWorldCenter(), true);
+                }
+                if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player1.b2body.getLinearVelocity().x <= 2) {
+                    player1.b2body.applyLinearImpulse(new Vector2(0.03f, 0), player1.b2body.getWorldCenter(), true);
+                }
+                if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player1.b2body.getLinearVelocity().x >= -2) {
+                    player1.b2body.applyLinearImpulse(new Vector2(-0.03f, 0), player1.b2body.getWorldCenter(), true);
+                }
+                if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
+                    player2.b2body.applyLinearImpulse(new Vector2(0, 1.5f), player2.b2body.getWorldCenter(), true);
+                }
+                if (Gdx.input.isKeyPressed(Input.Keys.D) && player2.b2body.getLinearVelocity().x <= 2) {
+                    player2.b2body.applyLinearImpulse(new Vector2(0.03f, 0), player2.b2body.getWorldCenter(), true);
+                }
+                if (Gdx.input.isKeyPressed(Input.Keys.A) && player2.b2body.getLinearVelocity().x >= -2) {
+                    player2.b2body.applyLinearImpulse(new Vector2(-0.03f, 0), player2.b2body.getWorldCenter(), true);
+                }
+            }
+            else{
+                if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+                    player1.b2body.applyLinearImpulse(new Vector2(0, 1.5f), player1.b2body.getWorldCenter(), true);
+                }
+                if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player1.b2body.getLinearVelocity().x <= 2) {
+                    player1.b2body.applyLinearImpulse(new Vector2(0.03f, 0), player1.b2body.getWorldCenter(), true);
+                }
+                if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player1.b2body.getLinearVelocity().x >= -2) {
+                    player1.b2body.applyLinearImpulse(new Vector2(-0.03f, 0), player1.b2body.getWorldCenter(), true);
+                }
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
                 gameState = 4;
@@ -138,6 +169,10 @@ public class PlayScreen implements Screen {
 
     }
 
+    /**
+     * Oppdatereringsmetode for twoplayer funksjon
+     * @param dt
+     */
     public void update(float dt){ // oppdaterer enheter
         handleInput(dt);
 
@@ -176,7 +211,11 @@ public class PlayScreen implements Screen {
     @SuppressFBWarnings("SF_SWITCH_NO_DEFAULT")
     @Override
     public void render(float v) {
-        update(v);
+        if(!singlePlayer)
+            update(v);
+        else
+            updateSingle(v);
+
         Gdx.gl.glClearColor(1, 1, 1, 1); // setter farge og alfa
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // tømmer skjermen
         renderer.render();
@@ -188,6 +227,13 @@ public class PlayScreen implements Screen {
             case 2:
                 this.mainGame(v); // når spillet pågår
                 break;
+            case 3:
+                if(Mario.levelCounter == 2){
+                    this.victoryScreen();
+                }
+                else
+                    this.newLevel();
+                break;
             case 4:
                 this.gameOver();
             default:
@@ -198,32 +244,99 @@ public class PlayScreen implements Screen {
 //    	game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
     }
 
+    private void victoryScreen() {
+        game.setScreen(new VictoryScreen(game));
+    }
+
+    /**
+     * setter ny skjerm til main menu
+     */
     public void mainMenu() {
+        gameState = 2;
         game.setScreen(new MenuScreen(game));
     }
 
+    /**
+     * metode som kjører mainGame endten singleplayer eller twoplayer
+     * @param v
+     */
     public void mainGame(float v) {
-        update(v); // kaller på update metoden
+        if(!singlePlayer) {
+            update(v); // kaller på update metoden
 
-        Gdx.gl.glClearColor(1, 1, 1, 1); // setter farge og alfa
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // tømmer skjermen
+            Gdx.gl.glClearColor(1, 1, 1, 1); // setter farge og alfa
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // tømmer skjermen
 
-        renderer.render(); // kaller på at spillebrettet skal vises
+            renderer.render(); // kaller på at spillebrettet skal vises
 
-        b2dr.render(world, camera.combined);
-        batch.begin();
-        game.batch.setProjectionMatrix(camera.combined);
-        player1.draw(game.batch);
-        player2.draw(game.batch);
+            b2dr.render(world, camera.combined);
+            batch.begin();
+            game.batch.setProjectionMatrix(camera.combined);
+            player1.draw(game.batch);
+            player2.draw(game.batch);
 
-        batch.end(); // avslutter batch
+            batch.end(); // avslutter batch
 
-        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
-        hud.stage.draw(); // viser Hud til spillet
+            game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+            hud.stage.draw(); // viser Hud til spillet
+        }
+        else {
+            updateSingle(v);
+            Gdx.gl.glClearColor(1, 1, 1, 1); // setter farge og alfa
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // tømmer skjermen
+            renderer.render();
+            b2dr.render(world, camera.combined);
+            batch.begin();
+            game.batch.setProjectionMatrix(camera.combined);
+            player1.draw(game.batch);
+            batch.end();
+            game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+            hud.stage.draw();
+
+        }
 
     }
 
+    /**
+     * update metode dersom man velger singleplayer
+     * @param v
+     */
+    private void updateSingle(float v) {
+
+        handleInput(v);
+
+        if(player1.isDead)
+            gameState = 4;
+
+        world.step(1/60f, 6, 2);
+
+        fallsOffSingle();
+
+        player1.update(v);
+        basicEnemy.update(v);
+        advancedEnemy.update(v);
+
+        if(basicEnemy.getX() < player1.getX() + 224 / Mario.PPM){
+            basicEnemy.b2body.setActive(true);
+            advancedEnemy.b2body.setActive(true);
+        }
+
+        hud.update(v);
+        camera.position.x = player1.getX();
+        camera.update();
+        renderer.setView(camera);
+    }
+    public void newLevel(){
+        Mario.levelCounter += 1;
+        PlayScreen nextScreen = new PlayScreen ( game, singlePlayer, Mario.levelCounter);
+        nextScreen.gameState = 2;
+        game.setScreen(nextScreen);
+    }
+    /**
+     * lager ny game over screen
+     */
     public void gameOver() {
+        gameState = 2;
         game.setScreen(new GameOverScreen(game));
     }
 
@@ -231,6 +344,17 @@ public class PlayScreen implements Screen {
         return world;
     }
 
+    /**
+     * sjekker om spiller i singleplayer har falt utfor banen
+     */
+    public void fallsOffSingle(){
+        if (player1.getY() < -1)
+            player1.isDead = true;
+    }
+
+    /**
+     * sjekker om spiller i multiplayer har falt utfor banen
+     */
     public void fallsOff(){
         if (player1.getY() < -1){
             player1.isDead = true;

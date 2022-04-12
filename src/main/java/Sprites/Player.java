@@ -14,9 +14,10 @@ public class Player extends Sprite {
     public World world;
     public Body b2body;
 
-    public Player(PlayScreen screen){
+    public Player(PlayScreen screen, String texture){
         this(screen.getWorld());
-        Texture t = new Texture("src/resources/objects/Steffen16Transp.png");
+        //Texture t = new Texture("src/resources/objects/Steffen16Transp.png");
+        Texture t = new Texture(texture);
         setRegion(t);
     }
     /**
@@ -57,7 +58,7 @@ public class Player extends Sprite {
         CircleShape shape = new CircleShape();
         shape.setRadius(5 / Mario.PPM);
         fdef.filter.categoryBits = Mario.bit;
-        fdef.filter.maskBits = Mario.groundBit | Mario.coinBit | Mario.enemyBit | Mario.objectBit | Mario.enemyTop | Mario.goalBit;
+        fdef.filter.maskBits = Mario.groundBit | Mario.coinBit | Mario.enemyBit | Mario.objectBit | Mario.enemyTop | Mario.goalBit | Mario.keyBit;
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);

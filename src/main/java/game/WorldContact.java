@@ -1,9 +1,6 @@
 package game;
 
-import Sprites.Enemy;
-import Sprites.Goal;
-import Sprites.InteractiveObject;
-import Sprites.Player;
+import Sprites.*;
 import com.badlogic.gdx.physics.box2d.*;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -53,6 +50,8 @@ public class WorldContact implements ContactListener {
                 break;
             case Mario.bit | Mario.goalBit:
                 ((Goal)a.getUserData()).onTouch();
+            case Mario.bit | Mario.keyBit:
+                ((Key) a.getUserData()).onTouch();
             default:
                 break;
         }

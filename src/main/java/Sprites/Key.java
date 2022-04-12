@@ -7,20 +7,18 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
 import game.Mario;
 
-public class Goal extends InteractiveObject{
-
-    public Goal(World world, TiledMap map, Rectangle r) {
+public class Key extends InteractiveObject{
+    public Key (World world, TiledMap map, Rectangle r) {
         super(world, map, r);
         fixture.setUserData(this);
-        categoryFilter(Mario.goalBit);
+        categoryFilter(Mario.keyBit);
     }
 
     @Override
     public void onTouch() {
-        Hud.scoreAdder(300);
-        if(Mario.hasKey)
-            PlayScreen.isFinished(true);
-
+        categoryFilter(Mario.removedBit);
+        getTileCell().setTile(null);
+        Mario.hasKey = true;
+        Hud.addKey(1);
     }
-
 }

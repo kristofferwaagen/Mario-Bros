@@ -15,20 +15,24 @@ import game.Mario;
 public class Hud implements Disposable {
     public Stage stage;
     private Viewport viewport; // når bakgrunnen flytter på seg vil man at hud skal vær lik, bruker da nytt kamera for hud
+    Boolean singlePlayer;
 
-    private static Integer score;
-    private Integer timer;
+    private static Integer score, scorep2, timer, collectedKey;
     private float counter;
 
     // enkel tekst for de forskjellige hud elementene
-    static Label scoreLabel;
-    Label timeLabel;
-    Label marioLabel;
+    static Label scoreLabel, timeLabel, scorep1Label, scorep2Label, keyLabel;
 
-    public Hud(SpriteBatch Batch){
+
+    public Hud(SpriteBatch Batch, Boolean singlePlayer){
+        this.singlePlayer = singlePlayer;
+
         timer = 300;
         counter = 0;
         score = 0;
+        scorep2 = 0;
+        collectedKey = 0;
+
 
         viewport = new FitViewport(Mario.visionWidth, Mario.visionHeight, new OrthographicCamera()); // nye kamera for hud
         stage = new Stage(viewport, Batch);
@@ -41,19 +45,43 @@ public class Hud implements Disposable {
         table.top();
         table.setFillParent(true);
 
-        scoreLabel = new Label(String.format("%04d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE)); // tekst for "score", har 6 nummer (%06)
+        scoreLabel = new Label(String.format("%04d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        scorep2Label = new Label(String.format("%04d", scorep2), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         timeLabel = new Label(String.format("%03d", timer), new Label.LabelStyle(new BitmapFont(), Color.WHITE)); // teskt for tid brukt
-        marioLabel = new Label("KURT MARIO", new Label.LabelStyle(new BitmapFont(), Color.WHITE)); // tekst for spiller
-
+        keyLabel = new Label(String.format("%01d", collectedKey), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         /*
         * expandX strekker kolonnen fra ende til ende i vinduet, om det blir brukt flere kolonner på samme rad blir de organisert på strekningen
         * bruker patTop() for å skape mellomrom
         * */
-        table.add(marioLabel).expandX().padTop(10);
-        table.add(timeLabel).expandX().padTop(10);
-        table.add(scoreLabel).expandX().padTop(10);
+        Label gameName = new Label("KURT MARIO", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        Label player1 = new Label("Score p1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        Label player2 = new Label("Score p2", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        Label timer = new Label("Timer", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        Label key = new Label("Key", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+
+        table.add(key);
+        table.add(timer).expandX();
+        table.add(player1);
+        if(!singlePlayer){
+            table.add(player2);
+        }
+        table.add(gameName).expandX();
+        table.row();
+        table.add(keyLabel);
+
+        table.add(timeLabel).expandX();
+        table.add(scorep1Label).expandX();
+        if(!singlePlayer) {
+            table.add(scorep2Label).expandX();
+        }
+
 
         stage.addActor(table); // legger til tabellen til stage
+    }
+
+    public static void addKey(int i) {
+        collectedKey = i;
+        keyLabel.setText(String.format("%01d", collectedKey));
     }
 
     public void update(float dt){

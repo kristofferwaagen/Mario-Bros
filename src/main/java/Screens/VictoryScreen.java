@@ -14,12 +14,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import game.Mario;
 
-public class GameOverScreen implements Screen {
-
+public class VictoryScreen implements Screen {
     Stage stage;
     Mario game;
 
-    public GameOverScreen(Mario game){
+    public VictoryScreen(Mario game){
         this.game = game;
         stage = new Stage();
     }
@@ -47,21 +46,17 @@ public class GameOverScreen implements Screen {
         BitmapFont white = new BitmapFont();
         TextButton.TextButtonStyle menuStyle = new TextButton.TextButtonStyle();
         TextButton.TextButtonStyle exitStyle = new TextButton.TextButtonStyle();
-        TextButton.TextButtonStyle gameoverStyle = new TextButton.TextButtonStyle();
-        TextButton.TextButtonStyle retryStyle = new TextButton.TextButtonStyle();
+        TextButton.TextButtonStyle victoryStyle = new TextButton.TextButtonStyle();
 
         menuStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("src/resources/button/mainmenu.png")));
-        gameoverStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("src/resources/button/gameover.png")));
-        retryStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("src/resources/button/retry.png")));
+        victoryStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("src/resources/button/victory.png")));
         exitStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("src/resources/button/exit.png")));
 
-        retryStyle.font = white;
-        gameoverStyle.font = white;
+        victoryStyle.font = white;
         exitStyle.font = white;
         menuStyle.font = white;
-        TextButton quitButton = new TextButton("", exitStyle);
-        TextButton gameoverButton = new TextButton("", gameoverStyle);
-        TextButton retryButton = new TextButton("", retryStyle);
+        TextButton exitButton = new TextButton("", exitStyle);
+        TextButton victoryButton = new TextButton("", victoryStyle);
         TextButton menuButton = new TextButton("", menuStyle);
         backgroundImage = new Image(new Texture("src/resources/button/backgroundForMeny.png"));
 
@@ -71,30 +66,20 @@ public class GameOverScreen implements Screen {
 
         //add buttons to table
         buttonTable.row().expandX().fillX();
-        buttonTable.add(gameoverButton).height(buttonH).width(buttonW).expandX().fillX();
-        buttonTable.row().expandX().fillX();
-        buttonTable.add(retryButton).height(buttonH).width(buttonW).expandX().fillX();
+        buttonTable.add(victoryButton).height(buttonH).width(buttonW).expandX().fillX();
         buttonTable.row().expandX().fillX();
         buttonTable.add(menuButton).height(buttonH).width(buttonW).expandX().fillX();
         buttonTable.row().expandX().fillX();
-        buttonTable.add(quitButton).height(buttonH).width(buttonW).expandX().fillX();
+        buttonTable.add(exitButton).height(buttonH).width(buttonW).expandX().fillX();
         buttonTable.row().expandX().fillX();
 
         stage.addActor(backgroundTable);
         stage.addActor(buttonTable);
 
-        quitButton.addListener(new ChangeListener() {
+        exitButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Gdx.app.exit();
-            }
-        });
-
-        retryButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new PlayScreen(game, true, Mario.levelCounter));
-                dispose();
             }
         });
 
