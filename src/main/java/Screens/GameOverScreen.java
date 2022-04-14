@@ -2,6 +2,7 @@ package Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -101,7 +102,7 @@ public class GameOverScreen implements Screen {
         menuButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Mario.levelCounter =1 ;
+                Mario.levelCounter =0 ;
                 game.setScreen(new MenuScreen(game));
             }
         });
@@ -140,6 +141,5 @@ public class GameOverScreen implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
-
     }
 }

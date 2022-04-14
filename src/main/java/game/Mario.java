@@ -1,5 +1,6 @@
 package game;
 
+import Scene.AudioMusic;
 import Screens.MenuScreen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -24,7 +25,7 @@ public class Mario extends com.badlogic.gdx.Game {
     public static final short extraLifeBit = 1024;
 
     public static boolean hasKey;
-
+    public static AudioMusic music;
     public SpriteBatch batch; // container for forskjellige bilder
 
     @Override
@@ -32,6 +33,7 @@ public class Mario extends com.badlogic.gdx.Game {
         levelCounter = 1;
         hasKey = false;
         batch = new SpriteBatch();
+        music = new AudioMusic();
         setScreen(new MenuScreen(this)); // funksjonalitet for å endre aktiv skjerm
     }
 

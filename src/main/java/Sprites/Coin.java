@@ -6,13 +6,18 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
 import game.Mario;
 
+import java.util.Random;
+
 public class Coin extends InteractiveObject{
-    int totalCoins = 5;
+    int totalCoins;
 
     public Coin(World world, TiledMap map, Rectangle r) {
         super(world, map, r);
         fixture.setUserData(this);
         categoryFilter(Mario.coinBit);
+
+        Random rand = new Random();
+        totalCoins = rand.nextInt(7)+1;
     }
 
     @Override

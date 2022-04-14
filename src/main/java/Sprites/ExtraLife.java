@@ -12,12 +12,13 @@ public class ExtraLife extends InteractiveObject{
         fixture.setUserData(this);
         categoryFilter(Mario.extraLifeBit);
     }
+
     @Override
     public void onTouch() {
-        Player.hp += 1;
         categoryFilter(Mario.removedBit);
         getTileCell().setTile(null);
         Hud.addLife(Player.hp);
-
+        Player.hp += 1;
     }
+
 }
