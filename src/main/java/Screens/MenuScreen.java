@@ -17,7 +17,6 @@ import game.Mario;
 public class MenuScreen implements Screen {
     Stage stage;
     Mario game;
-    PlayScreen screen;
 
     public MenuScreen(Mario game){
         this.game = game;
@@ -34,7 +33,7 @@ public class MenuScreen implements Screen {
         float buttonH = (float) (Gdx.graphics.getHeight() * 0.2);
 
         //buttons and background
-        TextButton twoPlayerButton, onePlayerButton, exitButton;
+        TextButton twoPlayerButton, onePlayerButton, exitButton, chooseLevelButton;
         Image backgroundImage;
 
         //create table for buttons and background
@@ -49,17 +48,22 @@ public class MenuScreen implements Screen {
         TextButton.TextButtonStyle exitStyle = new TextButton.TextButtonStyle();
         TextButton.TextButtonStyle singleStyle = new TextButton.TextButtonStyle();
         TextButton.TextButtonStyle multiStyle = new TextButton.TextButtonStyle();
+        TextButton.TextButtonStyle levelStyle = new TextButton.TextButtonStyle();
 
+        levelStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("src/resources/button/chooselevel.png")));
         singleStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("src/resources/button/play.png")));
         multiStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("src/resources/button/twoplayer.png")));
         exitStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("src/resources/button/exit.png")));
 
+        levelStyle.font = white;
         multiStyle.font = white;
         singleStyle.font = white;
         exitStyle.font = white;
+
         exitButton = new TextButton("", exitStyle);
         onePlayerButton = new TextButton("", singleStyle);
         twoPlayerButton = new TextButton("", multiStyle);
+        chooseLevelButton = new TextButton("", levelStyle);
         backgroundImage = new Image(new Texture("src/resources/button/backgroundForMeny.png"));
 
         //set background
@@ -67,13 +71,11 @@ public class MenuScreen implements Screen {
         backgroundTable.setFillParent(true);
 
         //add buttons to table
-        buttonTable.row().expandX().fillX();
         buttonTable.add(onePlayerButton).height(buttonH).width(buttonW).expandX().fillX();
-        buttonTable.row().expandX().fillX();
         buttonTable.add(twoPlayerButton).height(buttonH).width(buttonW).expandX().fillX();
         buttonTable.row().expandX().fillX();
+        buttonTable.add(chooseLevelButton).height(buttonH).width(buttonW).expandX().fillX();
         buttonTable.add(exitButton).height(buttonH).width(buttonW).expandX().fillX();
-        buttonTable.row().expandX().fillX();
 
         stage.addActor(backgroundTable);
         stage.addActor(buttonTable);
@@ -97,6 +99,14 @@ public class MenuScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 game.setScreen(new PlayScreen(game, false, Mario.levelCounter));
+                dispose();
+            }
+        });
+
+        chooseLevelButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.setScreen(new ChooseLevel(game));
                 dispose();
             }
         });

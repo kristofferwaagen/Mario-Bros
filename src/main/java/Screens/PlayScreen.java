@@ -238,9 +238,15 @@ public class PlayScreen implements Screen {
                 gameMusic.stop();
                 gameOverMusic.play();
                 this.gameOver();
+
             default:
                 break;
         }
+    }
+
+    private void chooselvl() {
+        gameState = 2;
+        new ChooseLevel(game);
     }
 
     /**
