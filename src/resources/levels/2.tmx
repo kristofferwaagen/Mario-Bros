@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.1" orientation="orthogonal" renderorder="right-down" width="240" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="56">
+<map version="1.8" tiledversion="1.8.1" orientation="orthogonal" renderorder="right-down" width="240" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="74">
  <tileset firstgid="1" source="complete_Tileset_16x16.tsx"/>
- <tileset firstgid="741" source="../complete_Tileset_16x16.tsx"/>
+ <tileset firstgid="741" source="complete_Tileset_16x16.tsx"/>
  <layer id="2" name="himmel" width="240" height="13">
   <data encoding="base64" compression="zlib">
    eJztw8EJAAAMA6HbH7Jzp+hPwVVTVVVVVVVVVVVVVVV9fB9Ktss=
@@ -52,7 +52,7 @@
   <object id="42" x="3808" y="160" width="16" height="16"/>
   <object id="55" x="0" y="0" width="16" height="176"/>
  </objectgroup>
- <objectgroup id="5" name="coins">
+ <objectgroup id="5" name="coin">
   <object id="44" x="3760" y="128" width="16" height="16"/>
   <object id="45" x="3248" y="160" width="16" height="16"/>
   <object id="46" x="3232" y="160" width="16" height="16"/>
@@ -62,21 +62,42 @@
   <object id="50" x="912" y="128" width="16" height="16"/>
   <object id="51" x="816" y="128" width="16" height="16"/>
   <object id="52" x="720" y="128" width="16" height="16"/>
+  <object id="60" x="16" y="96" width="16" height="16"/>
+ </objectgroup>
+ <objectgroup id="7" name="key">
+  <object id="54" x="1312" y="160" width="16" height="16"/>
  </objectgroup>
  <objectgroup id="6" name="goal">
   <object id="53" x="3808" y="64" width="16" height="96"/>
+ </objectgroup>
+ <layer id="1" name="bakgrund" width="240" height="13">
+  <data encoding="base64" compression="zlib">
+   eJzt1ksOgjAUhWFMdJUuwi2wCKNO8RnmohPXYnwkrsM7oKFiaQgVWuT/kjPgGuUGOJE0AtBXqe8FADRGf4H+MvX31fkWAJrg/xcIX7mn04o5gPCUezrT5vr78nFUBED3dpK95KDNbP31zbQvMDRby2eh9JeuAp9svVV89JeuAtXq9Fap29+r4bt1Z0N28b0A/lq5p+p47ZCN5Ca5Sx6SpyTJ57FjEu0c40mRhRwvJSvHufp94v4MKKb3LR+zkO6tfn3a2OvkkHP0Lcvnc8dk2jniFqJ+n/z+GfAtpHurX5829noDA4ArDQ==
+  </data>
+ </layer>
+ <objectgroup id="9" name="extralife">
+  <object id="61" x="80" y="48" width="16" height="16"/>
+ </objectgroup>
+ <objectgroup id="8" name="falls">
+  <object id="56" x="64" y="96" width="16" height="16"/>
+  <object id="57" x="80" y="96" width="16" height="16"/>
+  <object id="58" x="96" y="96" width="16" height="16"/>
+  <object id="62" x="656" y="176" width="16" height="16"/>
+  <object id="63" x="672" y="176" width="16" height="16"/>
+  <object id="64" x="688" y="176" width="16" height="16"/>
+  <object id="65" x="752" y="176" width="16" height="16"/>
+  <object id="66" x="768" y="176" width="16" height="16"/>
+  <object id="67" x="784" y="176" width="16" height="16"/>
+  <object id="68" x="848" y="176" width="16" height="16"/>
+  <object id="69" x="864" y="176" width="16" height="16"/>
+  <object id="70" x="880" y="176" width="16" height="16"/>
+  <object id="71" x="944" y="176" width="16" height="16"/>
+  <object id="72" x="960" y="176" width="16" height="16"/>
+  <object id="73" x="976" y="176" width="16" height="16"/>
  </objectgroup>
  <layer id="3" name="skyer" width="240" height="13">
   <data encoding="base64" compression="zlib">
    eJzt1cENgzAMQFE4sSrdoewAY3DqSNy6AAsQBL2ggmLixED+k3wBB1kkdooCgLXaxcu6CE+ti866CIG71Qt70jPzdtFEqmXGGY6rty4AyNC/vguZdSn6mFkMLEL7bbueexjWcprv2v0Wq39z2hNt/LvnOttve+u4f4F07nL/5u4reL6XCx2SvTh6rqHfhE9+yHtc1xD5+8wVfdy/+BmtC4CYb79p553NT7nmST5rHKnKFJUAAABrExV8J0k=
   </data>
  </layer>
- <layer id="1" name="bakgrund" width="240" height="13">
-  <data encoding="base64" compression="zlib">
-   eJzt1ksKwjAUheGCy3QRbqEb6EzUaX3iAqoT1yI+NuIdJBBjLIUYcmP/Dw6lt7QNbQ+0mVQACtXQX6BY9BcoF/0FykV/Af2O3v7UbOkvoJ/f35nZ0l9Al51kLzk4M839Da0XGJttzzEt/aWrwLu+3lo5+ktXge+G9NYa2t9r4NyhszG75F4A/prfX7u/jshGcpPcJQ/JU9KaeR2Z1rmHayFZSlaRc3t9Ev8NWKH/rRwzTe/WfT4p1nWKyLn61Jn5PDKdc486Qez1ye+/gdw0vVv3+aRY1ws4viWj
-  </data>
- </layer>
- <objectgroup id="7" name="key">
-  <object id="54" x="1312" y="160" width="16" height="16"/>
- </objectgroup>
 </map>

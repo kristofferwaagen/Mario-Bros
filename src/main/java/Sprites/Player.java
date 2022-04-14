@@ -1,5 +1,6 @@
 package Sprites;
 
+import Scene.Hud;
 import Screens.PlayScreen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -8,7 +9,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import game.Mario;
 
 public class Player extends Sprite {
-    private int hp;
+    public static int hp;
     public Boolean isDead;
     private Boolean removed;
     public World world;
@@ -16,7 +17,6 @@ public class Player extends Sprite {
 
     public Player(PlayScreen screen, String texture){
         this(screen.getWorld());
-        //Texture t = new Texture("src/resources/objects/Steffen16Transp.png");
         Texture t = new Texture(texture);
         setRegion(t);
     }
@@ -43,6 +43,7 @@ public class Player extends Sprite {
 
     public void hit(){
         hp--;
+        Hud.addLife(-1);
         if (hp < 1){
             isDead = true;
         }
@@ -58,7 +59,7 @@ public class Player extends Sprite {
         CircleShape shape = new CircleShape();
         shape.setRadius(5 / Mario.PPM);
         fdef.filter.categoryBits = Mario.bit;
-        fdef.filter.maskBits = Mario.groundBit | Mario.coinBit | Mario.enemyBit | Mario.objectBit | Mario.enemyTop | Mario.goalBit | Mario.keyBit;
+        fdef.filter.maskBits = Mario.groundBit | Mario.coinBit | Mario.enemyBit | Mario.objectBit | Mario.enemyTop | Mario.goalBit | Mario.keyBit | Mario.exprBlockBit | Mario.extraLifeBit;
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);

@@ -1,5 +1,7 @@
 package Scene;
 
+import Screens.PlayScreen;
+import Sprites.Player;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -15,23 +17,21 @@ import game.Mario;
 public class Hud implements Disposable {
     public Stage stage;
     private Viewport viewport; // når bakgrunnen flytter på seg vil man at hud skal vær lik, bruker da nytt kamera for hud
-    Boolean singlePlayer;
 
-    private static Integer score, scorep2, timer, collectedKey;
+    private static Integer score, timer, collectedKey, life;
     private float counter;
 
     // enkel tekst for de forskjellige hud elementene
-    static Label scoreLabel, timeLabel, scorep1Label, scorep2Label, keyLabel;
+    static Label scoreLabel, timeLabel, keyLabel, lifeLabel;
 
 
-    public Hud(SpriteBatch Batch, Boolean singlePlayer){
-        this.singlePlayer = singlePlayer;
+    public Hud(SpriteBatch Batch){
 
         timer = 300;
         counter = 0;
         score = 0;
-        scorep2 = 0;
         collectedKey = 0;
+        life = 1;
 
 
         viewport = new FitViewport(Mario.visionWidth, Mario.visionHeight, new OrthographicCamera()); // nye kamera for hud
@@ -44,46 +44,56 @@ public class Hud implements Disposable {
         Table table = new Table();
         table.top();
         table.setFillParent(true);
-
+        lifeLabel = new Label(String.format("%01d", life), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         scoreLabel = new Label(String.format("%04d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        scorep2Label = new Label(String.format("%04d", scorep2), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         timeLabel = new Label(String.format("%03d", timer), new Label.LabelStyle(new BitmapFont(), Color.WHITE)); // teskt for tid brukt
         keyLabel = new Label(String.format("%01d", collectedKey), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         /*
         * expandX strekker kolonnen fra ende til ende i vinduet, om det blir brukt flere kolonner på samme rad blir de organisert på strekningen
         * bruker patTop() for å skape mellomrom
         * */
+        Label lifes = new Label("Lifes", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         Label gameName = new Label("KURT MARIO", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         Label player1 = new Label("Score p1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        Label player2 = new Label("Score p2", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         Label timer = new Label("Timer", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         Label key = new Label("Key", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
-        table.add(key);
+        //top row
+        table.add(lifes).expandX();
+        table.add(key).expandX();
         table.add(timer).expandX();
-        table.add(player1);
-        if(!singlePlayer){
-            table.add(player2);
-        }
+        table.add(player1).expandX();
+
         table.add(gameName).expandX();
         table.row();
-        table.add(keyLabel);
 
+        //bottom row
+        table.add(lifeLabel).expandX();
+        table.add(keyLabel).expandX();
         table.add(timeLabel).expandX();
-        table.add(scorep1Label).expandX();
-        if(!singlePlayer) {
-            table.add(scorep2Label).expandX();
-        }
-
+        table.add(scoreLabel).expandX();
 
         stage.addActor(table); // legger til tabellen til stage
     }
 
+    /**
+     * oppdaterer antall liv i Hud
+     */
+    public static void addLife(int i){
+        lifeLabel.setText(String.format("%01d", Player.hp));
+    }
+
+    /**
+     * oppdaterer om vi har nøkkelen i Hud
+     */
     public static void addKey(int i) {
         collectedKey = i;
         keyLabel.setText(String.format("%01d", collectedKey));
     }
 
+    /**
+     * oppdaterer Hud og timeren
+     */
     public void update(float dt){
         counter += dt;
         if(counter >= 1){
@@ -93,6 +103,9 @@ public class Hud implements Disposable {
         }
     }
 
+    /**
+     * legger til score i Hud dersom spilleren får poeng
+     */
     public static void scoreAdder(int x){
         score += x;
         scoreLabel.setText(String.format("%06d", score));

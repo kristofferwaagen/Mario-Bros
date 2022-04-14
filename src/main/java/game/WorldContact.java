@@ -50,8 +50,16 @@ public class WorldContact implements ContactListener {
                 break;
             case Mario.bit | Mario.goalBit:
                 ((Goal)a.getUserData()).onTouch();
+                break;
             case Mario.bit | Mario.keyBit:
                 ((Key) a.getUserData()).onTouch();
+                break;
+            case Mario.bit | Mario.extraLifeBit:
+                ((ExtraLife) a.getUserData()).onTouch();
+                break;
+            case Mario.bit | Mario.exprBlockBit:
+                ((ExpiringBlocks) a.getUserData()).onTouch();
+                break;
             default:
                 break;
         }
