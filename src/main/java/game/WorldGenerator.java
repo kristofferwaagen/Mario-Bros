@@ -1,7 +1,6 @@
 package game;
 
-import Sprites.Coin;
-import Sprites.Goal;
+import Sprites.*;
 import Sprites.Object;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -32,10 +31,10 @@ public class WorldGenerator {
         }
 
         //Object
-        for(MapObject o : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
-            Rectangle r = ((RectangleMapObject) o).getRectangle();
-            new Object(world, map, r);
-        }
+        //for(MapObject o : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
+         //   Rectangle r = ((RectangleMapObject) o).getRectangle();
+         //   new Object(world, map, r);
+        //}
 
         //Coin
         for(MapObject o : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
@@ -47,6 +46,21 @@ public class WorldGenerator {
         for(MapObject o : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
             Rectangle r = ((RectangleMapObject) o).getRectangle();
             new Goal(world, map, r);
+        }
+        //Key
+        for(MapObject o : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
+            Rectangle r = ((RectangleMapObject) o).getRectangle();
+            new Key(world, map, r);
+        }
+        //expiring blocks
+        for(MapObject o : map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)){
+            Rectangle r = ((RectangleMapObject) o).getRectangle();
+            new ExpiringBlocks(world, map, r);
+        }
+        //extra life
+        for(MapObject o : map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)){
+            Rectangle r = ((RectangleMapObject) o).getRectangle();
+            new ExtraLife(world, map, r);
         }
     }
 }

@@ -33,7 +33,7 @@ public class MenuScreen implements Screen {
         float buttonH = (float) (Gdx.graphics.getHeight() * 0.2);
 
         //buttons and background
-        TextButton duosButton, soloButton, quitButton;
+        TextButton twoPlayerButton, onePlayerButton, exitButton, chooseLevelButton;
         Image backgroundImage;
 
         //create table for buttons and background
@@ -48,17 +48,22 @@ public class MenuScreen implements Screen {
         TextButton.TextButtonStyle exitStyle = new TextButton.TextButtonStyle();
         TextButton.TextButtonStyle singleStyle = new TextButton.TextButtonStyle();
         TextButton.TextButtonStyle multiStyle = new TextButton.TextButtonStyle();
+        TextButton.TextButtonStyle levelStyle = new TextButton.TextButtonStyle();
 
+        levelStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("src/resources/button/chooselevel.png")));
         singleStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("src/resources/button/play.png")));
         multiStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("src/resources/button/twoplayer.png")));
         exitStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("src/resources/button/exit.png")));
 
+        levelStyle.font = white;
         multiStyle.font = white;
         singleStyle.font = white;
         exitStyle.font = white;
-        quitButton = new TextButton("", exitStyle);
-        soloButton = new TextButton("", singleStyle);
-        duosButton = new TextButton("", multiStyle);
+
+        exitButton = new TextButton("", exitStyle);
+        onePlayerButton = new TextButton("", singleStyle);
+        twoPlayerButton = new TextButton("", multiStyle);
+        chooseLevelButton = new TextButton("", levelStyle);
         backgroundImage = new Image(new Texture("src/resources/button/backgroundForMeny.png"));
 
         //set background
@@ -66,36 +71,42 @@ public class MenuScreen implements Screen {
         backgroundTable.setFillParent(true);
 
         //add buttons to table
+        buttonTable.add(onePlayerButton).height(buttonH).width(buttonW).expandX().fillX();
+        buttonTable.add(twoPlayerButton).height(buttonH).width(buttonW).expandX().fillX();
         buttonTable.row().expandX().fillX();
-        buttonTable.add(soloButton).height(buttonH).width(buttonW).expandX().fillX();
-        buttonTable.row().expandX().fillX();
-        buttonTable.add(duosButton).height(buttonH).width(buttonW).expandX().fillX();
-        buttonTable.row().expandX().fillX();
-        buttonTable.add(quitButton).height(buttonH).width(buttonW).expandX().fillX();
-        buttonTable.row().expandX().fillX();
+        buttonTable.add(chooseLevelButton).height(buttonH).width(buttonW).expandX().fillX();
+        buttonTable.add(exitButton).height(buttonH).width(buttonW).expandX().fillX();
 
         stage.addActor(backgroundTable);
         stage.addActor(buttonTable);
 
-        quitButton.addListener(new ChangeListener() {
+        exitButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Gdx.app.exit();
             }
         });
 
-        soloButton.addListener(new ChangeListener() {
+        onePlayerButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new PlayScreen(game));
+                game.setScreen(new PlayScreen(game, true, Mario.levelCounter));
                 dispose();
             }
         });
 
-        duosButton.addListener(new ChangeListener() {
+        twoPlayerButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new PlayScreen(game));
+                game.setScreen(new PlayScreen(game, false, Mario.levelCounter));
+                dispose();
+            }
+        });
+
+        chooseLevelButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.setScreen(new ChooseLevel(game));
                 dispose();
             }
         });

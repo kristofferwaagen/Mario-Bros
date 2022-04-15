@@ -65,6 +65,7 @@ public class BasicEnemy extends Enemy{
     @Override
     public void contactTop() {
         toRemove = true;
+        PlayScreen.hit = true;
         Hud.scoreAdder(100);
     }
 }

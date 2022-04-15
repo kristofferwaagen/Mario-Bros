@@ -12,11 +12,13 @@ import game.Mario;
 public class AdvancedEnemy extends Enemy{
     private Boolean toRemove;
     private Boolean removed;
+    Boolean singlePlayer;
 
-    public AdvancedEnemy(PlayScreen screen, float x, float y) {
+    public AdvancedEnemy(PlayScreen screen, float x, float y, boolean singlePlayer) {
         super(screen, x, y);
         toRemove = false;
         removed = false;
+        this.singlePlayer = singlePlayer;
     }
 
     public void update(float dt){
@@ -25,10 +27,15 @@ public class AdvancedEnemy extends Enemy{
             removed = true;
         }
         else if (!removed) {
-            Player currentPlayer = screen.getClosest(this);
-            if(b2body.getPosition().x < currentPlayer.getX()){
-                flipSpeed(true, false);
-            }else {
+            if(!singlePlayer){
+                Player currentPlayer = screen.getClosest(this);
+                if(b2body.getPosition().x < currentPlayer.getX()){
+                    flipSpeed(true, false);
+                }else {
+                    b2body.setLinearVelocity(speed);
+                }
+            }
+            else{
                 b2body.setLinearVelocity(speed);
             }
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);

@@ -79,5 +79,5 @@ https://trello.com/invite/b/RknwjnfS/3604c83a56a6f5bdf2cc1b11ffdcaf95/kurt-mario
 - En stor takk til [bee-m](https://bee-m.itch.io) for [Simple Platformer Premium 8x8 and 16x16](https://bee-m.itch.io/simple-platformer-premium-8x8-and-16x16) tilesettet
 - [Brent Aureli](https://github.com/BrentAureli) for [tileset_gutter](https://github.com/BrentAureli/SuperMario/blob/master/android/assets/tileset_gutter.png)
 - [Johnny Nguyen](https://git.app.uib.no/J.Nguyen) for png filene Elias16Transp.png og Steffen16Transp.png
-
+- [Kevin MacLeod](https://www.chosic.com/download-audio/27248/) for bakgrunsmusikken.
 
