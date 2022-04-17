@@ -1,10 +1,7 @@
 package Screens;
 
 import Scene.Hud;
-import Sprites.AdvancedEnemy;
-import Sprites.BasicEnemy;
-import Sprites.Enemy;
-import Sprites.Player;
+import Sprites.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -51,12 +48,9 @@ public class PlayScreen implements Screen {
 
     public static Boolean singlePlayer;
 
-    public static boolean jumping, hit, gameover;
+    public static boolean jumping, hit, gameover, coin, key;
 
     public PlayScreen(Mario game, Boolean singlePlayer, int level){
-        jumping = false;
-        gameover = false;
-
         this.singlePlayer = singlePlayer;
         this.game = game;
         batch = game.batch;
@@ -84,7 +78,6 @@ public class PlayScreen implements Screen {
 
         world = new World(new Vector2(0, -5), true);
         b2dr = new Box2DDebugRenderer();
-
         new WorldGenerator(world, map);
 
         //create player / players
@@ -92,11 +85,9 @@ public class PlayScreen implements Screen {
         if(!singlePlayer) {
             player2 = new Player(this,"src/resources/objects/Elias16Transp.png"); // spiller 2
         }
-
         //create enemies
         basicEnemy = new BasicEnemy(this, 1447 / Mario.PPM, 32 / Mario.PPM);
         advancedEnemy = new AdvancedEnemy(this, 1680 / Mario.PPM, 32 / Mario.PPM, singlePlayer);
-
         world.setContactListener(new WorldContact());
     }
 
@@ -265,25 +256,20 @@ public class PlayScreen implements Screen {
     }
 
     /**
-     * metode som kjører mainGame endten singleplayer eller twoplayer
+     * metode som kjører mainGame enten singleplayer eller twoplayer
      */
     public void mainGame(float v) {
         if(!singlePlayer) {
             update(v); // kaller på update metoden
-
             Gdx.gl.glClearColor(1, 1, 1, 1); // setter farge og alfa
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // tømmer skjermen
-
             renderer.render(); // kaller på at spillebrettet skal vises
-
             b2dr.render(world, camera.combined);
             batch.begin();
             game.batch.setProjectionMatrix(camera.combined);
             player1.draw(game.batch);
             player2.draw(game.batch);
-
             batch.end(); // avslutter batch
-
             game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
             hud.stage.draw(); // viser Hud til spillet
         }
@@ -299,9 +285,7 @@ public class PlayScreen implements Screen {
             batch.end();
             game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
             hud.stage.draw();
-
         }
-
     }
 
     /**
@@ -318,6 +302,12 @@ public class PlayScreen implements Screen {
         if(hit){
             music.getHitSound();
         }
+        if(coin){
+            music.getCoinSound();
+        }
+        if(key){
+            music.getKeySound();
+        }
 
         if(player1.isDead)
             gameState = 4;
@@ -325,7 +315,6 @@ public class PlayScreen implements Screen {
         world.step(1/60f, 6, 2);
 
         fallsOffSingle();
-
         player1.update(v);
         basicEnemy.update(v);
         advancedEnemy.update(v);
@@ -414,5 +403,6 @@ public class PlayScreen implements Screen {
         world.dispose();
         b2dr.dispose();
         hud.dispose();
+        music.dispose();
     }
 }

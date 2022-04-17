@@ -16,6 +16,7 @@ public class Key extends InteractiveObject{
 
     @Override
     public void onTouch() {
+        PlayScreen.key = true;
         categoryFilter(Mario.removedBit);
         getTileCell().setTile(null);
         Mario.hasKey = true;

@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 
 public class Mario extends com.badlogic.gdx.Game {
-    public static int levelCounter;
+    public static int levelCounter = 1;
     public static final int visionWidth = 400; // bredde for spillet
     public static final int visionHeight= 208; // høyde for spillet
     public static final float PPM = 100;
