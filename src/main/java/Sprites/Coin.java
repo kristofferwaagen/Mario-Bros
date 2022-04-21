@@ -1,11 +1,11 @@
 package Sprites;
 
 import Scene.Hud;
-import Screens.PlayScreen;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
 import game.Mario;
+import static game.Mario.music;
 
 import java.util.Random;
 
@@ -24,7 +24,7 @@ public class Coin extends InteractiveObject{
 
     @Override
     public void onTouch() {
-        PlayScreen.coin = true;
+        music.getCoinSound();
 
         if(toRemove){
             categoryFilter(Mario.removedBit);

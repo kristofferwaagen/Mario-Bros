@@ -2,12 +2,15 @@ package Sprites;
 
 import Scene.Hud;
 import Screens.PlayScreen;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import game.Mario;
+
+import static game.Mario.music;
 
 public class BasicEnemy extends Enemy{
 
@@ -65,7 +68,11 @@ public class BasicEnemy extends Enemy{
     @Override
     public void contactTop() {
         toRemove = true;
-        PlayScreen.hit = true;
+        music.getHitSound();
         Hud.scoreAdder(100);
+    }
+    public void draw(Batch batch){
+        if(!removed)
+            super.draw(batch);
     }
 }

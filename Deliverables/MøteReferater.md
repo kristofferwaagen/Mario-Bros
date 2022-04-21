@@ -107,3 +107,27 @@ og x antall poeng for hvor mye tid som er igjen på klokken. Vi tenker også at 
 må man plukke opp en nøkkel og ta den med til mål. 
 Gjennom møtet har Samuel fått oppdatert et par av testene så det går riktig vei. Vi har også fjernet overflødige klasser
 som ikke lenger brukes etter box2d ble innført.
+
+###Referat fra møte 08.04.2022
+####Deltakere
+- Kristoffer
+- André
+- Anders
+- Samuel og Johnny kunne ikke møte på grunn av påskeferie, men vi fyller de inn på hva vi har snakket om.
+  
+####Oppsummering
+Fra forrige møte har Anders laget flere nivåer og skjermer avhengig av hvilken state befinner seg i.
+Man starter på en menyskjerm, hvor man kan velge mellom single- two-player, hvilket nivå man vil starte på
+og en victoryskjerm når man har fullført siste nivå. På slutten av hvert nivå blir man automatisk flyttet til neste.
+Når man dør vil man kunne restarte eller gå tilbake til menyen. Anders har også lagt inn lydeffekter til hopping, penger, nøkkel og
+når man treffer en fiende. I tillegg har han lagt til musikk for spillet og når man dør.
+Vi burde få til en måte å legge til pauseskjerm som ikke restarter spillet men lar spilleren fortsette der han slapp da det ble
+pauset. Kristoffer har sett mer på multiplayer, men vi har ikke fått satt av tid til å implementere det i spillet vårt.
+Derfor må vi vurdere andre "stretch goal" som vi kan prøve å få til - dette kan være en "boss", en database hvor highscore lagres, animasjoner til bevegelser og
+når man treffer f.eks. myntblokker og når spilleren beveger seg. 
+Med boss så kan vi gjøre det slik at når den dør, så spawner nøkkelen for å kunne fullføre nivået. Da må man drepe bossen for å komme seg videre.
+Anders skal videre legge inn musikk til victoryskjerm, når fiende treffer spiller, og lage en pause skjerm.
+André skal legge inn i README.md hvordan man kjører spillet uten IDE. Kristoffer skal jobbe med 
+hvordan fiender blir lagt inn i spillet.
+Vi må også fikse hopping, hvor vi ønsker at spilleren bare skal kunne hoppe en gang.
+I tillegg burde vi fikse hvor kameraet starter.

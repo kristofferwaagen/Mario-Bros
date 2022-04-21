@@ -30,7 +30,7 @@ public class WorldContact implements ContactListener {
                     ((Enemy)b.getUserData()).contactTop();
                 }
                 break;
-            case Mario.enemyBit | Mario.objectBit:
+            case Mario.enemyBit | Mario.groundBit:
                 if(a.getFilterData().categoryBits == Mario.enemyBit){
                     ((Enemy)a.getUserData()).flipSpeed(true, false);
                 }else{
@@ -54,11 +54,9 @@ public class WorldContact implements ContactListener {
             case Mario.bit | Mario.keyBit:
                 ((Key) a.getUserData()).onTouch();
                 break;
-            case Mario.bit | Mario.extraLifeBit:
-                ((ExtraLife) a.getUserData()).onTouch();
-                break;
+
             case Mario.bit | Mario.exprBlockBit:
-                ((ExpiringBlocks) a.getUserData()).onTouch();
+                //((ExpiringBlocks) a.getUserData()).onTouch();
                 break;
             default:
                 break;

@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import game.Mario;
+import static game.Mario.music;
+
 
 public class Player extends Sprite {
     public static int hp;
@@ -42,8 +44,10 @@ public class Player extends Sprite {
     }
 
     public void hit(){
-        hp--;
+        music.getHurtSound();
         Hud.addLife(-1);
+        hp--;
+
         if (hp < 1){
             isDead = true;
         }

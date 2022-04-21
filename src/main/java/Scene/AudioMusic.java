@@ -7,7 +7,7 @@ import com.badlogic.gdx.audio.Sound;
 
 public class AudioMusic {
     public static Music gameMusic, gameOverMusic;
-    Sound jumpSound, hitSound, coinSound, keySound;
+    Sound jumpSound, hitSound, coinSound, keySound, hurtSound, extralifeSound;
     public AudioMusic() {
         gameMusic = Gdx.audio.newMusic(Gdx.files.internal("src/resources/audio/backgroundMusic.ogg"));
         gameMusic.setLooping(true);
@@ -20,25 +20,30 @@ public class AudioMusic {
     public void getJumpSound(){
         jumpSound = Gdx.audio.newSound(Gdx.files.internal("src/resources/audio/jump.ogg"));
         jumpSound.play(0.1f);
-        PlayScreen.jumping = false;
     }
 
     public void getHitSound(){
         hitSound = Gdx.audio.newSound(Gdx.files.internal("src/resources/audio/hit.ogg"));
         hitSound.play(0.3f);
-        PlayScreen.hit = false;
     }
 
     public void getCoinSound() {
         coinSound = Gdx.audio.newSound(Gdx.files.internal("src/resources/audio/coin.ogg"));
         coinSound.play(0.05f);
-        PlayScreen.coin = false;
     }
 
     public void getKeySound(){
         keySound = Gdx.audio.newSound(Gdx.files.internal("src/resources/audio/key.ogg"));
         keySound.play(0.2f);
-        PlayScreen.key = false;
+    }
+
+    public void getHurtSound(){
+        hurtSound= Gdx.audio.newSound(Gdx.files.internal("src/resources/audio/hurt.ogg"));
+        hurtSound.play(0.3f);
+    }
+    public void getExtraLifeSound(){
+        extralifeSound = Gdx.audio.newSound(Gdx.files.internal("src/resources/audio/extralife.ogg"));
+        extralifeSound.play(0.2f);
     }
 
     public void dispose() {

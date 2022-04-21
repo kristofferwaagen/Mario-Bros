@@ -37,21 +37,15 @@ public class Hud implements Disposable {
         viewport = new FitViewport(Mario.visionWidth, Mario.visionHeight, new OrthographicCamera()); // nye kamera for hud
         stage = new Stage(viewport, Batch);
 
-        /*
-        * tabell blir brukt for å organisere hud
-        * stage kan ses på som en boks der man kan ha widgets, ved bruk av table kan teksten organiseres i boksen ved bruk av kolonner
-        * */
+
         Table table = new Table();
         table.top();
         table.setFillParent(true);
         lifeLabel = new Label(String.format("%01d", life), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         scoreLabel = new Label(String.format("%04d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        timeLabel = new Label(String.format("%03d", timer), new Label.LabelStyle(new BitmapFont(), Color.WHITE)); // teskt for tid brukt
+        timeLabel = new Label(String.format("%03d", timer), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         keyLabel = new Label(String.format("%01d", collectedKey), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        /*
-        * expandX strekker kolonnen fra ende til ende i vinduet, om det blir brukt flere kolonner på samme rad blir de organisert på strekningen
-        * bruker patTop() for å skape mellomrom
-        * */
+
         Label lifes = new Label("Lifes", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         Label gameName = new Label("KURT MARIO", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         Label player1 = new Label("Score p1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
@@ -80,7 +74,8 @@ public class Hud implements Disposable {
      * oppdaterer antall liv i Hud
      */
     public static void addLife(int i){
-        lifeLabel.setText(String.format("%01d", Player.hp));
+
+        lifeLabel.setText(String.format("%01d", Player.hp+i));
     }
 
     /**
