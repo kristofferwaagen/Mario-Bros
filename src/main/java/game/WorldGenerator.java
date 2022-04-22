@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.Array;
 import Screens.PlayScreen;
 public class WorldGenerator {
     private Array<BasicEnemy> basicEnemies;
+    private Array<AdvancedEnemy> advancedEnemies;
 
     public WorldGenerator(PlayScreen screen){
         World world = screen.getWorld();
@@ -57,16 +58,28 @@ public class WorldGenerator {
             Rectangle r = ((RectangleMapObject) o).getRectangle();
             new ExtraLife(world, map, r);
         }
-        //enemies
+        //basic enemies
         basicEnemies = new Array<>();
         for(MapObject o : map.getLayers().get(8).getObjects().getByType(RectangleMapObject.class)){
             Rectangle r = ((RectangleMapObject) o).getRectangle();
             basicEnemies.add(new BasicEnemy(screen, r.getX()/Mario.PPM, r.getY()/Mario.PPM));
+        }
+        //advanced enemies
+        advancedEnemies = new Array<>();
+        for(MapObject o : map.getLayers().get(9).getObjects().getByType(RectangleMapObject.class)){
+            Rectangle r = ((RectangleMapObject) o).getRectangle();
+            advancedEnemies.add(new AdvancedEnemy(screen, r.getX()/Mario.PPM, r.getY()/Mario.PPM, PlayScreen.singlePlayer));
         }
     }
     public Array<BasicEnemy> getEnemies(){
         Array<BasicEnemy> e =new Array<>();
         e.addAll(basicEnemies);
         return e;
+    }
+
+    public Array<AdvancedEnemy> getAdvancedEnemies() {
+        Array<AdvancedEnemy> a = new Array<>();
+        a.addAll(advancedEnemies);
+        return a;
     }
 }

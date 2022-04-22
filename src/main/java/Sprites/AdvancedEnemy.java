@@ -14,6 +14,7 @@ public class AdvancedEnemy extends Enemy{
     private Boolean removed;
     Boolean singlePlayer;
 
+
     public AdvancedEnemy(PlayScreen screen, float x, float y, boolean singlePlayer) {
         super(screen, x, y);
         toRemove = false;

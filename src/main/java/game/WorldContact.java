@@ -1,5 +1,6 @@
 package game;
 
+import Screens.PlayScreen;
 import Sprites.*;
 import com.badlogic.gdx.physics.box2d.*;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -23,6 +24,11 @@ public class WorldContact implements ContactListener {
         }
 
         switch (contactDef){
+            case Mario.groundBit | Mario.bit:
+                if(a.getFilterData().categoryBits == Mario.groundBit){
+                    PlayScreen.canJump = true;
+                }
+                break;
             case Mario.enemyTop | Mario.bit:
                 if(a.getFilterData().categoryBits == Mario.enemyTop){
                     ((Enemy)a.getUserData()).contactTop();

@@ -34,20 +34,21 @@ public class PlayScreen implements Screen {
     private final Hud hud;
     private final TiledMap map; // referanse til selve spillebrettet
     private final OrthogonalTiledMapRenderer renderer; // funksjonalitet som viser spillebrettet
-
+    private final TmxMapLoader mapLoader;
+    private final String mapLocation;
     public static Player player1, player2;
     private final SpriteBatch batch;
-
+    private final float gWidth;
+    private final float gHeight;
+    private float pos;
     public static int gameState = 2; //1 == mainMenu, 2 == mainGame, 3 == nextLevel, 4 == gameOver
 
     private final World world;
     private final Box2DDebugRenderer b2dr;
 
-    private final BasicEnemy basicEnemy;
-    private final AdvancedEnemy advancedEnemy;
-
-    public static Boolean singlePlayer;
+    public static Boolean singlePlayer, canJump;
     WorldGenerator worldG;
+
 
 
     public PlayScreen(Mario game, Boolean singlePlayer, int level){
@@ -59,12 +60,12 @@ public class PlayScreen implements Screen {
         gamePort = new FitViewport(Mario.visionWidth / Mario.PPM, Mario.visionHeight / Mario.PPM, camera); // skalerer responsivt med vinduets størrelse, henter resolution størrelse fra Mario.java
         hud = new Hud(game.batch); // Hud som skal vise poeng/tid/info
 
-        float gWidth = gamePort.getWorldWidth() / 2;
-        float gHeight = gamePort.getWorldHeight() / 2;
+        gWidth = gamePort.getWorldWidth() / 2;
+        gHeight = gamePort.getWorldHeight() / 2;
 
         // kart
-        TmxMapLoader mapLoader = new TmxMapLoader(); // laster inn spillebrettet
-        String mapLocation = "src/resources/levels/"+Integer.toString(level)+".tmx";
+        mapLoader = new TmxMapLoader(); // laster inn spillebrettet
+        mapLocation = "src/resources/levels/"+Integer.toString(level)+".tmx";
         map = mapLoader.load(mapLocation); // henter ut hvilket spillebrett som skal brukes
         renderer = new OrthogonalTiledMapRenderer(map, 1 / Mario.PPM); // viser spillebrettet
 
@@ -74,7 +75,6 @@ public class PlayScreen implements Screen {
          * bruker da halvparten av bredde og høyde for å "sentrere" spillebrettet på x- og y-aksen
          * */
         camera.position.set(gWidth, gHeight, 0);
-
         world = new World(new Vector2(0, -5), true);
         b2dr = new Box2DDebugRenderer();
         worldG = new WorldGenerator(this);
@@ -84,9 +84,6 @@ public class PlayScreen implements Screen {
         if(!singlePlayer) {
             player2 = new Player(this,"src/resources/objects/Elias16Transp.png"); // spiller 2
         }
-        //create enemies
-        basicEnemy = new BasicEnemy(this, 1447 / Mario.PPM, 32 / Mario.PPM);
-        advancedEnemy = new AdvancedEnemy(this, 1680 / Mario.PPM, 32 / Mario.PPM, singlePlayer);
         world.setContactListener(new WorldContact());
     }
 
@@ -103,7 +100,7 @@ public class PlayScreen implements Screen {
      *
      */
     public Player getClosest(Enemy t){
-        float pos = t.b2body.getPosition().x;
+        pos = t.b2body.getPosition().x;
         if (Math.abs(player1.getX() - pos) > Math.abs(player2.getX() - pos)){
             return player2;
         } else {
@@ -132,6 +129,7 @@ public class PlayScreen implements Screen {
             if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
                 player1.b2body.applyLinearImpulse(new Vector2(0, 1.3f), player1.b2body.getWorldCenter(), true);
                 music.getJumpSound();
+                canJump = false;
 
             }
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player1.b2body.getLinearVelocity().x <= 2) {
@@ -157,12 +155,10 @@ public class PlayScreen implements Screen {
      */
     public void update(float dt){ // oppdaterer enheter
         handleInput();
-
         if(player1.isDead && player2.isDead){
             gameState = 4;
         }
         world.step(1/60f, 6, 2);
-
         fallsOff();
 
         player1.update(dt);
@@ -173,14 +169,13 @@ public class PlayScreen implements Screen {
                 e.b2body.setActive(true);
             }
         }
-        basicEnemy.update(dt);
-        advancedEnemy.update(dt);
-        if(basicEnemy.getX() < player1.getX() + 224 / Mario.PPM){
-            basicEnemy.b2body.setActive(true);
-            advancedEnemy.b2body.setActive(true);
+        for(AdvancedEnemy a : worldG.getAdvancedEnemies()){
+            a.update(dt);
+            if(a.getX() < player1.getX()+224/Mario.PPM){
+                a.b2body.setActive(true);
+            }
         }
         hud.update(dt);
-
         //flytter kamera til spiller 2 dersom spiller 1 dør
         if(gameState == 2) {
             if(player1.isDead){
@@ -189,7 +184,6 @@ public class PlayScreen implements Screen {
                 camera.position.x = player1.getX();
             }
         }
-
         camera.update();
         renderer.setView(camera);
     }
@@ -197,14 +191,11 @@ public class PlayScreen implements Screen {
     @SuppressFBWarnings("SF_SWITCH_NO_DEFAULT")
     @Override
     public void render(float v) {
-
         if (!singlePlayer)
             update(v);
         else
             updateSingle(v);
-
         renderer.render();
-
         switch (gameState) {
             case 1:
                 if (gameOverMusic != null)
@@ -218,7 +209,7 @@ public class PlayScreen implements Screen {
                     this.mainGame(v);
                     break;
                 case 3:
-                    if (Mario.levelCounter == 4) {
+                    if (Mario.levelCounter == 5) {
                         this.victoryScreen();
                     } else
                         this.newLevel();
@@ -231,8 +222,6 @@ public class PlayScreen implements Screen {
                 default:
                     break;
             }
-
-
     }
 
 
@@ -291,9 +280,7 @@ public class PlayScreen implements Screen {
         handleInput();
         if(player1.isDead)
             gameState = 4;
-
         world.step(1/60f, 6, 2);
-
         fallsOffSingle();
         player1.update(v);
         for(BasicEnemy e : worldG.getEnemies()){
@@ -302,12 +289,11 @@ public class PlayScreen implements Screen {
                 e.b2body.setActive(true);
             }
         }
-        basicEnemy.update(v);
-        advancedEnemy.update(v);
-
-        if(basicEnemy.getX() < player1.getX() + 224 / Mario.PPM){
-            basicEnemy.b2body.setActive(true);
-            advancedEnemy.b2body.setActive(true);
+        for(AdvancedEnemy a : worldG.getAdvancedEnemies()){
+            a.update(v);
+            if(a.getX() < player1.getX()+224/Mario.PPM){
+                a.b2body.setActive(true);
+            }
         }
         hud.update(v);
         camera.position.x = player1.getX();
