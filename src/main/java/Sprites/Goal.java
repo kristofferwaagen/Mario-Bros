@@ -20,7 +20,6 @@ public class Goal extends InteractiveObject{
         Hud.scoreAdder(300);
         if(Mario.hasKey)
             PlayScreen.isFinished(true);
-
     }
 
 }

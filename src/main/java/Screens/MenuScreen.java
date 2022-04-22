@@ -14,9 +14,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import game.Mario;
 
+import javax.swing.*;
+
 public class MenuScreen implements Screen {
     Stage stage;
     Mario game;
+    JSlider volumeControl;
 
     public MenuScreen(Mario game){
         this.game = game;
@@ -90,7 +93,7 @@ public class MenuScreen implements Screen {
         onePlayerButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new PlayScreen(game, true, Mario.levelCounter));
+                game.setScreen(new PlayScreen(game, true, 1));
                 dispose();
             }
         });
@@ -98,7 +101,7 @@ public class MenuScreen implements Screen {
         twoPlayerButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new PlayScreen(game, false, Mario.levelCounter));
+                game.setScreen(new PlayScreen(game, false, 1));
                 dispose();
             }
         });

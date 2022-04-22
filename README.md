@@ -80,4 +80,6 @@ https://trello.com/invite/b/RknwjnfS/3604c83a56a6f5bdf2cc1b11ffdcaf95/kurt-mario
 - [Brent Aureli](https://github.com/BrentAureli) for [tileset_gutter](https://github.com/BrentAureli/SuperMario/blob/master/android/assets/tileset_gutter.png)
 - [Johnny Nguyen](https://git.app.uib.no/J.Nguyen) for png filene Elias16Transp.png og Steffen16Transp.png
 - [Kevin MacLeod](https://www.chosic.com/download-audio/27248/) for bakgrunsmusikken.
+- [ALEXANDER](https://orangefreesounds.com/mario-coin-sound/) for coin lyd og key lyd.
+- [Moonlightbunny](https://www.myinstants.com/profile/moonlightbnny/) for lyd når man plukker opp liv.
 
