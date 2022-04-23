@@ -16,6 +16,7 @@ public class Player extends Sprite {
     public static int hp;
     public Boolean isDead;
     private Boolean removed;
+    private Boolean forTestingOnly = true; // Hvis true, kaller musikk, HUD og andre klasser som ikke instansieres i tester.
     public World world;
     public Body b2body;
 
@@ -23,6 +24,7 @@ public class Player extends Sprite {
         this(screen.getWorld());
         Texture t = new Texture(texture);
         setRegion(t);
+        forTestingOnly = false;
     }
     /**
      * Konstruktør som ikke er avhengig av textures og sprites, brukes for testing
@@ -46,8 +48,10 @@ public class Player extends Sprite {
     }
 
     public void hit(){
-        music.getHurtSound();
-        Hud.addLife(-1);
+    	if(!forTestingOnly) {
+    		music.getHurtSound();
+    		Hud.addLife(-1);
+    	}
         hp--;
 
         if (hp < 1){

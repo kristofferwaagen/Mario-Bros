@@ -91,6 +91,7 @@ public class PlayerTest {
 //		}
 //		assertTrue(g.hitbox.getY() == 10);
 //	}
+	
 //	@Test
 //	void crashesIntoWalls() {
 //		g.setPosition(10, 70);
