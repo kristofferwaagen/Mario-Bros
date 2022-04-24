@@ -7,12 +7,15 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
+
 import game.Mario;
 
 public class AdvancedEnemy extends Enemy{
     private Boolean toRemove;
-    private Boolean removed;
+    public Boolean removed;
     Boolean singlePlayer;
+    Boolean testing = false;
 
 
     public AdvancedEnemy(PlayScreen screen, float x, float y, boolean singlePlayer) {
@@ -20,6 +23,16 @@ public class AdvancedEnemy extends Enemy{
         toRemove = false;
         removed = false;
         this.singlePlayer = singlePlayer;
+    }
+    /**
+     * Konstruktør for testing, bruker ikke PlayScreen, HUD, musikk osv.
+     */
+    public AdvancedEnemy(World world, float x, float y) {
+    	super(world, x, y);
+    	toRemove = false;
+    	removed = false;
+    	this.singlePlayer = true;
+    	testing = true;
     }
 
     public void update(float dt){
@@ -77,6 +90,7 @@ public class AdvancedEnemy extends Enemy{
     @Override
     public void contactTop() {
         toRemove = true;
-        Hud.scoreAdder(100);
+        if(!testing)
+        	Hud.scoreAdder(100);
     }
 }

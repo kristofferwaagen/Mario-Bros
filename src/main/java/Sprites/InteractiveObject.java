@@ -16,9 +16,15 @@ public abstract class InteractiveObject {
 
     protected Fixture fixture;
 
-    public InteractiveObject(World world, TiledMap map, Rectangle r){
-        this.world = world;
+    public InteractiveObject(World world, TiledMap map, Rectangle r) {
+    	this(world, r);
         this.map = map;
+    }
+    /**
+     * Konstruktør for testing, uten world og map
+     */
+    public InteractiveObject(World world, Rectangle r){
+    	this.world = world;
         this.r = r;
 
         BodyDef bdef = new BodyDef();

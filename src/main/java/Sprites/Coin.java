@@ -11,7 +11,7 @@ import java.util.Random;
 
 public class Coin extends InteractiveObject{
     int totalCoins;
-    public static boolean toRemove, removed;
+    public static boolean toRemove, removed, forTesting;
 
     public Coin(World world, TiledMap map, Rectangle r) {
         super(world, map, r);
@@ -20,15 +20,28 @@ public class Coin extends InteractiveObject{
         Random rand = new Random();
         totalCoins = rand.nextInt(7) + 3;
     }
+    /**
+     * Konstruktør for testing, uten TiledMap
+     */
+    public Coin(World world, Rectangle r) {
+    	super(world, r);
+    	fixture.setUserData(this);
+        categoryFilter(Mario.coinBit);
+        Random rand = new Random();
+        totalCoins = rand.nextInt(7) + 3;
+        forTesting = true;
+    }
 
 
     @Override
     public void onTouch() {
-        music.getCoinSound();
+    	if(!forTesting)
+    		music.getCoinSound();
 
         if(toRemove){
             categoryFilter(Mario.removedBit);
-            getTileCell().setTile(null);
+            if(!forTesting)
+            	getTileCell().setTile(null);
             toRemove = false;
             removed = true;
         }
@@ -39,7 +52,11 @@ public class Coin extends InteractiveObject{
             } else {
                 totalCoins--;
             }
-            Hud.scoreAdder(100);
+            if(!forTesting)
+            	Hud.scoreAdder(100);
         }
+    }
+    public int getTotalCoins() {
+    	return totalCoins;
     }
 }
