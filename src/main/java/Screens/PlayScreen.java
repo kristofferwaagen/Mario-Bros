@@ -46,7 +46,7 @@ public class PlayScreen implements Screen {
     private final World world;
     private final Box2DDebugRenderer b2dr;
 
-    public static Boolean singlePlayer, canJump;
+    public static Boolean singlePlayer;
     WorldGenerator worldG;
 
 
@@ -114,8 +114,9 @@ public class PlayScreen implements Screen {
     public void handleInput() { // sjekker input
         if (gameState == 2) {
             if(!singlePlayer) {
-                if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
-                    player2.b2body.applyLinearImpulse(new Vector2(0, 1.3f), player2.b2body.getWorldCenter(), true);
+                if (Gdx.input.isKeyJustPressed(Input.Keys.W) && player2.jumped()) {
+                    //player2.b2body.applyLinearImpulse(new Vector2(0, 2f), player2.b2body.getWorldCenter(), true);
+                    player2.b2body.setLinearVelocity(player2.b2body.getLinearVelocity().x, 2f);
                     music.getJumpSound();
 
                 }
@@ -126,10 +127,10 @@ public class PlayScreen implements Screen {
                     player2.b2body.applyLinearImpulse(new Vector2(-0.025f, 0), player2.b2body.getWorldCenter(), true);
                 }
             }
-            if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-                player1.b2body.applyLinearImpulse(new Vector2(0, 1.3f), player1.b2body.getWorldCenter(), true);
+            if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && player1.jumped()) {
+                //player1.b2body.applyLinearImpulse(new Vector2(0, 2f), player1.b2body.getWorldCenter(), true);
+                player1.b2body.setLinearVelocity(player1.b2body.getLinearVelocity().x, 2f);
                 music.getJumpSound();
-                canJump = false;
 
             }
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player1.b2body.getLinearVelocity().x <= 2) {

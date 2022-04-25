@@ -6,13 +6,15 @@ import com.badlogic.gdx.physics.box2d.*;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class WorldContact implements ContactListener {
-    @SuppressFBWarnings("SF_SWITCH_NO_DEFAULT")
-    @Override
-    public void beginContact(Contact contact) {
-        Fixture a = contact.getFixtureA();
-        Fixture b = contact.getFixtureB();
+	Fixture a;
+	Fixture b;
+	int contactDef;
+	
+	private void definitions(Contact contact) {
+    	a = contact.getFixtureA();
+        b = contact.getFixtureB();
 
-        int contactDef = a.getFilterData().categoryBits | b.getFilterData().categoryBits;
+        contactDef = a.getFilterData().categoryBits | b.getFilterData().categoryBits;
 
         if(a.getUserData() == "top" || b.getUserData() == "top"){
             Fixture top = a.getUserData() == "top" ? a : b;
@@ -22,11 +24,16 @@ public class WorldContact implements ContactListener {
                 ((InteractiveObject) object.getUserData()).onTouch();
             }
         }
-
+	}
+    @SuppressFBWarnings("SF_SWITCH_NO_DEFAULT")
+    @Override
+    public void beginContact(Contact contact) {
+    	definitions(contact);
         switch (contactDef){
             case Mario.groundBit | Mario.bit:
-                if(a.getFilterData().categoryBits == Mario.groundBit){
-                    PlayScreen.canJump = true;
+                if(a.getFilterData().categoryBits == Mario.groundBit && b.getFilterData().categoryBits == Mario.bit){
+                    ((Player)b.getUserData()).canJump = true;
+                    ((Player)b.getUserData()).canDoubleJump = false;
                 }
                 break;
             case Mario.enemyTop | Mario.bit:
@@ -71,7 +78,17 @@ public class WorldContact implements ContactListener {
 
     @Override
     public void endContact(Contact contact) {
-
+    	definitions(contact);
+        switch (contactDef){
+        case Mario.groundBit | Mario.bit:
+            if(a.getFilterData().categoryBits == Mario.groundBit && b.getFilterData().categoryBits == Mario.bit){
+                ((Player)b.getUserData()).canJump = false;
+                ((Player)b.getUserData()).canDoubleJump = true;
+            }
+            break;
+        default:
+        	break;
+        }
     }
 
     @Override
