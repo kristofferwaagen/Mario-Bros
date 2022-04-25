@@ -210,6 +210,7 @@ public class PlayScreen implements Screen {
                     break;
                 case 3:
                     if (Mario.levelCounter == 5) {
+                        music.getWinnerSound();
                         this.victoryScreen();
                     } else
                         this.newLevel();
@@ -254,6 +255,12 @@ public class PlayScreen implements Screen {
             game.batch.setProjectionMatrix(camera.combined);
             player1.draw(game.batch);
             player2.draw(game.batch);
+            for(BasicEnemy e : worldG.getEnemies()){
+                e.draw(game.batch);
+            }
+            for(AdvancedEnemy a : worldG.getAdvancedEnemies()){
+                a.draw(game.batch);
+            }
             batch.end();
             game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
             hud.stage.draw();
@@ -267,6 +274,12 @@ public class PlayScreen implements Screen {
             batch.begin();
             game.batch.setProjectionMatrix(camera.combined);
             player1.draw(game.batch);
+            for(BasicEnemy e : worldG.getEnemies()){
+                e.draw(game.batch);
+            }
+            for(AdvancedEnemy a : worldG.getAdvancedEnemies()){
+                a.draw(game.batch);
+            }
             batch.end();
             game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
             hud.stage.draw();

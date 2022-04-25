@@ -2,32 +2,51 @@ package Sprites;
 
 import Scene.Hud;
 import Screens.PlayScreen;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.utils.Array;
 import game.Mario;
 
 public class AdvancedEnemy extends Enemy{
     private Boolean toRemove;
     private Boolean removed;
-    Boolean singlePlayer;
-
+    private Boolean singlePlayer;
+    private float time;
+    private Animation animation;
+    private Array<Texture> frames;
+    private Texture t1,t2;
 
     public AdvancedEnemy(PlayScreen screen, float x, float y, boolean singlePlayer) {
         super(screen, x, y);
         toRemove = false;
         removed = false;
         this.singlePlayer = singlePlayer;
+
+        setBounds(getX(), getY(), 16/Mario.PPM, 16/Mario.PPM);
+        t1 = new Texture("src/resources/tileset/16x16/Enemies/slime1.png");
+        t2 = new Texture("src/resources/tileset/16x16/Enemies/slime2.png");
+        frames = new Array<>();
+        frames.add(t1);
+        frames.add(t2);
+        animation = new Animation(0.4f, frames);
     }
 
     public void update(float dt){
+        time += dt;
         if(toRemove && !removed){
             world.destroyBody(b2body);
             removed = true;
         }
         else if (!removed) {
+            setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
+            setRegion((Texture) animation.getKeyFrame(time, true));
+
             if(!singlePlayer){
                 Player currentPlayer = screen.getClosest(this);
                 if(b2body.getPosition().x < currentPlayer.getX()){
@@ -39,7 +58,6 @@ public class AdvancedEnemy extends Enemy{
             else{
                 b2body.setLinearVelocity(speed);
             }
-            setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
         }
     }
 
@@ -78,5 +96,10 @@ public class AdvancedEnemy extends Enemy{
     public void contactTop() {
         toRemove = true;
         Hud.scoreAdder(100);
+    }
+    public void draw(Batch batch){
+        if(!removed){
+            super.draw(batch);
+        }
     }
 }
