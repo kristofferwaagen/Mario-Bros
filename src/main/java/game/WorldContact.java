@@ -32,8 +32,10 @@ public class WorldContact implements ContactListener {
         switch (contactDef){
             case Mario.groundBit | Mario.bit:
                 if(a.getFilterData().categoryBits == Mario.groundBit && b.getFilterData().categoryBits == Mario.bit){
-                    ((Player)b.getUserData()).canJump = true;
-                    ((Player)b.getUserData()).canDoubleJump = false;
+                	if(b.getBody().getLinearVelocity().y <= 0) {
+                		((Player)b.getUserData()).canJumpOnGround = true;
+                        ((Player)b.getUserData()).canJumpInAir = false;
+                	}
                 }
                 break;
             case Mario.enemyTop | Mario.bit:
@@ -82,8 +84,10 @@ public class WorldContact implements ContactListener {
         switch (contactDef){
         case Mario.groundBit | Mario.bit:
             if(a.getFilterData().categoryBits == Mario.groundBit && b.getFilterData().categoryBits == Mario.bit){
-                ((Player)b.getUserData()).canJump = false;
-                ((Player)b.getUserData()).canDoubleJump = true;
+            	if(b.getBody().getLinearVelocity().y >= 0) {
+            		((Player)b.getUserData()).canJumpOnGround = false;
+                    ((Player)b.getUserData()).canJumpInAir = true;
+            	}
             }
             break;
         default:

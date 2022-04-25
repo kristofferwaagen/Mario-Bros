@@ -19,7 +19,7 @@ public class Player extends Sprite {
     private Boolean forTestingOnly = true; // Hvis true, kaller musikk, HUD og andre klasser som ikke instansieres i tester.
     public World world;
     public Body b2body;
-    public boolean canJump, canDoubleJump;
+    public boolean canJumpOnGround, canJumpInAir;
 
     public Player(PlayScreen screen, String texture){
         this(screen.getWorld());
@@ -82,15 +82,15 @@ public class Player extends Sprite {
 
         b2body.createFixture(fdef).setUserData("top");
     }
-	public boolean jumped() {
-		if(canJump) {
-			canJump = false;
-			return true;
+	public int jumped() {
+		if(canJumpOnGround) {
+			canJumpOnGround = false;
+			return 1;
 		}
-		else if (canDoubleJump) {
-			canDoubleJump = false;
-			return true;
+		else if (canJumpInAir) {
+			canJumpInAir = false;
+			return 2;
 		}
-		return false;
+		return 0;
 	}
 }

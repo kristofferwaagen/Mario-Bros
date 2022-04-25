@@ -114,9 +114,15 @@ public class PlayScreen implements Screen {
     public void handleInput() { // sjekker input
         if (gameState == 2) {
             if(!singlePlayer) {
-                if (Gdx.input.isKeyJustPressed(Input.Keys.W) && player2.jumped()) {
-                    //player2.b2body.applyLinearImpulse(new Vector2(0, 2f), player2.b2body.getWorldCenter(), true);
-                    player2.b2body.setLinearVelocity(player2.b2body.getLinearVelocity().x, 2f);
+                if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
+                	int mode = player2.jumped();
+                	if(mode == 0) {
+                		return;
+                	} else if (mode == 1) { // Om karakteren er på bakken
+                		player2.b2body.applyLinearImpulse(new Vector2(0, 2f), player2.b2body.getWorldCenter(), true);
+                	} else if (mode == 2) { // Om karakteren er i luften
+                		player2.b2body.setLinearVelocity(player2.b2body.getLinearVelocity().x, 2f);
+                	}
                     music.getJumpSound();
 
                 }
@@ -127,10 +133,16 @@ public class PlayScreen implements Screen {
                     player2.b2body.applyLinearImpulse(new Vector2(-0.025f, 0), player2.b2body.getWorldCenter(), true);
                 }
             }
-            if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && player1.jumped()) {
-                //player1.b2body.applyLinearImpulse(new Vector2(0, 2f), player1.b2body.getWorldCenter(), true);
-                player1.b2body.setLinearVelocity(player1.b2body.getLinearVelocity().x, 2f);
-                music.getJumpSound();
+            if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+            	int mode = player1.jumped();
+            	if(mode == 0) {
+            		return;
+            	} else if (mode == 1) {
+            		player1.b2body.applyLinearImpulse(new Vector2(0, 2f), player1.b2body.getWorldCenter(), true);
+            	} else if (mode == 2) {
+                    player1.b2body.setLinearVelocity(player1.b2body.getLinearVelocity().x, 2f);
+            	}
+            	music.getJumpSound();
 
             }
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player1.b2body.getLinearVelocity().x <= 2) {
