@@ -24,22 +24,15 @@ public class Coin extends InteractiveObject{
 
     @Override
     public void onTouch() {
-        music.getCoinSound();
-
-        if(toRemove){
-            categoryFilter(Mario.removedBit);
-            getTileCell().setTile(null);
-            toRemove = false;
-            removed = true;
-        }
-        else {
-            if (totalCoins == 1) {
-                toRemove = true;
-                totalCoins = 0;
-            } else {
-                totalCoins--;
-            }
+        if(totalCoins > 0){
+            music.getCoinSound();
             Hud.scoreAdder(100);
+            totalCoins --;
         }
+
+        else{
+            music.getNoCoinSound();
+        }
+
     }
 }
