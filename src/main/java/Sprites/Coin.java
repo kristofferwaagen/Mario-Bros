@@ -12,7 +12,7 @@ import java.util.Random;
 public class Coin extends InteractiveObject{
     int totalCoins;
     public static boolean removed;
-    private boolean forTesting = false;
+    private boolean testing = false;
 
     public Coin(World world, TiledMap map, Rectangle r) {
         super(world, map, r);
@@ -30,21 +30,21 @@ public class Coin extends InteractiveObject{
         categoryFilter(Mario.coinBit);
         Random rand = new Random();
         totalCoins = rand.nextInt(7) + 3;
-        forTesting = true;
+        testing = true;
     }
 
 
     @Override
     public void onTouch() {
         if(totalCoins > 0){
-        	if(!forTesting) {
+        	if(!testing) {
         		music.getCoinSound();
                 Hud.scoreAdder(100);
         	}
             totalCoins --;
         }
 
-        else if (!forTesting){
+        else if (!testing){
             music.getNoCoinSound();
         }
 
