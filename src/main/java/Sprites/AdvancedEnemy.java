@@ -18,7 +18,7 @@ public class AdvancedEnemy extends Enemy{
     private Boolean toRemove;
 	public Boolean removed;
 	private Boolean singlePlayer;
-	private Boolean testing;
+	private Boolean testing = false;
     private float time;
     private Animation animation;
     private Array<Texture> frames;
