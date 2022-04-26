@@ -102,7 +102,7 @@ public class GameOverScreen implements Screen {
         menuButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Mario.levelCounter =0 ;
+                Mario.levelCounter =1 ;
                 game.setScreen(new MenuScreen(game));
             }
         });

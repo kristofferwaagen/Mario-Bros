@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.1" orientation="orthogonal" renderorder="right-down" width="240" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="107">
+<map version="1.8" tiledversion="1.8.1" orientation="orthogonal" renderorder="right-down" width="240" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="115">
  <tileset firstgid="1" source="complete_Tileset_16x16.tsx"/>
  <layer id="3" name="background" width="240" height="13">
   <data encoding="base64" compression="zlib">
@@ -63,6 +63,10 @@
   <object id="93" x="80" y="48" width="16" height="16"/>
   <object id="94" x="16" y="80" width="16" height="16"/>
   <object id="95" x="16" y="144" width="16" height="16"/>
+  <object id="107" x="1216" y="160" width="16" height="16"/>
+  <object id="108" x="896" y="160" width="16" height="16"/>
+  <object id="112" x="544" y="176" width="16" height="16"/>
+  <object id="114" x="1680" y="176" width="16" height="16"/>
  </objectgroup>
  <objectgroup id="4" name="coin">
   <object id="56" x="608" y="144" width="16" height="16"/>
@@ -82,7 +86,7 @@
  </objectgroup>
  <layer id="1" name="foreground" width="240" height="13">
   <data encoding="base64" compression="zlib">
-   eJztmE0OgjAQhVHZ9ADqxguoh3DHAXTpAVx6BY+uJJKMY6cMZfqjeV/yQqkwHaGvP7imadwMAQDKMceD8C8AZYF/Afim89TVuOb05RPKcae8DoB/ota+7lgZ+18APpHmuBr6P8+jhpxK0xJZ1KWkZUdgi+SHkj65kjLPA/79bfhYAvQ4cpTmV8eOJbiTsm/9nIPFS8uASjwf/s1i7Lwk8KYttL91zfi7doprUiH513eegt67GyY65g3nwA6N309GbVnFyRVX09dqWqdy/+bc/1Lv8m9hHSuHYqzSplklkgd99SG/Sr9dpqUjYhUnR9zY/p7Lv752QvNvSvi8G9M2jaHxsPX/i8253xPUPubcZt5/NoojYR03Zt6dcq8FtfhXWjNPZU3u35LYob20pWI8OOS8JXXanK0875tzcz43KL6/hdbufTnHe+TeHfz7eIuvpVtBexZDip1K1INa+pwPLx1JHR2HrNvTos0BKqex9/8EByAelQ==
+   eJztmE1OwzAQhQ1k4wNAN1yAcgh2OUBZcgCWXIGjt5YaaTp4nIkz9pjqfdJTHDcZT2s//zSGEOIOAQD82ONB+BcAX+BfAP4yZ+pG3HPm8inl+Kp8DoB7YtSxHlkZ518AbpHWuBHGP89jhJy8mYgs6loysSuwRfKDp0++SJnnAf/+b/hcAvREcpXW18iuHvyQcm7/3IOHix4L8vh9+H8Wa/eewJu20PE2h/W+jopnWiH5N3ffguTdFyY65y33wA6N3z+M2rKK0yuuZqyNtE/l/u15/qXe5f+FzaxcivHUNs0hkTyYqy/5Vfrsc1s6IlZxesStHe+9/Jtrp7T+toSvuzVt0xgaD1t/v9qc05lg9Dnne+f7J6M4EtZxa9bdLe9aMIp/pT3z1jyeyfuHUD5Dt1CNB5ecD6Ru7fxP27M46+ZiaHOA/JT6v7R3T+Ue/ci9u/j39yq+l54EvYVb/+bithT1oJaU8/Gid1JH5yHr9rRoc4D8tNb/Z7CIHro=
   </data>
  </layer>
  <objectgroup id="8" name="extralife">
@@ -135,5 +139,12 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup id="10" name="advancedenemies"/>
+ <objectgroup id="10" name="advancedenemies">
+  <object id="109" x="3488" y="164">
+   <point/>
+  </object>
+  <object id="113" x="656.333" y="183">
+   <point/>
+  </object>
+ </objectgroup>
 </map>
