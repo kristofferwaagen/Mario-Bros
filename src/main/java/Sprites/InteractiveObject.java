@@ -12,7 +12,7 @@ public abstract class InteractiveObject {
     protected TiledMap map;
     protected TiledMapTile tile;
     protected Rectangle r;
-    protected Body body;
+    public Body body;
 
     protected Fixture fixture;
 

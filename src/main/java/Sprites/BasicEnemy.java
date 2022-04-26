@@ -21,7 +21,7 @@ public class BasicEnemy extends Enemy{
     private Boolean removed;
     private Animation animation;
     private Array<Texture> frames;
-    private Texture t1, t2, t3,t4;
+    private Texture t1, t2;
 
     public BasicEnemy(PlayScreen screen, float x, float y) {
 
@@ -56,7 +56,7 @@ public class BasicEnemy extends Enemy{
     }
 
     @Override
-    protected void defineEnemy() {
+    protected void defineBody() {
         BodyDef bdef = new BodyDef();
         bdef.position.set(getX(), getY());
         bdef.type = BodyDef.BodyType.DynamicBody;

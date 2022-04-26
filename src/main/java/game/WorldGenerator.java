@@ -72,6 +72,7 @@ public class WorldGenerator {
             Rectangle r = ((RectangleMapObject) o).getRectangle();
             advancedEnemies.add(new AdvancedEnemy(screen, r.getX()/Mario.PPM, r.getY()/Mario.PPM, PlayScreen.singlePlayer));
         }
+
     }
     public Array<BasicEnemy> getEnemies(){
         Array<BasicEnemy> e =new Array<>();

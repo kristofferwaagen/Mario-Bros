@@ -172,6 +172,7 @@ public class PlayScreen implements Screen {
 
         player1.update(dt);
         player2.update(dt);
+
         for(BasicEnemy e : worldG.getEnemies()){
             e.update(dt);
             if(e.getX() < player1.getX() +224/Mario.PPM){
@@ -305,6 +306,7 @@ public class PlayScreen implements Screen {
         world.step(1/60f, 6, 2);
         fallsOffSingle();
         player1.update(v);
+
         for(BasicEnemy e : worldG.getEnemies()){
             e.update(v);
             if(e.getX() < player1.getX() +224/Mario.PPM){

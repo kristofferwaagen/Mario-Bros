@@ -147,4 +147,4 @@ Anders har fått lagt inn animasjoner til fiendene og spillere. Samuel har
 også lagt inn flere tester av spillet.
 Til siste innlevering må vi fokusere på bugs, lage en executable fil via terminal, stretch goal og finpussing generelt
 av spillet.
-
+Dersom vi ikke får til multiplayer så endrer vi stretch goal til å lage en database med high scores.

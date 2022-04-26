@@ -62,9 +62,9 @@ public class AdvancedEnemy extends Enemy{
 
             if(!singlePlayer){
                 Player currentPlayer = screen.getClosest(this);
-                if(b2body.getPosition().x < currentPlayer.getX()){
+                if(b2body.getPosition().x < currentPlayer.getX())
                     flipSpeed(true, false);
-                }else {
+                else {
                     b2body.setLinearVelocity(speed);
                 }
             }
@@ -75,7 +75,7 @@ public class AdvancedEnemy extends Enemy{
     }
 
     @Override
-    protected void defineEnemy() {
+    protected void defineBody() {
         BodyDef bdef = new BodyDef();
         bdef.position.set(getX(), getY());
         bdef.type = BodyDef.BodyType.DynamicBody;
