@@ -28,6 +28,7 @@ public class Player extends Sprite {
         Texture t = new Texture(texture);
         setBounds(0,0,16 / Mario.PPM, 16 / Mario.PPM);
 
+        //bilder til animation av spiller
         t1 = new Texture("src/resources/tileset/16x16/Hero/day/run1.png");
         t2 = new Texture("src/resources/tileset/16x16/Hero/day/run2.png");
         t3 = new Texture("src/resources/tileset/16x16/Hero/day/run3.png");
