@@ -79,6 +79,19 @@ public class Player extends Sprite {
         fdef.isSensor = true;
 
         b2body.createFixture(fdef).setUserData("top");
+
+        PolygonShape bot = new PolygonShape();
+        Vector2[] edge = new Vector2[4];
+        edge[0] = new Vector2(-5, -5).scl(1 / Mario.PPM);
+        edge[1] = new Vector2(5, -5).scl(1 / Mario.PPM);
+        edge[2] = new Vector2(-2, -2).scl(1 / Mario.PPM);
+        edge[3] = new Vector2(2, -2).scl(1 / Mario.PPM);
+        bot.set(edge);
+
+        fdef.shape = bot;
+        fdef.restitution = 0.1f;
+        fdef.filter.categoryBits = Mario.playerBot;
+        b2body.createFixture(fdef).setUserData(this);
     }
 	public int jumped() {
 		if(canJumpOnGround) {
