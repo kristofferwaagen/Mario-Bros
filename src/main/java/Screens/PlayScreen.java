@@ -6,8 +6,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -106,8 +104,9 @@ public class PlayScreen implements Screen {
 
     /**
      * håndterer input fra klientene - sjekker om det er two eller single player
+     * @param dt
      */
-    public void handleInput() { // sjekker input
+    public void handleInput(float dt) { // sjekker input
         if (gameState == 2) {
             if(!singlePlayer) {
                 if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
@@ -163,11 +162,11 @@ public class PlayScreen implements Screen {
      * Oppdatereringsmetode for twoplayer funksjon
      */
     public void update(float dt){ // oppdaterer enheter
-        handleInput();
+        handleInput(dt);
         if(player1.isDead && player2.isDead){
             gameState = 4;
         }
-        world.step(1/60f, 6, 2);
+        world.step(Gdx.graphics.getDeltaTime(), 6, 2);
         fallsOff();
 
         player1.update(dt);
@@ -180,7 +179,7 @@ public class PlayScreen implements Screen {
         }
         for(AdvancedEnemy a : worldG.getAdvancedEnemies()){
             a.update(dt);
-            if(a.getX() < player1.getX()+224/Mario.PPM){
+            if(a.getX() < player2.getX()+224/Mario.PPM){
                 a.b2body.setActive(true);
             }
         }
@@ -199,11 +198,11 @@ public class PlayScreen implements Screen {
 
     @SuppressFBWarnings("SF_SWITCH_NO_DEFAULT")
     @Override
-    public void render(float v) {
+    public void render(float delta) {
         if (!singlePlayer)
-            update(v);
+            update(delta);
         else
-            updateSingle(v);
+            updateSingle(delta);
         renderer.render();
         switch (gameState) {
             case 1:
@@ -215,7 +214,7 @@ public class PlayScreen implements Screen {
                     if (gameOverMusic != null)
                         gameOverMusic.stop();
                     gameMusic.play();
-                    this.mainGame(v);
+                    this.mainGame(delta);
                     break;
                 case 3:
                     if (Mario.levelCounter == 5) {
@@ -253,9 +252,9 @@ public class PlayScreen implements Screen {
     /**
      * metode som kjører mainGame enten singleplayer eller twoplayer
      */
-    public void mainGame(float v) {
+    public void mainGame(float delta) {
         if(!singlePlayer) {
-            update(v);
+            update(delta);
             Gdx.gl.glClearColor(1, 1, 1, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             renderer.render();
@@ -275,7 +274,7 @@ public class PlayScreen implements Screen {
             hud.stage.draw();
         }
         else {
-            updateSingle(v);
+            updateSingle(delta);
             Gdx.gl.glClearColor(1, 1, 1, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             renderer.render();
@@ -298,26 +297,26 @@ public class PlayScreen implements Screen {
     /**
      * update metode dersom man velger singleplayer
      */
-    private void updateSingle(float v) {
-        handleInput();
+    private void updateSingle(float delta) {
+        handleInput(delta);
         if(player1.isDead)
             gameState = 4;
-        world.step(1/60f, 6, 2);
+        world.step(Gdx.graphics.getDeltaTime(), 6, 2);
         fallsOffSingle();
-        player1.update(v);
+        player1.update(delta);
         for(BasicEnemy e : worldG.getEnemies()){
-            e.update(v);
+            e.update(delta);
             if(e.getX() < player1.getX() +224/Mario.PPM){
                 e.b2body.setActive(true);
             }
         }
         for(AdvancedEnemy a : worldG.getAdvancedEnemies()){
-            a.update(v);
+            a.update(delta);
             if(a.getX() < player1.getX()+224/Mario.PPM){
                 a.b2body.setActive(true);
             }
         }
-        hud.update(v);
+        hud.update(delta);
         camera.position.x = player1.getX();
         camera.update();
         renderer.setView(camera);
