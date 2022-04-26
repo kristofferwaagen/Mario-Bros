@@ -49,6 +49,8 @@ public class BasicEnemy extends Enemy{
             b2body.setLinearVelocity(speed);
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
             setRegion((Texture) animation.getKeyFrame(time, true));
+            if(speed.x < 0 && (!this.isFlipX()))
+            	this.setFlip(true, isFlipY());
 
         }
     }
