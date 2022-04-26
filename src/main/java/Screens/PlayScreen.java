@@ -46,7 +46,7 @@ public class PlayScreen implements Screen {
     private final World world;
     private final Box2DDebugRenderer b2dr;
 
-    public static Boolean singlePlayer, canJump;
+    public static Boolean singlePlayer;
     WorldGenerator worldG;
 
 
@@ -115,7 +115,14 @@ public class PlayScreen implements Screen {
         if (gameState == 2) {
             if(!singlePlayer) {
                 if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
-                    player2.b2body.applyLinearImpulse(new Vector2(0, 1.3f), player2.b2body.getWorldCenter(), true);
+                	int mode = player2.jumped();
+                	if(mode == 0) {
+                		return;
+                	} else if (mode == 1) { // Om karakteren er på bakken
+                		player2.b2body.applyLinearImpulse(new Vector2(0, 2f), player2.b2body.getWorldCenter(), true);
+                	} else if (mode == 2) { // Om karakteren er i luften
+                		player2.b2body.setLinearVelocity(player2.b2body.getLinearVelocity().x, 2f);
+                	}
                     music.getJumpSound();
 
                 }
@@ -127,9 +134,15 @@ public class PlayScreen implements Screen {
                 }
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-                player1.b2body.applyLinearImpulse(new Vector2(0, 1.3f), player1.b2body.getWorldCenter(), true);
-                music.getJumpSound();
-                canJump = false;
+            	int mode = player1.jumped();
+            	if(mode == 0) {
+            		return;
+            	} else if (mode == 1) {
+            		player1.b2body.applyLinearImpulse(new Vector2(0, 2f), player1.b2body.getWorldCenter(), true);
+            	} else if (mode == 2) {
+                    player1.b2body.setLinearVelocity(player1.b2body.getLinearVelocity().x, 2f);
+            	}
+            	music.getJumpSound();
 
             }
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player1.b2body.getLinearVelocity().x <= 2) {

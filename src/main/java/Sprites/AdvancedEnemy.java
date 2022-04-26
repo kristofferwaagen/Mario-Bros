@@ -10,13 +10,15 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import game.Mario;
 
 public class AdvancedEnemy extends Enemy{
     private Boolean toRemove;
-    private Boolean removed;
-    private Boolean singlePlayer;
+	public Boolean removed;
+	private Boolean singlePlayer;
+	private Boolean testing = false;
     private float time;
     private Animation animation;
     private Array<Texture> frames;
@@ -36,6 +38,16 @@ public class AdvancedEnemy extends Enemy{
         frames.add(t2);
         animation = new Animation(0.4f, frames);
     }
+    /**
+     * Konstruktør for testing, bruker ikke PlayScreen, HUD, musikk osv.
+     */
+    public AdvancedEnemy(World world, float x, float y) {
+    	super(world, x, y);
+    	toRemove = false;
+    	removed = false;
+    	this.singlePlayer = true;
+    	testing = true;
+    }
 
     public void update(float dt){
         time += dt;
@@ -45,7 +57,8 @@ public class AdvancedEnemy extends Enemy{
         }
         else if (!removed) {
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
-            setRegion((Texture) animation.getKeyFrame(time, true));
+            if(!testing)
+            	setRegion((Texture) animation.getKeyFrame(time, true));
 
             if(!singlePlayer){
                 Player currentPlayer = screen.getClosest(this);
@@ -95,7 +108,8 @@ public class AdvancedEnemy extends Enemy{
     @Override
     public void contactTop() {
         toRemove = true;
-        Hud.scoreAdder(100);
+        if(!testing)
+        	Hud.scoreAdder(100);
     }
     public void draw(Batch batch){
         if(!removed){
