@@ -48,7 +48,7 @@ public class PlayScreen implements Screen {
 
     public static Boolean singlePlayer;
     WorldGenerator worldG;
-
+    public static int points;
 
 
     public PlayScreen(Mario game, Boolean singlePlayer, int level){
@@ -56,7 +56,7 @@ public class PlayScreen implements Screen {
         this.game = game;
         batch = game.batch;
         // kamera
-        camera = new OrthographicCamera(); // kamera som skal følge spiller gjennom spillebrettet
+        camera = new OrthographicCamera();
         gamePort = new FitViewport(Mario.visionWidth / Mario.PPM, Mario.visionHeight / Mario.PPM, camera); // skalerer responsivt med vinduets størrelse, henter resolution størrelse fra Mario.java
         hud = new Hud(game.batch); // Hud som skal vise poeng/tid/info
 
@@ -69,20 +69,16 @@ public class PlayScreen implements Screen {
         map = mapLoader.load(mapLocation); // henter ut hvilket spillebrett som skal brukes
         renderer = new OrthogonalTiledMapRenderer(map, 1 / Mario.PPM); // viser spillebrettet
 
-        /*
-         * når et kamera blir laget slik som gamePort er blitt, begynner det på posisjonen x:0 y:0
-         * dette ønskes ikke ettersom spillebrettet er da lokalisert i kun positive verdier for x og y
-         * bruker da halvparten av bredde og høyde for å "sentrere" spillebrettet på x- og y-aksen
-         * */
+        //posisjoner kamera på spiller
         camera.position.set(gWidth, gHeight, 0);
         world = new World(new Vector2(0, -5), true);
         b2dr = new Box2DDebugRenderer();
         worldG = new WorldGenerator(this);
 
         //create player / players
-        player1 = new Player(this,"src/resources/objects/Steffen16Transp.png" );
+        player1 = new Player(this);
         if(!singlePlayer) {
-            player2 = new Player(this,"src/resources/objects/Elias16Transp.png"); // spiller 2
+            player2 = new Player(this); // spiller 2
         }
         world.setContactListener(new WorldContact());
     }

@@ -11,7 +11,7 @@ import java.util.Random;
 
 public class Coin extends InteractiveObject{
     int totalCoins;
-    public static boolean toRemove, removed;
+    public static boolean removed;
     private boolean forTesting = false;
 
     public Coin(World world, TiledMap map, Rectangle r) {

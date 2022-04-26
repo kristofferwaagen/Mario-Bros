@@ -31,16 +31,13 @@ public class BasicEnemy extends Enemy{
 
         setBounds(getX(),getY(),16 / Mario.PPM, 16 / Mario.PPM);
 
-        t1 = new Texture("src/resources/tileset/16x16/Enemies/dorn1.png");
-        t2 = new Texture("src/resources/tileset/16x16/Enemies/dorn2.png");
-        t4 = new Texture("src/resources/tileset/16x16/Enemies/dorn3.png");
-        t3 = new Texture("src/resources/tileset/16x16/Enemies/dorn4.png");
+        t1 = new Texture("src/resources/tileset/16x16/Enemies/snail1.png");
+        t2 = new Texture("src/resources/tileset/16x16/Enemies/snail2.png");
+
 
         frames = new Array<>();
-        frames.add(t1);
-        frames.add(t2);
-        frames.add(t3);
-        frames.add(t4);
+        frames.add(t1, t2);
+
         animation = new Animation(0.4f, frames);
     }
 

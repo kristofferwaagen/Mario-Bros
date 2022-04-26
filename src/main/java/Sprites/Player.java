@@ -25,7 +25,7 @@ public class Player extends Sprite {
     private float time;
 
 
-    public Player(PlayScreen screen, String texture){
+    public Player(PlayScreen screen){
         this(screen.getWorld());
         forTestingOnly = false;
         setBounds(0,0,16 / Mario.PPM, 16 / Mario.PPM);

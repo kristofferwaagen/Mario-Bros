@@ -26,7 +26,6 @@ public class Hud implements Disposable {
 
 
     public Hud(SpriteBatch Batch){
-
         timer = 300;
         counter = 0;
         score = 0;
@@ -74,7 +73,6 @@ public class Hud implements Disposable {
      * oppdaterer antall liv i Hud
      */
     public static void addLife(int i){
-
         lifeLabel.setText(String.format("%01d", Player.hp+i));
     }
 
