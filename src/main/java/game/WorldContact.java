@@ -31,13 +31,14 @@ public class WorldContact implements ContactListener {
     	definitions(contact);
         switch (contactDef){
             case Mario.groundBit | Mario.bit:
-                if(a.getFilterData().categoryBits == Mario.groundBit && b.getFilterData().categoryBits == Mario.bit){
-                	if(b.getBody().getLinearVelocity().y <= 0) {
-                		((Player)b.getUserData()).canJumpOnGround = true;
-                        ((Player)b.getUserData()).canJumpInAir = false;
-                	}
-                }
+                groundJump(Mario.groundBit);
                 break;
+            case Mario.exprBlockBit | Mario.bit:
+                groundJump(Mario.exprBlockBit);
+                break;
+            case Mario.coinBit | Mario.bit:
+            	groundJump(Mario.coinBit);
+            	break;
             case Mario.enemyTop | Mario.bit:
                 if(a.getFilterData().categoryBits == Mario.enemyTop){
                     ((Enemy)a.getUserData()).contactTop();
@@ -71,7 +72,6 @@ public class WorldContact implements ContactListener {
             case Mario.bit | Mario.keyBit:
                 ((Key) a.getUserData()).onTouch();
                 break;
-
             case Mario.playerBot | Mario.exprBlockBit:
                 ((ExpiringBlocks) a.getUserData()).onTouch();
                 break;
@@ -84,16 +84,35 @@ public class WorldContact implements ContactListener {
     public void endContact(Contact contact) {
     	definitions(contact);
         switch (contactDef){
-        case Mario.groundBit | Mario.bit:
-            if(a.getFilterData().categoryBits == Mario.groundBit && b.getFilterData().categoryBits == Mario.bit){
-            	if(b.getBody().getLinearVelocity().y >= 0) {
-            		((Player)b.getUserData()).canJumpOnGround = false;
-                    ((Player)b.getUserData()).canJumpInAir = true;
-            	}
-            }
+        case (Mario.groundBit) | Mario.bit:
+            airJump(Mario.groundBit);
             break;
+        case Mario.exprBlockBit | Mario.bit:
+            airJump(Mario.exprBlockBit);
+            break;
+        case Mario.coinBit | Mario.bit:
+        	airJump(Mario.coinBit);
+        	break;
         default:
         	break;
+        }
+    }
+    
+    private void airJump(short bit) {
+    	if(a.getFilterData().categoryBits == bit && b.getFilterData().categoryBits == Mario.bit){
+        	if(b.getBody().getLinearVelocity().y >= 0) {
+        		((Player)b.getUserData()).canJumpOnGround = false;
+                ((Player)b.getUserData()).canJumpInAir = true;
+        	}
+        }
+    }
+    
+    private void groundJump(short bit) {
+    	if(a.getFilterData().categoryBits == bit && b.getFilterData().categoryBits == Mario.bit){
+        	if(b.getBody().getLinearVelocity().y <= 0) {
+        		((Player)b.getUserData()).canJumpOnGround = true;
+                ((Player)b.getUserData()).canJumpInAir = false;
+        	}
         }
     }
 
