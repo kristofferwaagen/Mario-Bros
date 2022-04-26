@@ -35,26 +35,18 @@ public class Coin extends InteractiveObject{
 
     @Override
     public void onTouch() {
-    	if(!forTesting)
-    		music.getCoinSound();
+        if(totalCoins > 0){
+        	if(!forTesting) {
+        		music.getCoinSound();
+                Hud.scoreAdder(100);
+        	}
+            totalCoins --;
+        }
 
-        if(toRemove){
-            categoryFilter(Mario.removedBit);
-            if(!forTesting)
-            	getTileCell().setTile(null);
-            toRemove = false;
-            removed = true;
+        else if (!forTesting){
+            music.getNoCoinSound();
         }
-        else {
-            if (totalCoins == 1) {
-                toRemove = true;
-                totalCoins = 0;
-            } else {
-                totalCoins--;
-            }
-            if(!forTesting)
-            	Hud.scoreAdder(100);
-        }
+
     }
     public int getTotalCoins() {
     	return totalCoins;

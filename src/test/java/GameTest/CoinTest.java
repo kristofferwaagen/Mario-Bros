@@ -34,12 +34,12 @@ public class CoinTest {
 	}
 	
 	@Test
-	void coinsRemovedWhenEmpty() {
+	void coinEmpty() {
 		for(int i = coin.getTotalCoins(); i > -1; i--) {
 			assertFalse(coin.removed);
 			coin.onTouch();
 		}
-		assertTrue(coin.removed);
+		assertTrue(coin.getTotalCoins() == 0);
 	}
 
 }

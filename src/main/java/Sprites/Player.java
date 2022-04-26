@@ -7,8 +7,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import game.Mario;
-
-import static Screens.PlayScreen.player1;
 import static game.Mario.music;
 
 

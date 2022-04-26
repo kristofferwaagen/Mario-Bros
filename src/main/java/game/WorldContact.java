@@ -46,6 +46,8 @@ public class WorldContact implements ContactListener {
                 }
                 break;
             case Mario.enemyBit | Mario.groundBit:
+            case Mario.enemyTop | Mario.groundBit:
+            case Mario.enemyTop | Mario.enemyBit:
                 if(a.getFilterData().categoryBits == Mario.enemyBit){
                     ((Enemy)a.getUserData()).flipSpeed(true, false);
                 }else{

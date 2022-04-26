@@ -7,7 +7,7 @@ import com.badlogic.gdx.audio.Sound;
 
 public class AudioMusic {
     public static Music gameMusic, gameOverMusic;
-    Sound jumpSound, hitSound, coinSound, keySound, hurtSound, extralifeSound;
+    Sound jumpSound, hitSound, coinSound, keySound, hurtSound, extralifeSound, winSound, noCoinSound;
     public AudioMusic() {
         gameMusic = Gdx.audio.newMusic(Gdx.files.internal("src/resources/audio/backgroundMusic.ogg"));
         gameMusic.setLooping(true);
@@ -19,7 +19,7 @@ public class AudioMusic {
     }
     public void getJumpSound(){
         jumpSound = Gdx.audio.newSound(Gdx.files.internal("src/resources/audio/jump.ogg"));
-        jumpSound.play(0.1f);
+        jumpSound.play(0.05f);
     }
 
     public void getHitSound(){
@@ -45,7 +45,10 @@ public class AudioMusic {
         extralifeSound = Gdx.audio.newSound(Gdx.files.internal("src/resources/audio/extralife.ogg"));
         extralifeSound.play(0.2f);
     }
-
+    public void getWinnerSound(){
+        winSound = Gdx.audio.newSound(Gdx.files.internal("src/resources/audio/winner.ogg"));
+        winSound.play(0.4f);
+    }
     public void dispose() {
         coinSound.dispose();
         hitSound.dispose();
@@ -53,4 +56,10 @@ public class AudioMusic {
         gameMusic.dispose();
         gameOverMusic.dispose();
     }
+
+    public void getNoCoinSound() {
+        noCoinSound = Gdx.audio.newSound(Gdx.files.internal("src/resources/audio/noCoin.ogg"));
+        noCoinSound.play(0.6f);
+    }
+
 }

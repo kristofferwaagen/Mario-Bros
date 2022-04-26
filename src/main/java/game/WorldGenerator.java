@@ -1,6 +1,7 @@
 package game;
 
 import Sprites.*;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -62,6 +63,7 @@ public class WorldGenerator {
         basicEnemies = new Array<>();
         for(MapObject o : map.getLayers().get(8).getObjects().getByType(RectangleMapObject.class)){
             Rectangle r = ((RectangleMapObject) o).getRectangle();
+
             basicEnemies.add(new BasicEnemy(screen, r.getX()/Mario.PPM, r.getY()/Mario.PPM));
         }
         //advanced enemies
