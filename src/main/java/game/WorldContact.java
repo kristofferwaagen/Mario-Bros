@@ -16,7 +16,12 @@ public class WorldContact implements ContactListener {
 
         contactDef = a.getFilterData().categoryBits | b.getFilterData().categoryBits;
 
-        if(a.getUserData() == "top" || b.getUserData() == "top"){
+	}
+    @SuppressFBWarnings("SF_SWITCH_NO_DEFAULT")
+    @Override
+    public void beginContact(Contact contact) {
+    	definitions(contact);
+    	if(a.getUserData() == "top" || b.getUserData() == "top"){
             Fixture top = a.getUserData() == "top" ? a : b;
             Fixture object = top == a ? b : a;
 
@@ -24,11 +29,6 @@ public class WorldContact implements ContactListener {
                 ((InteractiveObject) object.getUserData()).onTouch();
             }
         }
-	}
-    @SuppressFBWarnings("SF_SWITCH_NO_DEFAULT")
-    @Override
-    public void beginContact(Contact contact) {
-    	definitions(contact);
         switch (contactDef){
             case Mario.groundBit | Mario.bit:
                 groundJump(Mario.groundBit);
@@ -38,6 +38,9 @@ public class WorldContact implements ContactListener {
                 break;
             case Mario.coinBit | Mario.bit:
             	groundJump(Mario.coinBit);
+            	break;
+            case Mario.extraLifeBit | Mario.bit:
+            	groundJump(Mario.extraLifeBit);
             	break;
             case Mario.enemyTop | Mario.bit:
                 if(a.getFilterData().categoryBits == Mario.enemyTop){
@@ -92,6 +95,9 @@ public class WorldContact implements ContactListener {
             break;
         case Mario.coinBit | Mario.bit:
         	airJump(Mario.coinBit);
+        	break;
+        case Mario.extraLifeBit | Mario.bit:
+        	airJump(Mario.extraLifeBit);
         	break;
         default:
         	break;

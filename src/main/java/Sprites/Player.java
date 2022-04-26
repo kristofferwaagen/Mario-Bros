@@ -15,7 +15,8 @@ public class Player extends Sprite {
     public static int hp;
     public Boolean isDead;
     private Boolean removed;
-    private Boolean forTestingOnly = true; // Hvis true, kaller musikk, HUD og andre klasser som ikke instansieres i tester.
+    public Boolean flipped = false;
+    private Boolean testing = true; // Hvis true, kaller musikk, HUD og andre klasser som ikke instansieres i tester.
     public World world;
     public Body b2body;
     public boolean canJumpOnGround, canJumpInAir;
@@ -27,7 +28,7 @@ public class Player extends Sprite {
 
     public Player(PlayScreen screen){
         this(screen.getWorld());
-        forTestingOnly = false;
+        testing = false;
         setBounds(0,0,16 / Mario.PPM, 16 / Mario.PPM);
         //bilder til animation av spiller
         t1 = new Texture("src/resources/tileset/16x16/Hero/day/run1.png");
@@ -57,11 +58,14 @@ public class Player extends Sprite {
             removed = true;
         } else if (!removed) {
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
-            setRegion((Texture) animation.getKeyFrame(time, true));        }
+            setRegion((Texture) animation.getKeyFrame(time, true));  
+            if(flipped)
+            	setFlip(true, isFlipY());
+        }
     }
 
     public void hit(){
-    	if(!forTestingOnly) {
+    	if(!testing) {
     		music.getHurtSound();
     		Hud.addLife(-1);
     	}

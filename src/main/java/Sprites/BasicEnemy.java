@@ -51,6 +51,8 @@ public class BasicEnemy extends Enemy{
             b2body.setLinearVelocity(speed);
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
             setRegion((Texture) animation.getKeyFrame(time, true));
+            if(speed.x < 0 && (!this.isFlipX()))
+            	this.setFlip(true, isFlipY());
 
         }
     }
@@ -73,8 +75,8 @@ public class BasicEnemy extends Enemy{
 
         PolygonShape top = new PolygonShape();
         Vector2[] edge = new Vector2[4];
-        edge[0] = new Vector2(-5, 5).scl(1 / Mario.PPM);
-        edge[1] = new Vector2(5, 5).scl(1 / Mario.PPM);
+        edge[0] = new Vector2(-3, 7).scl(1 / Mario.PPM);
+        edge[1] = new Vector2(3, 7).scl(1 / Mario.PPM);
         edge[2] = new Vector2(-2, 2).scl(1 / Mario.PPM);
         edge[3] = new Vector2(2, 2).scl(1 / Mario.PPM);
         top.set(edge);
