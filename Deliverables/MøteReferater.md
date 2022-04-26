@@ -113,7 +113,7 @@ som ikke lenger brukes etter box2d ble innført.
 - Kristoffer
 - André
 - Anders
-- Samuel og Johnny kunne ikke møte på grunn av påskeferie, men vi fyller de inn på hva vi har snakket om.
+- Samuel og Johnny kunne ikke møte på grunn av sykdom og påskeferie, men vi fyller de inn på hva vi har snakket om.
   
 ####Oppsummering
 Fra forrige møte har Anders laget flere nivåer og skjermer avhengig av hvilken state befinner seg i.
@@ -131,3 +131,20 @@ André skal legge inn i README.md hvordan man kjører spillet uten IDE. Kristoff
 hvordan fiender blir lagt inn i spillet.
 Vi må også fikse hopping, hvor vi ønsker at spilleren bare skal kunne hoppe en gang.
 I tillegg burde vi fikse hvor kameraet starter.
+
+###Referat fra møte 26.04.2022
+####Deltakere
+- Kristoffer
+- Samuel
+- André
+- Anders
+- Johnny
+
+####Oppsummering
+Samuel har fått implementert at spiller bare kan dobbelthoppe ved at en boolean endrer seg 
+om man er i luften eller toucher en ground bit eller andre liknende blokker.
+Anders har fått lagt inn animasjoner til fiendene og spillere. Samuel har
+også lagt inn flere tester av spillet.
+Til siste innlevering må vi fokusere på bugs, lage en executable fil via terminal, stretch goal og finpussing generelt
+av spillet.
+
