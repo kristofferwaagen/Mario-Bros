@@ -75,8 +75,8 @@ public class BasicEnemy extends Enemy{
 
         PolygonShape top = new PolygonShape();
         Vector2[] edge = new Vector2[4];
-        edge[0] = new Vector2(-5, 5).scl(1 / Mario.PPM);
-        edge[1] = new Vector2(5, 5).scl(1 / Mario.PPM);
+        edge[0] = new Vector2(-3, 7).scl(1 / Mario.PPM);
+        edge[1] = new Vector2(3, 7).scl(1 / Mario.PPM);
         edge[2] = new Vector2(-2, 2).scl(1 / Mario.PPM);
         edge[3] = new Vector2(2, 2).scl(1 / Mario.PPM);
         top.set(edge);

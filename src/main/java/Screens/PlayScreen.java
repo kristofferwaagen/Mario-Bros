@@ -124,11 +124,11 @@ public class PlayScreen implements Screen {
                 }
                 if (Gdx.input.isKeyPressed(Input.Keys.D) && player2.b2body.getLinearVelocity().x <= 2) {
                     player2.b2body.applyLinearImpulse(new Vector2(0.025f, 0), player2.b2body.getWorldCenter(), true);
-                    player2.setFlip(false, false);
+                    player2.flipped = false;
                 }
                 if (Gdx.input.isKeyPressed(Input.Keys.A) && player2.b2body.getLinearVelocity().x >= -2) {
                     player2.b2body.applyLinearImpulse(new Vector2(-0.025f, 0), player2.b2body.getWorldCenter(), true);
-                    player2.setFlip(true, false);
+                    player2.flipped = true;
                 }
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
@@ -145,11 +145,11 @@ public class PlayScreen implements Screen {
             }
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player1.b2body.getLinearVelocity().x <= 2) {
                 player1.b2body.applyLinearImpulse(new Vector2(0.025f, 0), player1.b2body.getWorldCenter(), true);
-                player1.setFlip(false, false);
+                player1.flipped = false;
             }
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player1.b2body.getLinearVelocity().x >= -2) {
                 player1.b2body.applyLinearImpulse(new Vector2(-0.025f, 0), player1.b2body.getWorldCenter(), true);
-                player1.setFlip(true, false);
+                player1.flipped = true;
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
                 gameState = 4;
