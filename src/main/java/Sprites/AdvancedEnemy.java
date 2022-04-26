@@ -57,9 +57,11 @@ public class AdvancedEnemy extends Enemy{
         }
         else if (!removed) {
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
-            if(!testing)
+            if(!testing) {
             	setRegion((Texture) animation.getKeyFrame(time, true));
-
+                if(speed.x < 0 && (!this.isFlipX()))
+                	this.setFlip(true, isFlipY());
+            }
             if(!singlePlayer){
                 Player currentPlayer = screen.getClosest(this);
                 if(b2body.getPosition().x < currentPlayer.getX()){
@@ -92,8 +94,8 @@ public class AdvancedEnemy extends Enemy{
 
         PolygonShape top = new PolygonShape();
         Vector2[] edge = new Vector2[4];
-        edge[0] = new Vector2(-3, 5).scl(1 / Mario.PPM);
-        edge[1] = new Vector2(3, 5).scl(1 / Mario.PPM);
+        edge[0] = new Vector2(-3, 7).scl(1 / Mario.PPM);
+        edge[1] = new Vector2(3, 7).scl(1 / Mario.PPM);
         edge[2] = new Vector2(-2, 2).scl(1 / Mario.PPM);
         edge[3] = new Vector2(2, 2).scl(1 / Mario.PPM);
         top.set(edge);
