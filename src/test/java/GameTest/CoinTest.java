@@ -41,5 +41,14 @@ public class CoinTest {
 		}
 		assertTrue(coin.getTotalCoins() == 0);
 	}
+	
+	@Test
+	void coinNotSurpassingEmpty() {
+		for(int i = coin.getTotalCoins() + 10; i > -1; i--) {
+			assertFalse(coin.removed);
+			coin.onTouch();
+		}
+		assertTrue(coin.getTotalCoins() == 0);
+	}
 
 }
