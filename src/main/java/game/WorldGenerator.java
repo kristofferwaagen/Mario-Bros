@@ -63,7 +63,6 @@ public class WorldGenerator {
         basicEnemies = new Array<>();
         for(MapObject o : map.getLayers().get(8).getObjects().getByType(RectangleMapObject.class)){
             Rectangle r = ((RectangleMapObject) o).getRectangle();
-
             basicEnemies.add(new BasicEnemy(screen, r.getX()/Mario.PPM, r.getY()/Mario.PPM));
         }
         //advanced enemies
@@ -83,12 +82,9 @@ public class WorldGenerator {
         e.addAll(basicEnemies);
         return e;
     }
-
     public Array<AdvancedEnemy> getAdvancedEnemies() {
         Array<AdvancedEnemy> a = new Array<>();
         a.addAll(advancedEnemies);
         return a;
     }
-
-
 }

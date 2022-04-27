@@ -12,7 +12,7 @@ public class AmmoBlock extends InteractiveObject {
         super(world, map, r);
         fixture.setUserData(this);
         categoryFilter(Mario.ammoBit);
-        //ammoInBlock = 5;
+        ammoInBlock = 5;
     }
     @Override
     public void onTouch() {
@@ -20,6 +20,10 @@ public class AmmoBlock extends InteractiveObject {
         if(ammoInBlock >0){
             ammoInBlock--;
             PlayScreen.ammo++;
+        }
+        else{
+            categoryFilter(Mario.removedBit);
+            getTileCell().setTile(null);
         }
     }
 }
