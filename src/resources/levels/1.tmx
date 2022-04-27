@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.1" orientation="orthogonal" renderorder="right-down" width="240" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="107">
+<map version="1.8" tiledversion="1.8.1" orientation="orthogonal" renderorder="right-down" width="240" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="15" nextobjectid="109">
  <tileset firstgid="1" source="complete_Tileset_16x16.tsx"/>
  <layer id="1" name="background" width="240" height="13">
   <data encoding="base64" compression="zlib">
@@ -85,7 +85,7 @@
  </objectgroup>
  <layer id="2" name="foreground" width="240" height="13">
   <data encoding="base64" compression="zlib">
-   eJztmE1uAjEMhcOoBeUOXXCTliJ1S6Uuu6RSlyzLQeAO9BqcrJ4FEqQzkzh/9gzvk6wwEvFYcZ6diTUAgLFipQOI4E06ACVsGmPeG+kogCQX/f7QPtgr2guPZHOyhXQgitlSvr4y5Uxb/lNxa7zveazU7L/nWcWXARGmVgdKkkN7IT5CcnLdL4d6Z0pffXBGADTBqV3W1NNvTXBuzg96oi6s4en30+OrBu3Z+WIAlKDdyy9kK7JXsnXAc+3+ZQ1fvzuPPw7oj7fYnt8xPrSdhULJGfeB6vsxosanxFBr3V3tSui3FJy68JzwHnduyj2kmwPuN03ff7XkxEeJunMi7f4y9TuG78gu7U5Jvxw+hOZe05WD0LyErrnW3LhxxfbMLh/uOAX6tFtDvxr30HehuRxd+fQb24dLrXfJPMb0zD4f7viUJ0QxhrSbQ7/3To77tDYPS9zv/qNdE6wLKAn2Fxgzf2ifJJk=
+   eJztmE1uwjAQhV0ErXwHFr0Ea0orddtKLLsEqUuWcBC4A70GJ+t4ESk1SfzvmaTvk0YmEp6MPH4zjrUCAIwVzR1ABO/cAQjhY6bU54w7CsBJo98j7YOToL2wIHske+IORDA7ytc+U86k5T8Vu8a7nsdKzf57e6j4MsDC1OpASXJoz8eHT07a/XKod6b01bk1AiCJkNqlVT391gTn5vygJ8pCqzD9fjl81cCcnRsDoARmL7+Qbcheyd48nmv3L63C9Xtw+GtYefhCf/yL7vkd40PaWciXnHGfqb5fImp8Sgy11t3Wbm79chJSF9YJ77HnptxD2jkI/abp+6+UnLgoUXeupN2fQP2O4TuyS7tT0m8IW6a5bbpy4JsX3zWXmhs7rtie2eXDHqdAn3Zr6FfiHvouNDdEVy79xvbhUutdMo8xPbPPhz0u84TIxpB2c+j3v5PjPs3k4Rn3u3eYNcG6gJJgf4Ex8wsO7iTO
   </data>
  </layer>
  <objectgroup id="8" name="extralife">
@@ -130,5 +130,8 @@
   <object id="102" x="476.667" y="160">
    <point/>
   </object>
+ </objectgroup>
+ <objectgroup id="14" name="ammo">
+  <object id="107" x="48" y="112" width="16" height="16"/>
  </objectgroup>
 </map>

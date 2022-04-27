@@ -1,4 +1,4 @@
-package Sprites;
+package Sprites.BlockObjects;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;

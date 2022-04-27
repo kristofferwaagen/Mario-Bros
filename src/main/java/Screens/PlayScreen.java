@@ -6,8 +6,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -42,15 +40,12 @@ public class PlayScreen implements Screen {
     private final float gHeight;
     private float pos;
     public static int gameState = 2; //1 == mainMenu, 2 == mainGame, 3 == nextLevel, 4 == gameOver
-
+    public static int ammo;
     private final World world;
     private final Box2DDebugRenderer b2dr;
 
     public static Boolean singlePlayer;
-    WorldGenerator worldG;
-    public static int points;
-
-
+    public WorldGenerator worldG;
     public PlayScreen(Mario game, Boolean singlePlayer, int level){
         this.singlePlayer = singlePlayer;
         this.game = game;
@@ -81,6 +76,8 @@ public class PlayScreen implements Screen {
             player2 = new Player(this); // spiller 2
         }
         world.setContactListener(new WorldContact());
+        player1.isDead = false;
+        ammo = 4;
     }
 
     /**
@@ -154,11 +151,11 @@ public class PlayScreen implements Screen {
             if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
                 gameState = 4;
             }
-            if(Gdx.input.isKeyPressed(Input.Keys.P)){
-                game.pause();
-            }
-            if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
-                game.resume();
+            if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+                if(ammo>0) {
+                    ammo--;
+                    player1.shootBullets();
+                }
             }
         }
     }
@@ -310,7 +307,6 @@ public class PlayScreen implements Screen {
         world.step(1/60f, 6, 2);
         fallsOffSingle();
         player1.update(v);
-
         for(BasicEnemy e : worldG.getEnemies()){
             e.update(v);
             if(e.getX() < player1.getX() +224/Mario.PPM){
@@ -408,4 +404,5 @@ public class PlayScreen implements Screen {
     public TiledMap getMap() {
         return map;
     }
+
 }

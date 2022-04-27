@@ -1,4 +1,4 @@
-package Sprites;
+package Sprites.BlockObjects;
 
 import Scene.Hud;
 import Screens.PlayScreen;
@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
 import game.Mario;
 
-public class Goal extends InteractiveObject{
+public class Goal extends InteractiveObject {
 
     public Goal(World world, TiledMap map, Rectangle r) {
         super(world, map, r);

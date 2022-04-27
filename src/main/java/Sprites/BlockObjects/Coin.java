@@ -1,4 +1,4 @@
-package Sprites;
+package Sprites.BlockObjects;
 
 import Scene.Hud;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -9,7 +9,7 @@ import static game.Mario.music;
 
 import java.util.Random;
 
-public class Coin extends InteractiveObject{
+public class Coin extends InteractiveObject {
     int totalCoins;
     public static boolean removed;
     private boolean testing = false;

@@ -14,6 +14,9 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import game.Mario;
 
+/**
+ * Fiende som er mer krevende å drepe enn BasicEnemy
+ */
 public class AdvancedEnemy extends Enemy{
     private Boolean toRemove;
 	public Boolean removed;
