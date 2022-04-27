@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.1" orientation="orthogonal" renderorder="right-down" width="240" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="75">
+<map version="1.8" tiledversion="1.8.1" orientation="orthogonal" renderorder="right-down" width="240" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="77">
  <tileset firstgid="1" source="complete_Tileset_16x16.tsx"/>
  <layer id="1" name="himmel" width="240" height="13">
   <data encoding="base64" compression="zlib">
@@ -62,7 +62,7 @@
  </objectgroup>
  <layer id="2" name="foreground" width="240" height="13">
   <data encoding="base64" compression="zlib">
-   eJztmk1OwzAQhZOuiMQNCBIbloUtXRZCqYRYAhJwAUAqcAOOxCE4ASfg5wacgBk1FpZlO8540sbNfNJT7Cjjjh0/x2lbZFlWiESiZCUIQreM839xEeLfHcbPK6GtXcb2BMHHwYbNtxuj3uRf7P9hvjymjqwdQuosjPpQ9s8u71Y5b/8590ZCt8yMY9tYSlwsXfg31edaVefM7d9T0Ax0ZpQFwYe5x7XNy6E+f00qbay4+l8xfzchbDZN76TiXztVwDpHRfybDtsWUWJC4kIpHGVFX/07hXl/DDrpeP6b3kWK+jyK+k6j2rX517WHvh241/dH686gf6TgX5tXL6F8BbrO/dfFYPMusq7n7xNc+6JdH+vnt8T8MKnzjfXxXeLroMuzffBvqFfvofwAeiR4+iMgD5d3kdj+623H+BfrvxF5vCfk33PI9WK0PE4IeR9pMc/GONqg7nEpcSExpk9Lx3lfnKqjlC84RPGqjbaeDsnHBvZ/y6JP0BfoG/RTn2sC/Ts3Pq80rgkZa5Uz5b5Q9yucc0C0Gin/Kl9wCL2l/ieme3DsUBt8nvbl85q5hf3fy8Pk+m1IL88b2ggZa7U+Ue8LZS5w3X/R6oRz9w85wKUD
+   eJztmktOwzAQhpOuiMQNCBIbloUVEl0CoVRCLAGJcgFA4nEDjsQhOAEn4HEDTsBYjYVl2c5kPGnjdD7pV+zIdseOf9tpW2RZVohEomQlCEK3jPN/cYHx7xbj55XQ1jZje4IQYm9g8+3Gyjf5V/V/P19cU0fWDiF1Hq38upyffd6tct7+c56NhG6ZWte2dSn1YunCv6nua1UdM7d/T0FT0JmVFoQQ9hnXNS/Xdf+1qYyx4up/xfzdhDBsmt5J2/j3gCekJKgQ6xyVIft3aHNk0yFKHUw9LIUnrenr/nsE8/4YdNLx/Le9qyjq+0rUdxrdrsu/vjP0fMBex7A7WnUE/SMF/7q8egnpK9B1Hi4Xg8u7ilXtv09Q9sUoH+vnt8T8MKnjjfXxbeLroM+zffAv1qt3kL4HPRA8/YGIw+ddRWz/zbZj/KvyvxFxvCfk33OI9WK0uE4IcR8adZ6tcXRBPeNS6mHq2D4tPfdD9XReSfuCQxSvumjraUw8LlT/Nxz6BH2BvkE/9b0mlH9n1ueVVhnMWOuYKc+Fel7hnAOi5Uj7V/uCQ8pb+n9ipgfHHrUh5OlQPK+ZX6r/OzlOvt+GzPSsoQ3MWOv1ifpcKHOB6/mLlic1d/8AGCulbQ==
   </data>
  </layer>
  <objectgroup id="7" name="extralife">
@@ -104,4 +104,8 @@
   </object>
  </objectgroup>
  <objectgroup id="11" name="advancedenemies"/>
+ <objectgroup id="12" name="ammo">
+  <object id="75" x="16" y="112" width="16" height="16"/>
+  <object id="76" x="2208" y="112" width="16" height="16"/>
+ </objectgroup>
 </map>

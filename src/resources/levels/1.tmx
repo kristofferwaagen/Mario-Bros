@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.1" orientation="orthogonal" renderorder="right-down" width="240" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="15" nextobjectid="109">
+<map version="1.8" tiledversion="1.8.1" orientation="orthogonal" renderorder="right-down" width="240" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="15" nextobjectid="110">
  <tileset firstgid="1" source="complete_Tileset_16x16.tsx"/>
  <layer id="1" name="background" width="240" height="13">
   <data encoding="base64" compression="zlib">
@@ -85,7 +85,7 @@
  </objectgroup>
  <layer id="2" name="foreground" width="240" height="13">
   <data encoding="base64" compression="zlib">
-   eJztmE1uwjAQhV0ErXwHFr0Ea0orddtKLLsEqUuWcBC4A70GJ+t4ESk1SfzvmaTvk0YmEp6MPH4zjrUCAIwVzR1ABO/cAQjhY6bU54w7CsBJo98j7YOToL2wIHske+IORDA7ytc+U86k5T8Vu8a7nsdKzf57e6j4MsDC1OpASXJoz8eHT07a/XKod6b01bk1AiCJkNqlVT391gTn5vygJ8pCqzD9fjl81cCcnRsDoARmL7+Qbcheyd48nmv3L63C9Xtw+GtYefhCf/yL7vkd40PaWciXnHGfqb5fImp8Sgy11t3Wbm79chJSF9YJ77HnptxD2jkI/abp+6+UnLgoUXeupN2fQP2O4TuyS7tT0m8IW6a5bbpy4JsX3zWXmhs7rtie2eXDHqdAn3Zr6FfiHvouNDdEVy79xvbhUutdMo8xPbPPhz0u84TIxpB2c+j3v5PjPs3k4Rn3u3eYNcG6gJJgf4Ex8wsO7iTO
+   eJztmDsOwjAMhgPiodyBgUsw85JYQWJkBImREQ4Cd4BrcDLcoVIVWuI87RZ/kpVWoq6J89tptBIEoa1o6gA82FAHwIRtX6ldnzoKgZJSv1dYBzdGa2EINgIbUwfCmCPk6xQpZ9zyH4pZ4233bSVn/333Mr5MIKFrdSAlMbSH8YHJSbVf/uqdIX11YIyCwAmX2qVVPv3mRPbN8ZGeyAut3PR7sPjKQbF3Lk0QUlCs5QXYEmwFtkbc5+5fWrnr92LxVzJD+OpKf8T8Vwy64drHB7e9EJaYcd+hvj88anxIDLnm3dRubP1S4lIX5gHvMZ8NOYc0c+D6TdP0Wy45sZGi7jxBuy9H/bbhO7JOu13Srwt7omer1OUAmxfsnHPNjRmXb8+s82GOXaBJuzn0y3ENnRM966Irm359+3Cq+U6ZR5+e2eTDHCdxQiTjl3Zj6PffiXGeVuRhKue7XxRzIvMipETWl9BmPoRSJQM=
   </data>
  </layer>
  <objectgroup id="8" name="extralife">
@@ -133,5 +133,6 @@
  </objectgroup>
  <objectgroup id="14" name="ammo">
   <object id="107" x="48" y="112" width="16" height="16"/>
+  <object id="109" x="992" y="112" width="16" height="16"/>
  </objectgroup>
 </map>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.1" orientation="orthogonal" renderorder="right-down" width="240" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="117">
+<map version="1.8" tiledversion="1.8.1" orientation="orthogonal" renderorder="right-down" width="240" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="121">
  <tileset firstgid="1" source="complete_Tileset_16x16.tsx"/>
  <layer id="3" name="background" width="240" height="13">
   <data encoding="base64" compression="zlib">
@@ -68,6 +68,8 @@
   <object id="112" x="544" y="176" width="16" height="16"/>
   <object id="114" x="1680" y="176" width="16" height="16"/>
   <object id="115" x="768" y="176" width="16" height="16"/>
+  <object id="117" x="1744" y="176" width="48" height="16"/>
+  <object id="118" x="1840" y="176" width="48" height="16"/>
  </objectgroup>
  <objectgroup id="4" name="coin">
   <object id="56" x="608" y="144" width="16" height="16"/>
@@ -87,7 +89,7 @@
  </objectgroup>
  <layer id="1" name="foreground" width="240" height="13">
   <data encoding="base64" compression="zlib">
-   eJztmE1SwzAMhQ1k4wNAN1yAcgh2OUBZcgCWXIGjt55pZoSwHMWRLUPfN/MmjpvIau3nn8YQQtwhAIAfezwI/wLgC/wLwG/mTN2Ie85cPqUcn5XPAfCfGHWsR1a+5fPv5J0AGBJpjRth/PM8RsjJm4nIoq4lE7sCWyQ/ePrkg5R5HvDv34bPJUBPJFdpfY3s6sEXKef2zz24u+i+II/fh/9nsXbvCbxpCx1vc1jv66h4phWSf3P3LUjefWKic95yD+zQ+P3NqC2rOL3iasbaSPtU7t+e51/qXf5f2MzKpRgPbdMcEsmDufqSX6XP3relI2IVp0fc2vHey7+5dkrrb0v4ulvTNo2h8bD196vNOZ0JRp9zPne+fzKKI2Edt2bd3fKuBaP4V9ozb83jkbx/COUzdAvVeHDJ+UDq1s7/tD2Ls24uhjYHyE+p/0t791Tu0Y/cu4t/v6/ie+lJ0Ev46d9c3JaiHtSScj5e9Erq6Dxk3Z4WbQ6Qn9b6/wwzZx6+
+   eJztmE1OxDAMhQNTQDkAzIYLAGvWs+sBYMkBWHIFjk4rUclj4tRNnTjA+6SnppnW8Uzy8jMxhBB3CADgxx4Pwr8A+AL/AvCTMVHX454zlU8ux3vlcwD8JXod65GV//P5d/BOAHSJtMb1MP55Hj3k5M1AZFFXk4FdgS2SHzx98kbKPA/493fD5xKgJ5KrtL5GdvXgg5RT++cWXEy6zMjj9+H/WazdewJv2kLH2xjW+zoqnqmF5N/UfQ1m794x0TlvuQd2aPx+MmrLKk6ruJqx1tM+lfuXr8HPFdum3uX/hY2snItxqJhjr0geTNXn/Cp99rotHRGrOC3ilvqwlX9T7eTW35rwdbekbRpD42Hr71ea83wm6H3Oed/5/otRHAnruCXr7pZ3LejFv9KeeWset+T9Y8ifoWuoxINLzkdSt3b+p+3x9fJq0vWkG2V9IDHoM9ocID/N/Z/bu8/lFv3Ivbv49/NbfC89CHoI5/5Nxa0p6kEtc86Pk55IHZ2HrNvTos0B8tNa/38BfK8fKQ==
   </data>
  </layer>
  <objectgroup id="8" name="extralife">
@@ -114,6 +116,7 @@
   <object id="83" x="1952" y="128" width="16" height="16"/>
   <object id="84" x="1952" y="176" width="16" height="16"/>
   <object id="116" x="1072" y="64" width="16" height="16"/>
+  <object id="119" x="1984" y="176" width="48" height="16"/>
  </objectgroup>
  <objectgroup id="9" name="enemies">
   <object id="96" x="150" y="52">
@@ -148,5 +151,8 @@
   <object id="113" x="656.333" y="183">
    <point/>
   </object>
+ </objectgroup>
+ <objectgroup id="11" name="ammo">
+  <object id="120" x="80" y="144" width="16" height="16"/>
  </objectgroup>
 </map>
