@@ -26,12 +26,12 @@ import static game.Mario.music;
 public class PlayScreen implements Screen {
     //private String mapLocation = "src/resources/test.tmx"; // used to test graphical features
     public  Mario game;
-    private final OrthographicCamera camera;
-    private final Viewport gamePort;
+    private final OrthographicCamera camera1, camera2;
+    private final Viewport gamePort1, gamePort2;
 
     private final Hud hud;
     private final TiledMap map; // referanse til selve spillebrettet
-    private final OrthogonalTiledMapRenderer renderer; // funksjonalitet som viser spillebrettet
+    private final OrthogonalTiledMapRenderer renderer, renderer2; // funksjonalitet som viser spillebrettet
     private final TmxMapLoader mapLoader;
     private final String mapLocation;
     public static Player player1, player2;
@@ -54,21 +54,25 @@ public class PlayScreen implements Screen {
         this.game = game;
         batch = game.batch;
         // kamera
-        camera = new OrthographicCamera();
-        gamePort = new FitViewport(Mario.visionWidth / Mario.PPM, Mario.visionHeight / Mario.PPM, camera); // skalerer responsivt med vinduets størrelse, henter resolution størrelse fra Mario.java
+        camera1 = new OrthographicCamera();
+        camera2 = new OrthographicCamera();
+        gamePort1 = new FitViewport(Mario.visionWidth / Mario.PPM, Mario.visionHeight / Mario.PPM, camera1); // skalerer responsivt med vinduets størrelse, henter resolution størrelse fra Mario.java
+        gamePort2 = new FitViewport(Mario.visionWidth / Mario.PPM, Mario.visionHeight / Mario.PPM, camera2);
         hud = new Hud(game.batch); // Hud som skal vise poeng/tid/info
 
-        gWidth = gamePort.getWorldWidth() / 2;
-        gHeight = gamePort.getWorldHeight() / 2;
+        gWidth = gamePort1.getWorldWidth() / 2;
+        gHeight = gamePort1.getWorldHeight() / 2;
 
         // kart
         mapLoader = new TmxMapLoader(); // laster inn spillebrettet
         mapLocation = "src/resources/levels/"+Integer.toString(level)+".tmx";
         map = mapLoader.load(mapLocation); // henter ut hvilket spillebrett som skal brukes
         renderer = new OrthogonalTiledMapRenderer(map, 1 / Mario.PPM); // viser spillebrettet
+        renderer2 = new OrthogonalTiledMapRenderer(map, 1 / Mario.PPM);
 
         //posisjoner kamera på spiller
-        camera.position.set(gWidth, gHeight, 0);
+        camera1.position.set(gWidth, gHeight, 0);
+        camera2.position.set(gWidth, gHeight, 0);
         world = new World(new Vector2(0, -5), true);
         b2dr = new Box2DDebugRenderer();
         worldG = new WorldGenerator(this);
@@ -104,9 +108,9 @@ public class PlayScreen implements Screen {
 
     /**
      * håndterer input fra klientene - sjekker om det er two eller single player
-     * @param dt
+     * @param delta
      */
-    public void handleInput(float dt) { // sjekker input
+    public void handleInput(float delta) { // sjekker input
         if (gameState == 2) {
             if(!singlePlayer) {
                 if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
@@ -165,39 +169,46 @@ public class PlayScreen implements Screen {
     /**
      * Oppdatereringsmetode for twoplayer funksjon
      */
-    public void update(float dt){ // oppdaterer enheter
-        handleInput(dt);
+    public void update(float delta){ // oppdaterer enheter
+        handleInput(delta);
         if(player1.isDead && player2.isDead){
             gameState = 4;
         }
         world.step(Gdx.graphics.getDeltaTime(), 6, 2);
         fallsOff();
 
-        player1.update(dt);
-        player2.update(dt);
+        player1.update(delta);
+        player2.update(delta);
         for(BasicEnemy e : worldG.getEnemies()){
-            e.update(dt);
-            if(e.getX() < player1.getX() +224/Mario.PPM){
+            e.update(delta);
+            if(e.getX() < player1.getX() +224/Mario.PPM || e.getX() < player2.getX() +224/Mario.PPM){
                 e.b2body.setActive(true);
             }
         }
         for(AdvancedEnemy a : worldG.getAdvancedEnemies()){
-            a.update(dt);
-            if(a.getX() < player2.getX()+224/Mario.PPM){
+            a.update(delta);
+            if(a.getX() < player1.getX()+224/Mario.PPM || a.getX() < player2.getX()+224/Mario.PPM){
                 a.b2body.setActive(true);
             }
         }
-        hud.update(dt);
+        hud.update(delta);
         //flytter kamera til spiller 2 dersom spiller 1 dør
         if(gameState == 2) {
             if(player1.isDead){
-                camera.position.x = player2.getX();
-            } else{
-                camera.position.x = player1.getX();
+                camera1.position.x = player2.getX();
+                camera2.position.x = player2.getX();
+            } else if (player2.isDead){
+                camera1.position.x = player1.getX();
+                camera2.position.x = player1.getX();
+            } else {
+                camera1.position.x = player1.getX();
+                camera2.position.x = player2.getX();
             }
         }
-        camera.update();
-        renderer.setView(camera);
+        camera1.update();
+        camera2.update();
+        renderer.setView(camera1);
+        renderer2.setView(camera2);
     }
 
     @SuppressFBWarnings("SF_SWITCH_NO_DEFAULT")
@@ -208,6 +219,7 @@ public class PlayScreen implements Screen {
         else
             updateSingle(delta);
         renderer.render();
+        renderer2.render();
         switch (gameState) {
             case 1:
                 if (gameOverMusic != null)
@@ -253,6 +265,24 @@ public class PlayScreen implements Screen {
         game.setScreen(new MenuScreen(game));
     }
 
+    public void firstView(float delta){
+        game.batch.setProjectionMatrix(camera1.combined);
+        batch.begin();
+        renderer2.render();
+        drawMultiplayer(delta);
+        batch.end();
+        hud.stage.draw();
+    }
+
+    public void secondView(float delta){
+        game.batch.setProjectionMatrix(camera2.combined);
+        batch.begin();
+        renderer.render();
+        drawMultiplayer(delta);
+        batch.end();
+        hud.stage.draw();
+    }
+
     /**
      * metode som kjører mainGame enten singleplayer eller twoplayer
      */
@@ -261,12 +291,20 @@ public class PlayScreen implements Screen {
             update(delta);
             Gdx.gl.glClearColor(1, 1, 1, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            gamePort1.apply();
+            firstView(delta);
+            gamePort2.apply();
+            secondView(delta);
+            game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+        }
+        else {
+            updateSingle(delta);
+            Gdx.gl.glClearColor(1, 1, 1, 1);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             renderer.render();
-            b2dr.render(world, camera.combined);
             batch.begin();
-            game.batch.setProjectionMatrix(camera.combined);
+            game.batch.setProjectionMatrix(camera1.combined);
             player1.draw(game.batch);
-            player2.draw(game.batch);
             for(BasicEnemy e : worldG.getEnemies()){
                 e.draw(game.batch);
             }
@@ -277,24 +315,16 @@ public class PlayScreen implements Screen {
             game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
             hud.stage.draw();
         }
-        else {
-            updateSingle(delta);
-            Gdx.gl.glClearColor(1, 1, 1, 1);
-            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-            renderer.render();
-            b2dr.render(world, camera.combined);
-            batch.begin();
-            game.batch.setProjectionMatrix(camera.combined);
-            player1.draw(game.batch);
-            for(BasicEnemy e : worldG.getEnemies()){
-                e.draw(game.batch);
-            }
-            for(AdvancedEnemy a : worldG.getAdvancedEnemies()){
-                a.draw(game.batch);
-            }
-            batch.end();
-            game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
-            hud.stage.draw();
+    }
+
+    public void drawMultiplayer(float delta){
+        player1.draw(game.batch);
+        player2.draw(game.batch);
+        for(BasicEnemy e : worldG.getEnemies()){
+            e.draw(game.batch);
+        }
+        for(AdvancedEnemy a : worldG.getAdvancedEnemies()){
+            a.draw(game.batch);
         }
     }
 
@@ -321,9 +351,9 @@ public class PlayScreen implements Screen {
             }
         }
         hud.update(delta);
-        camera.position.x = player1.getX();
-        camera.update();
-        renderer.setView(camera);
+        camera1.position.x = player1.getX();
+        camera1.update();
+        renderer.setView(camera1);
     }
 
     /**
@@ -369,7 +399,13 @@ public class PlayScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        gamePort.update(width, height);
+        if(!singlePlayer){
+            gamePort1.update(width / 2, height);
+            gamePort2.update(width / 2, height);
+            gamePort2.setScreenX(gamePort1.getScreenWidth());
+        } else {
+            gamePort1.update(width, height);
+        }
     }
 
     @Override

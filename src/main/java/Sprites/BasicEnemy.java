@@ -68,7 +68,7 @@ public class BasicEnemy extends Enemy{
         CircleShape shape = new CircleShape();
         shape.setRadius(5 / Mario.PPM);
         fdef.filter.categoryBits = Mario.enemyBit;
-        fdef.filter.maskBits = Mario.groundBit | Mario.coinBit | Mario.bit | Mario.objectBit | Mario.enemyBit;
+        fdef.filter.maskBits = Mario.groundBit | Mario.coinBit | Mario.bit | Mario.objectBit | Mario.enemyBit | Mario.exprBlockBit;
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
