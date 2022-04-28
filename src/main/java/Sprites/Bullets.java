@@ -14,15 +14,18 @@ public class Bullets extends Sprite {
     Texture t;
     public Body b2body;
     private float time;
-    public static boolean toRemove, removed;
+    public static boolean toRemove, removed, movesRight;
 
-    public Bullets(PlayScreen screen, float x, float y){
+    public Bullets(PlayScreen screen, float x, float y, Player player){
         this.screen = screen;
         this.world = screen.getWorld();
         t = new Texture("src/resources/tileset/16x16/Objects/bullet.png");
         setBounds(x, y, 6/Mario.PPM, 6/Mario.PPM);
         createBullet();
         toRemove = false; removed = false;
+        if(player.flipped) {
+        	movesRight = false;
+        } else movesRight = true;
     }
     public void update(float dt){
         time += dt;
@@ -31,7 +34,7 @@ public class Bullets extends Sprite {
             removed = true;
         }
         else if(!removed){
-            if(!Player.flipped)
+            if(movesRight)
                 b2body.setLinearVelocity(3, 0);
             else
                 b2body.setLinearVelocity(-3,0);

@@ -46,7 +46,7 @@ public class WorldContact implements ContactListener {
             	break;
             case Mario.enemyTop | Mario.bulletBit:
             case Mario.enemyBit | Mario.bulletBit:
-                if(a.getFilterData().categoryBits == Mario.enemyBit){
+                if((b.getFilterData().categoryBits == Mario.bulletBit)){
                     ((Enemy) a.getUserData()).contactTop();
                 }else{
                     ((Enemy) b.getUserData()).contactTop();
