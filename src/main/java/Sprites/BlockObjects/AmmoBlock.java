@@ -1,5 +1,6 @@
 package Sprites.BlockObjects;
 
+import Scene.Hud;
 import Screens.PlayScreen;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
@@ -14,15 +15,14 @@ public class AmmoBlock extends InteractiveObject {
         super(world, map, r);
         fixture.setUserData(this);
         categoryFilter(Mario.ammoBit);
-        ammoInBlock = 5;
+        ammoInBlock = 10;
     }
     @Override
     public void onTouch() {
-        ammoInBlock = 1;
         if(ammoInBlock >0){
+            Hud.addShot(1);
             music.getAmmoSound();
             ammoInBlock--;
-            PlayScreen.ammo++;
         }
         else{
             categoryFilter(Mario.removedBit);

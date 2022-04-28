@@ -40,7 +40,6 @@ public class PlayScreen implements Screen {
     private final float gHeight;
     private float pos;
     public static int gameState = 2; //1 == mainMenu, 2 == mainGame, 3 == nextLevel, 4 == gameOver
-    public static int ammo;
     private final World world;
     private final Box2DDebugRenderer b2dr;
 
@@ -77,7 +76,6 @@ public class PlayScreen implements Screen {
         }
         world.setContactListener(new WorldContact());
         player1.isDead = false;
-        ammo = 4;
     }
 
     /**
@@ -152,8 +150,8 @@ public class PlayScreen implements Screen {
                 gameState = 4;
             }
             if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
-                if(ammo>0) {
-                    ammo--;
+                if(Hud.pickedAmmo>0) {
+                    Hud.addShot(-1);
                     music.getShotSound();
                     player1.shootBullets();
                 }
