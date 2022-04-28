@@ -62,7 +62,7 @@ public class AudioMusic {
     }
     public void getAmmoSound(){
         ammoSound = Gdx.audio.newSound(Gdx.files.internal("src/resources/audio/ammoPickup.ogg"));
-        ammoSound.play(0.5f);
+        ammoSound.play(0.3f);
     }
     public void dispose() {
         coinSound.dispose();

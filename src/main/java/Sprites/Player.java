@@ -44,6 +44,7 @@ public class Player extends Sprite {
         frames = new Array<>();
         frames.add(t1,t2,t3,t4);
         animation = new Animation(0.4f, frames);
+        isDead= false;
     }
     /**
      * Konstruktør som ikke er avhengig av textures og sprites, brukes for testing

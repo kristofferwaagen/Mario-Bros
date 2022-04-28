@@ -125,6 +125,13 @@ public class PlayScreen implements Screen {
                     player2.b2body.applyLinearImpulse(new Vector2(-0.025f, 0), player2.b2body.getWorldCenter(), true);
                     player2.flipped = true;
                 }
+                if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
+                    if(Hud.pickedAmmo>0) {
+                        Hud.addShot(-1);
+                        music.getShotSound();
+                        player2.shootBullets();
+                    }
+                }
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
             	int mode = player1.jumped();
