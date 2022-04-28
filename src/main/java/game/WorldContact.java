@@ -44,7 +44,14 @@ public class WorldContact implements ContactListener {
             case Mario.extraLifeBit | Mario.bit:
             	groundJump(Mario.extraLifeBit);
             	break;
+            case Mario.enemyTop | Mario.bulletBit:
             case Mario.enemyBit | Mario.bulletBit:
+                if(a.getFilterData().categoryBits == Mario.enemyBit){
+                    ((Enemy) a.getUserData()).contactTop();
+                }else{
+                    ((Enemy) b.getUserData()).contactTop();
+                }
+                break;
             case Mario.enemyTop | Mario.bit:
                 if(a.getFilterData().categoryBits == Mario.enemyTop){
                     ((Enemy)a.getUserData()).contactTop();
@@ -53,8 +60,6 @@ public class WorldContact implements ContactListener {
                 }
                 break;
             case Mario.enemyBit | Mario.groundBit:
-            case Mario.enemyTop | Mario.groundBit:
-            case Mario.enemyTop | Mario.enemyBit:
                 if(a.getFilterData().categoryBits == Mario.enemyBit){
                     ((Enemy)a.getUserData()).flipSpeed(true, false);
                 }else{
@@ -65,8 +70,7 @@ public class WorldContact implements ContactListener {
                 if(a.getFilterData().categoryBits == Mario.bit){
                     ((Player)a.getUserData()).hit();
                 }else{
-                    ((Player)b.getUserData()).hit();
-                }
+                    ((Player)b.getUserData()).hit();}
                 break;
             case Mario.enemyBit | Mario.enemyBit:
                 ((Enemy)a.getUserData()).flipSpeed(true, false);
@@ -81,7 +85,6 @@ public class WorldContact implements ContactListener {
             case Mario.playerBot | Mario.exprBlockBit:
                 ((ExpiringBlocks) a.getUserData()).onTouch();
                 break;
-
             default:
                 break;
         }

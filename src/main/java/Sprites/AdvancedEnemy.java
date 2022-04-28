@@ -112,6 +112,7 @@ public class AdvancedEnemy extends Enemy{
 
     @Override
     public void contactTop() {
+        Bullets.toRemove = true;
         toRemove = true;
         if(!testing)
         	Hud.scoreAdder(100);

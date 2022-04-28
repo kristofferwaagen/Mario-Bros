@@ -26,13 +26,14 @@ public class Bullets extends Sprite {
     }
     public void update(float dt){
         time += dt;
-        setRegion(t);
-        setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y-getHeight()/2);
-        if(!removed && !toRemove)
-            b2body.setLinearVelocity(3, 0);
-        if(time>3 && !removed){
+        if(toRemove && !removed || time > 3){
             world.destroyBody(b2body);
             removed = true;
+        }
+        else if(!removed){
+            b2body.setLinearVelocity(3, 0);
+            setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y-getHeight()/2);
+            setRegion(t);
         }
     }
     protected void createBullet() {
@@ -50,9 +51,7 @@ public class Bullets extends Sprite {
         fdef.shape = bullet;
         fdef.restitution = 1;
         fdef.friction = 0;
-
         b2body.createFixture(fdef).setUserData(this);
-        //b2body.setLinearVelocity(new Vector2(-2, 0));
     }
     public void destroy(){
         toRemove = true;
@@ -61,6 +60,4 @@ public class Bullets extends Sprite {
         if(!removed)
             super.draw(batch);
     }
-
-
 }

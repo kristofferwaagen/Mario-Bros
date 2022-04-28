@@ -90,6 +90,7 @@ public class BasicEnemy extends Enemy{
 
     @Override
     public void contactTop() {
+        Bullets.toRemove = true;
         toRemove = true;
         music.getHitSound();
         Hud.scoreAdder(100);
