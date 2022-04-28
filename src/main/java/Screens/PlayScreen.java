@@ -154,6 +154,7 @@ public class PlayScreen implements Screen {
             if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
                 if(ammo>0) {
                     ammo--;
+                    music.getShotSound();
                     player1.shootBullets();
                 }
             }

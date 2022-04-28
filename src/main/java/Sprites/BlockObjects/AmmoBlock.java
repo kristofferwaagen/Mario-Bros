@@ -6,6 +6,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
 import game.Mario;
 
+import static game.Mario.music;
+
 public class AmmoBlock extends InteractiveObject {
     int ammoInBlock;
     public AmmoBlock(World world, TiledMap map, Rectangle r){
@@ -18,6 +20,7 @@ public class AmmoBlock extends InteractiveObject {
     public void onTouch() {
         ammoInBlock = 1;
         if(ammoInBlock >0){
+            music.getAmmoSound();
             ammoInBlock--;
             PlayScreen.ammo++;
         }
