@@ -174,7 +174,7 @@ public class PlayScreen implements Screen {
         if(player1.isDead && player2.isDead){
             gameState = 4;
         }
-        world.step(Gdx.graphics.getDeltaTime(), 6, 2);
+        world.step(delta, 6, 2);
         fallsOff();
 
         player1.update(delta);
@@ -335,7 +335,7 @@ public class PlayScreen implements Screen {
         handleInput(delta);
         if(player1.isDead)
             gameState = 4;
-        world.step(Gdx.graphics.getDeltaTime(), 6, 2);
+        world.step(delta, 6, 2);
         fallsOffSingle();
         player1.update(delta);
         for(BasicEnemy e : worldG.getEnemies()){
