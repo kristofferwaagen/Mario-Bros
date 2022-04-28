@@ -45,6 +45,7 @@ public class Player extends Sprite {
         frames.add(t1,t2,t3,t4);
         animation = new Animation(0.4f, frames);
         isDead= false;
+        removed = false;
     }
     /**
      * Konstruktør som ikke er avhengig av textures og sprites, brukes for testing
@@ -60,8 +61,9 @@ public class Player extends Sprite {
 
     public void update(float dt){
         time += dt;
-        if(isDead){
+        if(isDead && !removed){
             world.destroyBody(b2body);
+            removed = true;
         }
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
         setRegion((Texture) animation.getKeyFrame(time, true));

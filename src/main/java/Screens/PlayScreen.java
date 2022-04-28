@@ -179,19 +179,31 @@ public class PlayScreen implements Screen {
 
         player1.update(dt);
         player2.update(dt);
-
         for(BasicEnemy e : worldG.getEnemies()){
             e.update(dt);
-            if(e.getX() < player1.getX() +224/Mario.PPM){
-                e.b2body.setActive(true);
+            if(!player1.isDead) {
+                if (e.getX() < player1.getX() + 224 / Mario.PPM) {
+                    e.b2body.setActive(true);
+                }
+            }
+            else {
+                if (e.getX() < player2.getX() + 224 / Mario.PPM) {
+                    e.b2body.setActive(true);
+                }
             }
         }
         for(AdvancedEnemy a : worldG.getAdvancedEnemies()){
             a.update(dt);
-            if(a.getX() < player1.getX()+224/Mario.PPM){
-                a.b2body.setActive(true);
+            if(!player1.isDead){
+                if(a.getX() < player1.getX()+224/Mario.PPM)
+                    a.b2body.setActive(true);
+            }
+            else{
+                if(a.getX() < player2.getX()+224/Mario.PPM)
+                    a.b2body.setActive(true);
             }
         }
+
         hud.update(dt);
         //flytter kamera til spiller 2 dersom spiller 1 dør
         if(gameState == 2) {
