@@ -31,7 +31,10 @@ public class Bullets extends Sprite {
             removed = true;
         }
         else if(!removed){
-            b2body.setLinearVelocity(3, 0);
+            if(!Player.flipped)
+                b2body.setLinearVelocity(3, 0);
+            else
+                b2body.setLinearVelocity(-3,0);
             setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y-getHeight()/2);
             setRegion(t);
         }

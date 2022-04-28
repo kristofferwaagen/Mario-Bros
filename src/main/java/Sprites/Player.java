@@ -16,7 +16,7 @@ public class Player extends Sprite {
     public static int hp;
     public Boolean isDead;
     private Boolean removed;
-    public Boolean flipped = false;
+    public static Boolean flipped = false;
     private Boolean testing = true; // Hvis true, kaller musikk, HUD og andre klasser som ikke instansieres i tester.
     public World world;
     public Body b2body;

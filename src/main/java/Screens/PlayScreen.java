@@ -126,7 +126,7 @@ public class PlayScreen implements Screen {
                     player2.flipped = true;
                 }
                 if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
-                    if(Hud.pickedAmmo>0) {
+                    if(Hud.pickedAmmo>0 && player2.canJumpOnGround) {
                         Hud.addShot(-1);
                         music.getShotSound();
                         player2.shootBullets();
@@ -157,7 +157,7 @@ public class PlayScreen implements Screen {
                 gameState = 4;
             }
             if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
-                if(Hud.pickedAmmo>0) {
+                if(Hud.pickedAmmo>0 && player1.canJumpOnGround) {
                     Hud.addShot(-1);
                     music.getShotSound();
                     player1.shootBullets();
