@@ -58,6 +58,9 @@ Man kan velge mellom enspiller eller tospiller på samme pc.
 - Spiller 1 beveger seg med piltastene og skyter med ENTER
 - Spiler 2 beveger seg med W,A,D, og skyter med SPACE.
 
+Når spillet starter vises menyskjermen. Her velger man mellom 1-spiller eller 2-spiller, og deretter velger man
+"choose level" og velger hvilket nivå man vil starte på.
+
 For å fullføre et nivå må man finne en nøkkel og den med seg til
 målområdet i enden av nivået. På veien kan man plukke opp penger, skudd og ekstra liv.
 Hver blokk med ammunisjon har 10 skudd, og pengeblokkene har et vilkårlig antall mynter opp til 8.
@@ -67,10 +70,6 @@ Gjennom nivået vil man alltid ha en oversikt over poeng, skudd, nøkler og liv 
 teller ned. Dersom man blir truffet av en fiende eller tiden renner ut, er spillet over.
 
 Fiendene kan beseires enten ved å hoppe på hodene deres, eller skyte de om man har skudd tilgjengelig.
-
-På start skjermen kan spilleren også velge hvilket nivå den ønsker å starte på, og når det nivået fullføres flyttes
-spilleren automatisk til neste nivå.
-
 
 ## Kjøre tester
 
