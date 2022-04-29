@@ -2,6 +2,7 @@ package Sprites;
 
 import Scene.Hud;
 import Screens.PlayScreen;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -21,7 +22,7 @@ public class BasicEnemy extends Enemy{
     private Boolean removed;
     private Animation animation;
     private Array<Texture> frames;
-    private Texture t1, t2, t3,t4;
+    private Texture t1, t2;
 
     public BasicEnemy(PlayScreen screen, float x, float y) {
 
@@ -31,8 +32,8 @@ public class BasicEnemy extends Enemy{
 
         setBounds(getX(),getY(),16 / Mario.PPM, 16 / Mario.PPM);
 
-        t1 = new Texture("src/resources/tileset/16x16/Enemies/snail1.png");
-        t2 = new Texture("src/resources/tileset/16x16/Enemies/snail2.png");
+        t1 = new Texture(Gdx.files.internal("tileset/16x16/Enemies/snail1.png"));
+        t2 = new Texture(Gdx.files.internal("tileset/16x16/Enemies/snail2.png"));
 
 
         frames = new Array<>();

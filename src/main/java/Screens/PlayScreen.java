@@ -24,7 +24,7 @@ import static game.Mario.music;
 
 
 public class PlayScreen implements Screen {
-    //private String mapLocation = "src/resources/test.tmx"; // used to test graphical features
+    //private String mapLocation = "test.tmx"; // used to test graphical features
     public  Mario game;
     private final OrthographicCamera camera1, camera2;
     private final Viewport gamePort1, gamePort2;
@@ -46,7 +46,6 @@ public class PlayScreen implements Screen {
 
     public static Boolean singlePlayer;
     WorldGenerator worldG;
-    public static int points;
 
 
     public PlayScreen(Mario game, Boolean singlePlayer, int level){
@@ -65,7 +64,7 @@ public class PlayScreen implements Screen {
 
         // kart
         mapLoader = new TmxMapLoader(); // laster inn spillebrettet
-        mapLocation = "src/resources/levels/"+Integer.toString(level)+".tmx";
+        mapLocation = String.valueOf(Gdx.files.internal("levels/"+ level +".tmx"));
         map = mapLoader.load(mapLocation); // henter ut hvilket spillebrett som skal brukes
         renderer = new OrthogonalTiledMapRenderer(map, 1 / Mario.PPM); // viser spillebrettet
         renderer2 = new OrthogonalTiledMapRenderer(map, 1 / Mario.PPM);
