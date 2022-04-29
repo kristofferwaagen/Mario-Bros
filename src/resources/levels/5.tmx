@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.1" orientation="orthogonal" renderorder="right-down" width="240" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="94">
+<map version="1.8" tiledversion="1.8.1" orientation="orthogonal" renderorder="right-down" width="240" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="96">
  <tileset firstgid="1" source="complete_Tileset_16x16.tsx"/>
  <layer id="1" name="background" width="240" height="13">
   <data encoding="csv">
@@ -59,7 +59,6 @@
   <object id="38" x="1616" y="176" width="160" height="16"/>
   <object id="39" x="1472" y="176" width="128" height="16"/>
   <object id="40" x="1600" y="176" width="16" height="16"/>
-  <object id="42" x="1408" y="160" width="16" height="16"/>
   <object id="43" x="1392" y="128" width="16" height="16"/>
   <object id="44" x="1376" y="80" width="16" height="128"/>
   <object id="45" x="1392" y="144" width="16" height="64"/>
@@ -83,6 +82,7 @@
   <object id="65" x="400" y="64" width="240" height="48"/>
   <object id="86" x="80" y="160" width="16" height="16"/>
   <object id="87" x="624" y="160" width="16" height="16"/>
+  <object id="95" x="1408" y="160" width="64" height="16"/>
  </objectgroup>
  <objectgroup id="4" name="coin">
   <object id="66" x="1024" y="112" width="16" height="16"/>
@@ -119,7 +119,6 @@
   <object id="72" x="2000" y="48" width="16" height="16"/>
  </objectgroup>
  <objectgroup id="8" name="falls">
-  <object id="41" x="1424" y="160" width="48" height="16"/>
   <object id="89" x="912" y="160" width="48" height="16"/>
   <object id="91" x="2944" y="112" width="48" height="16"/>
   <object id="92" x="3008" y="128" width="48" height="16"/>

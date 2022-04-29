@@ -68,9 +68,10 @@ public class AdvancedEnemy extends Enemy{
             if(!singlePlayer){
                 Player currentPlayer = screen.getClosest(this);
                 if(b2body.getPosition().x < currentPlayer.getX())
-                    flipSpeed(true, false);
+                    b2body.setLinearVelocity(1,-2);
+                    //flipSpeed(true, false);
                 else {
-                    b2body.setLinearVelocity(speed);
+                    b2body.setLinearVelocity(-1,-2);
                 }
             }
             else{
