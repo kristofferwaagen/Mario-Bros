@@ -18,15 +18,17 @@ den med seg til mål for å fullføre nivåene.
 
 ## Hvordan laste ned programmet og starte spillet
 
-Last ned XXX.jar fra:
+Laste ned Git-repo fra: https://git.app.uib.no/hackespett/plattformspill-temp som en zip-fil. Unzip filen og naviger til mappen i terminalen din. 
 
-*EN LINK*
+Kjør kommandoen 
+```bash
+mvn clean package
+```
 
 ### Windows
-
-Åpne et terminal-vindu og navigere til mappen hvor XXX.jar-filen er, og kjøre:
+Kjør kommandoen:
 ```bash
-java -jar XXX.jar
+java -jar target/KurtMario-1.0-SNAPSHOT-fat.jar
 ```
 ### Linux
 Kjør kommandoer i terminalen:
@@ -35,14 +37,14 @@ sudo apt update
 sudo apt install default-jdk
 ```
 Naviger til mappen hvor XXX.jar ligger, og kjør:
+
 ```bash
-java -jar XXX.jar
+java -jar target/KurtMario-1.0-SNAPSHOT-fat.jar
 ```
 ### MacOS
-
-Naviger til mappen hvor XXX.jar ligger i terminalen, og kjør:
+I terminalen, kør kommandoen:
 ```bash
-java -XstartOnFirstThread -jar RoboRallyVersion4.jar
+java -XstartOnFirstThread -jar target/KurtMario-1.0-SNAPSHOT-fat.jar
 ```
 
 ### Dersom du vil kjøre spillet fra en Java-IDE:
@@ -100,6 +102,9 @@ For spillet:
 * Når en spiller dør i multiplayer kan spilleren styre "retningen" (øynene) til den andre gjenværende spilleren.
 
 * Noen ganger ved gjentatte raske skudd kan spille kræsje.
+
+* Det er noen problemer med delta time som da gjør at spilleren bruker 2 skudd isteden for 1 og "lives" blir oppdatert for mange ganger. 
+Eksempel: spiller blir truffet av enemy, kollisjonen registreres kun én gang, men "lives" blir oppdatert 3 ganger så spilleren ender opp med -1 liv før den taper spillet.
 
 ## Brukerstøtte
 
