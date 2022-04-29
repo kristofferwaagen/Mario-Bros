@@ -20,7 +20,7 @@ public class Bullets extends Sprite {
     public Bullets(PlayScreen screen, float x, float y, Player player){
         this.screen = screen;
         this.world = screen.getWorld();
-        t = new Texture("tileset/16x16/Objects/bullet.png");
+        t = new Texture("src/resources/tileset/16x16/Objects/bullet.png");
         setBounds(x, y, 6/Mario.PPM, 6/Mario.PPM);
         createBullet();
         toRemove = false; removed = false;

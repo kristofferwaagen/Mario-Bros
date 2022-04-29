@@ -37,10 +37,10 @@ public class Player extends Sprite {
         setBounds(0,0,16 / Mario.PPM, 16 / Mario.PPM);
         bullets = new Array<Bullets>();
         //bilder til animation av spiller
-        t1 = new Texture("tileset/16x16/Hero/day/run1.png");
-        t2 = new Texture("tileset/16x16/Hero/day/run2.png");
-        t3 = new Texture("tileset/16x16/Hero/day/run3.png");
-        t4 = new Texture("tileset/16x16/Hero/day/run4.png");
+        t1 = new Texture("src/resources/tileset/16x16/Hero/day/run1.png");
+        t2 = new Texture("src/resources/tileset/16x16/Hero/day/run2.png");
+        t3 = new Texture("src/resources/tileset/16x16/Hero/day/run3.png");
+        t4 = new Texture("src/resources/tileset/16x16/Hero/day/run4.png");
         frames = new Array<>();
         frames.add(t1,t2,t3,t4);
         animation = new Animation(0.4f, frames);
