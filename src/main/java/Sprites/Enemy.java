@@ -12,10 +12,21 @@ public abstract class Enemy extends Sprite {
     public Body b2body;
     public Vector2 speed;
 
+
     public Enemy(PlayScreen screen, float x, float y){
         this.world = screen.getWorld();
         this.screen = screen;
         setPosition(x, y);
+        defineEnemy();
+        speed = new Vector2(-1,-2);
+        b2body.setActive(false);
+    }
+    /**
+     * Konstruktør (bare) for testing, bruker ikke PlayScreen.
+     */
+    public Enemy(World world, float x, float y) {
+    	this.world = world;
+    	setPosition(x, y);
         defineEnemy();
         speed = new Vector2(-1,-2);
         b2body.setActive(false);

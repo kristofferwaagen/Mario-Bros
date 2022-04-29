@@ -6,7 +6,7 @@
 	<!-- FIXME - set group id -->
 	<groupId>Hackespett</groupId>
 	<!-- FIXME - set artifact name -->
-	<artifactId>gdx-app</artifactId>
+	<artifactId>KurtMario</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 

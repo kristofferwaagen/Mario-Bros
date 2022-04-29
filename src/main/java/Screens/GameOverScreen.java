@@ -1,8 +1,8 @@
 package Screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -16,8 +16,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import game.Mario;
 
 public class GameOverScreen implements Screen {
+
     Stage stage;
     Mario game;
+
     public GameOverScreen(Mario game){
         this.game = game;
         stage = new Stage();
@@ -44,21 +46,25 @@ public class GameOverScreen implements Screen {
 
         //create the buttons and design
         BitmapFont white = new BitmapFont();
+        TextButton.TextButtonStyle menuStyle = new TextButton.TextButtonStyle();
         TextButton.TextButtonStyle exitStyle = new TextButton.TextButtonStyle();
         TextButton.TextButtonStyle gameoverStyle = new TextButton.TextButtonStyle();
         TextButton.TextButtonStyle retryStyle = new TextButton.TextButtonStyle();
 
-        gameoverStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("src/resources/button/gameover.png")));
-        retryStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("src/resources/button/retry.png")));
-        exitStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("src/resources/button/exit.png")));
+        menuStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("button/mainmenu.png"))));
+        gameoverStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("button/gameover.png"))));
+        retryStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("button/retry.png"))));
+        exitStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("button/exit.png"))));
 
         retryStyle.font = white;
         gameoverStyle.font = white;
         exitStyle.font = white;
+        menuStyle.font = white;
         TextButton quitButton = new TextButton("", exitStyle);
         TextButton gameoverButton = new TextButton("", gameoverStyle);
         TextButton retryButton = new TextButton("", retryStyle);
-        backgroundImage = new Image(new Texture("src/resources/button/backgroundForMeny.png"));
+        TextButton menuButton = new TextButton("", menuStyle);
+        backgroundImage = new Image(new Texture(Gdx.files.internal("button/backgroundForMeny.png")));
 
         //set background
         backgroundTable.add(backgroundImage);
@@ -69,6 +75,8 @@ public class GameOverScreen implements Screen {
         buttonTable.add(gameoverButton).height(buttonH).width(buttonW).expandX().fillX();
         buttonTable.row().expandX().fillX();
         buttonTable.add(retryButton).height(buttonH).width(buttonW).expandX().fillX();
+        buttonTable.row().expandX().fillX();
+        buttonTable.add(menuButton).height(buttonH).width(buttonW).expandX().fillX();
         buttonTable.row().expandX().fillX();
         buttonTable.add(quitButton).height(buttonH).width(buttonW).expandX().fillX();
         buttonTable.row().expandX().fillX();
@@ -86,16 +94,31 @@ public class GameOverScreen implements Screen {
         retryButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new PlayScreen(game));
+                if(PlayScreen.singlePlayer)
+                    game.setScreen(new PlayScreen(game, true, Mario.levelCounter));
+                else
+                    game.setScreen(new PlayScreen(game, false, Mario.levelCounter));
+
                 dispose();
             }
         });
+
+        menuButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Mario.levelCounter =1 ;
+                game.setScreen(new MenuScreen(game));
+            }
+        });
+
+
 
     }
 
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(delta);
         stage.draw();
     }
@@ -123,6 +146,5 @@ public class GameOverScreen implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
-
     }
 }
