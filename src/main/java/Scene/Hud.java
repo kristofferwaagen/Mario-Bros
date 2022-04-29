@@ -51,7 +51,7 @@ public class Hud implements Disposable {
         Label shots = new Label("Shots", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         Label lives = new Label("Lives", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         Label gameName = new Label("KURT MARIO", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        Label player1 = new Label("Score p1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        Label scoreHeader = new Label("Score", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         Label timer = new Label("Timer", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         Label key = new Label("Key", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
@@ -60,7 +60,7 @@ public class Hud implements Disposable {
         table.add(lives).expandX();
         table.add(key).expandX();
         table.add(timer).expandX();
-        table.add(player1).expandX();
+        table.add(scoreHeader).expandX();
 
         table.add(gameName).expandX();
         table.row();
