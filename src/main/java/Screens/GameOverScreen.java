@@ -52,10 +52,10 @@ public class GameOverScreen implements Screen {
         TextButton.TextButtonStyle gameoverStyle = new TextButton.TextButtonStyle();
         TextButton.TextButtonStyle retryStyle = new TextButton.TextButtonStyle();
 
-        menuStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("button/mainmenu.png")));
-        gameoverStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("button/gameover.png")));
-        retryStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("button/retry.png")));
-        exitStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("button/exit.png")));
+        menuStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("button/mainmenu.png"))));
+        gameoverStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("button/gameover.png"))));
+        retryStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("button/retry.png"))));
+        exitStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("button/exit.png"))));
 
         retryStyle.font = white;
         gameoverStyle.font = white;
@@ -65,7 +65,7 @@ public class GameOverScreen implements Screen {
         TextButton gameoverButton = new TextButton("", gameoverStyle);
         TextButton retryButton = new TextButton("", retryStyle);
         TextButton menuButton = new TextButton("", menuStyle);
-        backgroundImage = new Image(new Texture("button/backgroundForMeny.png"));
+        backgroundImage = new Image(new Texture(Gdx.files.internal("button/backgroundForMeny.png")));
 
         //set background
         backgroundTable.add(backgroundImage);
