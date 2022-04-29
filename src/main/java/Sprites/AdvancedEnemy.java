@@ -2,6 +2,7 @@ package Sprites;
 
 import Scene.Hud;
 import Screens.PlayScreen;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -31,8 +32,8 @@ public class AdvancedEnemy extends Enemy{
         this.singlePlayer = singlePlayer;
 
         setBounds(getX(), getY(), 16/Mario.PPM, 16/Mario.PPM);
-        t1 = new Texture("src/resources/tileset/16x16/Enemies/slime1.png");
-        t2 = new Texture("src/resources/tileset/16x16/Enemies/slime2.png");
+        t1 = new Texture(Gdx.files.internal("tileset/16x16/Enemies/slime1.png"));
+        t2 = new Texture(Gdx.files.internal("tileset/16x16/Enemies/slime2.png"));
         frames = new Array<>();
         frames.add(t1);
         frames.add(t2);

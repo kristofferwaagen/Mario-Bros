@@ -1,6 +1,7 @@
 package Sprites;
 
 import Screens.PlayScreen;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -20,7 +21,7 @@ public class Bullets extends Sprite {
     public Bullets(PlayScreen screen, float x, float y, Player player){
         this.screen = screen;
         this.world = screen.getWorld();
-        t = new Texture("src/resources/tileset/16x16/Objects/bullet.png");
+        t = new Texture(Gdx.files.internal("tileset/16x16/Objects/bullet.png"));
         setBounds(x, y, 6/Mario.PPM, 6/Mario.PPM);
         createBullet();
         toRemove = false; removed = false;
