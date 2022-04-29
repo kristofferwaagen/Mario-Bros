@@ -1,7 +1,8 @@
 # Kurt Mario av Hackespett
 
 Kurt Mario er et libGDX basert platformspill laget av Hackespett for en prosjektoppgave i INF112.
-
+Spillet er basert på det orginale Super Mario spillet. Målet for spillet er at spilleren skal bekjempe fiender, samle poeng, finne nøkkelen og ta
+den med seg til mål for å fullføre nivåene.
 ## Medlemmer
 
 - [Kristoffer Wågen](https://git.app.uib.no/Kristoffer.Wagen)
@@ -115,5 +116,10 @@ https://trello.com/invite/b/RknwjnfS/3604c83a56a6f5bdf2cc1b11ffdcaf95/kurt-mario
 - [Kevin MacLeod](https://www.chosic.com/download-audio/27248/) for bakgrunsmusikken.
 - [ALEXANDER](https://orangefreesounds.com/mario-coin-sound/) for "coin.ogg" og "key.ogg".
 - [Moonlightbunny](https://www.myinstants.com/profile/moonlightbnny/) for "extraLife.ogg".
-- [Anonym](https://www.myinstants.com/instant/winner-winner-chicken-dinner-9/) for winner sound.
-- [Anders Stene]() for lydfilene "enSpillereValgt.ogg" og "toSpillereValgt.ogg"
+- [Anonym](https://www.myinstants.com/instant/winner-winner-chicken-dinner-9/) for "winner.ogg".
+- [CyberMelt](https://www.myinstants.com/profile/CyberMelt/) for "hurt.ogg"
+- [kwahmah_02](https://freesound.org/people/kwahmah_02/sounds/262893/) for "jump.ogg"
+- [Anonym](https://www.myinstants.com/instant/pokemon-wall-bump-28798/) for "noCoin.ogg"
+- [GunGirl](https://www.myinstants.com/profile/GunGirl/) for "ammoPickup.ogg"
+- [Anonym](http://plantsvszombies.clan.su/publ/fajly/muzyka_i_zvuki_iz_igry/plants_vs_zombies_sounds_zvuki_iz_igry_chast_3/7-1-0-7) for "hit.ogg"
+- [Anders Stene](https://git.app.uib.no/Anders.Stene) for lydfilene "enSpillereValgt.ogg" og "toSpillereValgt.ogg"

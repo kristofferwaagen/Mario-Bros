@@ -125,7 +125,7 @@ Vi har fått implementert alle MVP kravene gitt i oblig 1.
 - lagt inn bedre forklaring på hvorfor vi har valgt å implementere ekstra punkter utenfor MVP kravene.
 
 ##### Klassediagram
-Klassediagram liger som en egen bildefil under ObligatoriskOppgave4 sin mappe.
+Klassediagram ligger som en egen bildefil under ObligatoriskOppgave4 sin mappe.
 Vi har laget relations mellom worldgenerator og InteractiveObjects og Enemy selv om de ikke direkte
 importeres, men siden worldgenerator lager objektene tenkte vi det var passende. Dersom dere har muligheten til å åpne det i NClass er det best, men 
 har også lagt det til som en png fil.
