@@ -93,7 +93,7 @@ public class MenuScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 PlayScreen.singlePlayer = true;
-                Sound lyd = Gdx.audio.newSound(Gdx.files.internal("src/resources/audio/enSpillereValgt.ogg"));
+                Sound lyd = Gdx.audio.newSound(Gdx.files.internal("src/main/resources/audio/enSpillereValgt.ogg"));
                 lyd.play(0.2f);
             }
         });
@@ -102,7 +102,7 @@ public class MenuScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 PlayScreen.singlePlayer = false;
-                Sound lyd = Gdx.audio.newSound(Gdx.files.internal("src/resources/audio/toSpillereValgt.ogg"));
+                Sound lyd = Gdx.audio.newSound(Gdx.files.internal("src/main/resources/audio/toSpillereValgt.ogg"));
                 lyd.play(0.2f);
             }
         });

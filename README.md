@@ -95,8 +95,6 @@ For spillet:
 
 * Når den ene spilleren dør kan det komme en bug som gjør at den andre spilleren vil skyte ut den døde spilleren.
 
-* Om man går over et spesifikt objektet av typen ExprBlock på et av spillbrettene to ganger, så får man en feilmelding.
-
 * Når man dreper en fiende blir den drepte fienden den nærmeste spilleren for AdvancedEnemy å følge etter. Dermed stopper den å bevege seg.
 
 * Når en spiller dør i multiplayer kan spilleren styre "retningen" (øynene) til den andre gjenværende spilleren.
@@ -114,8 +112,8 @@ https://trello.com/invite/b/RknwjnfS/3604c83a56a6f5bdf2cc1b11ffdcaf95/kurt-mario
 ## Acknowledgements
 
 - En stor takk til [bee-m](https://bee-m.itch.io) for [Simple Platformer Premium 8x8 and 16x16](https://bee-m.itch.io/simple-platformer-premium-8x8-and-16x16) tilesettet
-- [Johnny Nguyen](https://git.app.uib.no/J.Nguyen) for png filene Elias16Transp.png og Steffen16Transp.png
 - [Kevin MacLeod](https://www.chosic.com/download-audio/27248/) for bakgrunsmusikken.
-- [ALEXANDER](https://orangefreesounds.com/mario-coin-sound/) for coin lyd og key lyd.
-- [Moonlightbunny](https://www.myinstants.com/profile/moonlightbnny/) for lyd når man plukker opp liv.
+- [ALEXANDER](https://orangefreesounds.com/mario-coin-sound/) for "coin.ogg" og "key.ogg".
+- [Moonlightbunny](https://www.myinstants.com/profile/moonlightbnny/) for "extraLife.ogg".
 - [Anonym](https://www.myinstants.com/instant/winner-winner-chicken-dinner-9/) for winner sound.
+- [Anders Stene]() for lydfilene "enSpillereValgt.ogg" og "toSpillereValgt.ogg"
