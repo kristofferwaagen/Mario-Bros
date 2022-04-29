@@ -18,8 +18,6 @@ den med seg til mål for å fullføre nivåene.
 
 ## Hvordan laste ned programmet og starte spillet
 
-## Hvordan laste ned programmet og starte spillet
-
 Laste ned Git-repo fra: https://git.app.uib.no/hackespett/plattformspill-temp som en zip-fil. Unzip filen og naviger til mappen i terminalen din. 
 
 Kjør kommandoen 
