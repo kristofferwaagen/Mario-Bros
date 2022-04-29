@@ -16,7 +16,7 @@ public class Player extends Sprite {
     public static int hp;
     public Boolean isDead;
     private Boolean removed;
-    public static Boolean flipped = false;
+    public Boolean flipped = false;
     private Boolean testing = true; // Hvis true, kaller musikk, HUD og andre klasser som ikke instansieres i tester.
     public World world;
     public Body b2body;
@@ -66,7 +66,8 @@ public class Player extends Sprite {
             removed = true;
         }
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
-        setRegion((Texture) animation.getKeyFrame(time, true));
+        if(!testing)
+        	setRegion((Texture) animation.getKeyFrame(time, true));
 
         for(Bullets b: bullets){
             b.update(dt);
@@ -134,7 +135,7 @@ public class Player extends Sprite {
 		return 0;
 	}
     public void shootBullets(){
-        bullets.add(new Bullets(screen, b2body.getPosition().x, b2body.getPosition().y));
+        bullets.add(new Bullets(screen, b2body.getPosition().x, b2body.getPosition().y, this));
     }
     public void draw(Batch batch){
         super.draw(batch);
