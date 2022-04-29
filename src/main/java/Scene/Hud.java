@@ -1,6 +1,5 @@
 package Scene;
 
-import Screens.PlayScreen;
 import Sprites.Player;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -45,14 +44,14 @@ public class Hud implements Disposable {
         timeLabel = new Label(String.format("%03d", timer), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         keyLabel = new Label(String.format("%01d", collectedKey), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
-        Label lifes = new Label("Lifes", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        Label lives = new Label("Lives", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         Label gameName = new Label("KURT MARIO", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         Label player1 = new Label("Score p1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         Label timer = new Label("Timer", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         Label key = new Label("Key", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
         //top row
-        table.add(lifes).expandX();
+        table.add(lives).expandX();
         table.add(key).expandX();
         table.add(timer).expandX();
         table.add(player1).expandX();
