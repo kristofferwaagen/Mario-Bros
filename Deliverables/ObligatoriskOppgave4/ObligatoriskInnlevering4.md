@@ -107,7 +107,7 @@ Vi har fått implementert alle MVP kravene gitt i oblig 1.
 - Animasjoner for spiller og fiender
   - Som spiller ønsker jeg å kunne se spillere og fiender bevege seg med animasjoner for å se hvilken retning man er vendt
 - Hud som viser poeng, liv ++
-  - Som spiller ønsker jeg å kunne se hvor mange skudd, poeng samlet og om nøkkel er plukket opp for å vite om jeg kan interagere med mal, bruke skytefunksjonalitet og for å vite hvor mange poeng jeg har.
+  - Som spiller ønsker jeg å kunne se hvor mange skudd, poeng samlet og om nøkkel er plukket opp for å vite om jeg kan interagere med mål, bruke skytefunksjonalitet og for å vite hvor mange poeng jeg har.
 - Kunne velge nivå
   - Som spiller ønsker jeg å kunne velge nivå fritt for å kunne teste ut alle nivåene selv om tidligere nivå ikke er passert.
 - Lydeffekter til spillet
