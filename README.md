@@ -1,7 +1,7 @@
-# Kurtmario av Hackespett
+# Kurt Mario av Hackespett
 
-Kurtmario er et libGDX basert platformspill
-
+Kurt Mario er et libGDX basert platformspill laget av Hackespett for en prosjektoppgave i INF112.
+ 
 ## Medlemmer
 
 - [Kristoffer Wågen](https://git.app.uib.no/Kristoffer.Wagen)
@@ -27,19 +27,23 @@ Dersom du vil kjøre spillet fra en Java-IDE:
 
 ## Hvordan spille spillet
 
-*Spillet er fortsatt under utvikling*
+Man kan velge mellom enspiller eller tospiller på samme pc.
+ - Spiller 1 beveger seg med piltastene og skyter med ENTER
+ - Spiler 2 beveger seg med W,A,D, og skyter med SPACE.
 
-Per nå er spillet for to spillere som spiller på samme pc
-* spiller1: bruk piltastene for bevegelse.
-* spiller2. bruk bokstavene A, S, D og W for bevegelse.
+For å fullføre et nivå må man finne en nøkkel og den med seg til
+målområdet i enden av nivået. På veien kan man plukke opp penger, skudd og ekstra liv.
+Hver blokk med ammunisjon har 10 skudd, og pengeblokkene har et vilkårlig antall mynter opp til 8.
+For å plukke opp ekstra liv, skudd og penger må spilleren hoppe slik at hodet treffer undersiden
+av blokkene.
+Gjennom nivået vil man alltid ha en oversikt over poeng, skudd, nøkler og liv samlet, samt en klokke som
+teller ned. Dersom man blir truffet av en fiende eller tiden renner ut, er spillet over.
 
-#### En spiller
-*
-*
+Fiendene kan beseires enten ved å hoppe på hodene deres, eller skyte de om man har skudd tilgjengelig.
 
-#### Flere spillere
-*
-*
+På start skjermen kan spilleren også velge hvilket nivå den ønsker å starte på, og når det nivået fullføres flyttes
+spilleren automatisk til neste nivå. 
+
 
 ## Kjøre tester
 
@@ -60,9 +64,8 @@ På Mac OS X:
 * På Macer med M1 prosessor er en nyere versjon av libGDX nødvendig. Maven [`pom.xml`](pom.xml) filen har blitt satt opp til å bruke denne `1.10.1-SNAPSHOT` automatisk.
 
 For spillet:
-
-* Er mulig for spiller å flytte seg før man har trykket på "Start" knappen. Resluterer i at spillerne begynner på andre koordianter enn hva som var tilegnet dem.
-
+- Dersom man spiller to-spiller og den ene dør, vil skuddene man deretter skyter ha den andre spilleren sin sprite.
+- 
 ## Brukerstøtte
 
 For brukerstøtte, ta kontakt i vår Discord gruppe https://discord.gg/Zqsp3k7Q.
@@ -82,3 +85,5 @@ https://trello.com/invite/b/RknwjnfS/3604c83a56a6f5bdf2cc1b11ffdcaf95/kurt-mario
 - [ALEXANDER](https://orangefreesounds.com/mario-coin-sound/) for coin lyd og key lyd.
 - [Moonlightbunny](https://www.myinstants.com/profile/moonlightbnny/) for lyd når man plukker opp liv.
 - [Anonym](https://www.myinstants.com/instant/winner-winner-chicken-dinner-9/) for winner sound.
+- [GunGirl](https://www.myinstants.com/profile/GunGirl/) for lyd til skyting.
+- [KolkaGaming](https://www.myinstants.com/profile/kolkagaming/) for lyd til ammoBlock.
