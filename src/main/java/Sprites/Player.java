@@ -33,6 +33,7 @@ public class Player extends Sprite {
     public Player(PlayScreen screen){
         this.screen = screen;
         this.world = screen.getWorld();
+        hp = 1;
         testing = false;
         definePlayer();
         setBounds(0,0,16 / Mario.PPM, 16 / Mario.PPM);
@@ -71,7 +72,7 @@ public class Player extends Sprite {
         	setRegion((Texture) animation.getKeyFrame(time, true));
 
         for(Bullets b: bullets){
-            b.update(dt);
+            b.update(dt/2);
             if(b.removed)
                 bullets.removeValue(b, true);
         }
