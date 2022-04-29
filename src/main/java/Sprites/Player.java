@@ -74,8 +74,9 @@ public class Player extends Sprite {
             if(b.removed)
                 bullets.removeValue(b, true);
         }
-        if(flipped)
+        if(flipped) {
             setFlip(true, isFlipY());
+        }
     }
 
     public void hit(){
@@ -141,6 +142,5 @@ public class Player extends Sprite {
         super.draw(batch);
         for(Bullets b : bullets)
             b.draw(batch);
-
     }
 }
