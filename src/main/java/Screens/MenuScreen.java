@@ -110,8 +110,10 @@ public class MenuScreen implements Screen {
         chooseLevelButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new ChooseLevel(game));
-                dispose();
+                if(PlayScreen.singlePlayer!= null){
+                    game.setScreen(new ChooseLevel(game));
+                    dispose();
+                }
             }
         });
 
