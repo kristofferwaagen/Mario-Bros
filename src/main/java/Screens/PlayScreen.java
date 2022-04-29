@@ -46,7 +46,6 @@ public class PlayScreen implements Screen {
 
     public static Boolean singlePlayer;
     WorldGenerator worldG;
-    public static int points;
 
 
     public PlayScreen(Mario game, Boolean singlePlayer, int level){

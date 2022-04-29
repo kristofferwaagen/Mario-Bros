@@ -22,7 +22,7 @@ public class BasicEnemy extends Enemy{
     private Boolean removed;
     private Animation animation;
     private Array<Texture> frames;
-    private Texture t1, t2, t3,t4;
+    private Texture t1, t2;
 
     public BasicEnemy(PlayScreen screen, float x, float y) {
 

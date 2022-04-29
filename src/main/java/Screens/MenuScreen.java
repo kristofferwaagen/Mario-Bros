@@ -19,7 +19,6 @@ import javax.swing.*;
 public class MenuScreen implements Screen {
     Stage stage;
     Mario game;
-    JSlider volumeControl;
 
     public MenuScreen(Mario game){
         this.game = game;

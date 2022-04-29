@@ -24,7 +24,8 @@ public class Bullets extends Sprite {
         t = new Texture(Gdx.files.internal("tileset/16x16/Objects/bullet.png"));
         setBounds(x, y, 6/Mario.PPM, 6/Mario.PPM);
         createBullet();
-        toRemove = false; removed = false;
+        toRemove = false;
+        removed = false;
         if(player.flipped) {
         	flipped = true;
         } else flipped = false;
