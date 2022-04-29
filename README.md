@@ -15,10 +15,36 @@ Kurtmario er et libGDX basert platformspill
 
 **Oprativsystem:** Windows, MacOS eller Linux
 
-
 ## Hvordan laste ned programmet og starte spillet
 
-Dersom du vil kjøre spillet fra en Java-IDE:
+Last ned XXX.jar fra:
+
+*EN LINK*
+
+### Windows
+
+Åpne et terminal-vindu og navigere til mappen hvor XXX.jar-filen er, og kjøre:
+```bash
+java -jar XXX.jar
+```
+### Linux
+Kjør kommandoer i terminalen:
+```bash
+sudo apt update
+sudo apt install default-jdk
+```
+Naviger til mappen hvor XXX.jar ligger, og kjør:
+```bash
+java -jar XXX.jar
+```
+### MacOS
+
+Naviger til mappen hvor XXX.jar ligger i terminalen, og kjør:
+```bash
+java -XstartOnFirstThread -jar RoboRallyVersion4.jar
+```
+
+### Dersom du vil kjøre spillet fra en Java-IDE:
 
 * Laste ned Git-repo fra: https://git.app.uib.no/hackespett/plattformspill-temp som en zip-fil eller klon prosjektet.
 * Åpne prosjektet i din IDE. Eksempelvis Eclipse eller IntelliJ.
@@ -27,19 +53,15 @@ Dersom du vil kjøre spillet fra en Java-IDE:
 
 ## Hvordan spille spillet
 
-*Spillet er fortsatt under utvikling*
-
-Per nå er spillet for to spillere som spiller på samme pc
-* spiller1: bruk piltastene for bevegelse.
-* spiller2. bruk bokstavene A, S, D og W for bevegelse.
-
 #### En spiller
-*
-*
+* Velg 1 player i startmenyen 
+* Bruk piltastene for å bevege spilleren.
+* Bruk mellomromstasten for å skyte. 
 
-#### Flere spillere
-*
-*
+#### To spillere i splitscreen 
+* Velg 2 player i startmenyen 
+* Spiller 1: bruk piltastene for bevegelse og mellomromstasten for å skyte.
+* Spiller 2. bruk bokstavene A, S, D og W for bevegelse.
 
 ## Kjøre tester
 
@@ -61,7 +83,17 @@ På Mac OS X:
 
 For spillet:
 
-* Er mulig for spiller å flytte seg før man har trykket på "Start" knappen. Resluterer i at spillerne begynner på andre koordianter enn hva som var tilegnet dem.
+* Man ikke kan hoppe og skyte samtidig. 
+
+* Når den ene spilleren dør kan det komme en bug som gjør at den andre spilleren vil skyte ut den døde spilleren.
+
+* Om man går over et spesifikt objektet av typen ExprBlock på et av spillbrettene to ganger, så får man en feilmelding.
+
+* Når man dreper en fiende blir den drepte fienden den nærmeste spilleren for AdvancedEnemy å følge etter. Dermed stopper den å bevege seg.
+
+* Når en spiller dør i multiplayer kan spilleren styre "retningen" (øynene) til den andre gjenværende spilleren.
+
+* Noen ganger ved gjentatte raske skudd kan spille kræsje.
 
 ## Brukerstøtte
 
@@ -70,9 +102,6 @@ For brukerstøtte, ta kontakt i vår Discord gruppe https://discord.gg/Zqsp3k7Q.
 ## Trello
 Link til Trello:
 https://trello.com/invite/b/RknwjnfS/3604c83a56a6f5bdf2cc1b11ffdcaf95/kurt-mario
-
-## Erfaringer
-
 
 ## Acknowledgements
 
