@@ -32,6 +32,9 @@ public class WorldContact implements ContactListener {
             case Mario.ammoBit | Mario.bit:
                 groundJump(Mario.ammoBit);
                 break;
+            case Mario.bit | Mario.bit:
+                groundJump(Mario.bit);
+                break;
             case Mario.groundBit | Mario.bit:
                 groundJump(Mario.groundBit);
                 break;
@@ -96,6 +99,9 @@ public class WorldContact implements ContactListener {
         switch (contactDef){
             case Mario.ammoBit | Mario.bit:
                 airJump(Mario.ammoBit);
+                break;
+            case Mario.bit | Mario.bit:
+                airJump(Mario.bit);
                 break;
             case (Mario.groundBit) | Mario.bit:
                 airJump(Mario.groundBit);
