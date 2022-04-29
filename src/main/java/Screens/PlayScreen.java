@@ -107,9 +107,9 @@ public class PlayScreen implements Screen {
 
     /**
      * håndterer input fra klientene - sjekker om det er two eller single player
-     * @param delta
+     *
      */
-    public void handleInput(float delta) { // sjekker input
+    public void handleInput() { // sjekker input
         if (gameState == 2) {
             if(!singlePlayer) {
                 if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
@@ -178,7 +178,7 @@ public class PlayScreen implements Screen {
      * Oppdatereringsmetode for twoplayer funksjon
      */
     public void update(float delta){ // oppdaterer enheter
-        handleInput(delta);
+        handleInput();
         if(player1.isDead && player2.isDead){
             gameState = 4;
         }
@@ -296,6 +296,7 @@ public class PlayScreen implements Screen {
      */
     public void mainGame(float delta) {
         if(!singlePlayer) {
+            Hud.addLife(1);
             update(delta);
             Gdx.gl.glClearColor(1, 1, 1, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -340,7 +341,7 @@ public class PlayScreen implements Screen {
      * update metode dersom man velger singleplayer
      */
     private void updateSingle(float delta) {
-        handleInput(delta);
+        handleInput();
         if(player1.isDead)
             gameState = 4;
         world.step(delta, 6, 2);
