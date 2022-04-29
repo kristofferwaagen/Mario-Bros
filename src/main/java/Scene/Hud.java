@@ -1,5 +1,6 @@
 package Scene;
 
+import Screens.PlayScreen;
 import Sprites.Player;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -18,10 +19,11 @@ public class Hud implements Disposable {
     private Viewport viewport; // når bakgrunnen flytter på seg vil man at hud skal vær lik, bruker da nytt kamera for hud
 
     private static Integer score, timer, collectedKey, life;
+    public static int pickedAmmo;
     private float counter;
 
     // enkel tekst for de forskjellige hud elementene
-    static Label scoreLabel, timeLabel, keyLabel, lifeLabel;
+    static Label scoreLabel, timeLabel, keyLabel, lifeLabel, shotLabel;
 
 
     public Hud(SpriteBatch Batch){
@@ -30,6 +32,7 @@ public class Hud implements Disposable {
         score = 0;
         collectedKey = 0;
         life = 1;
+        pickedAmmo = 0;
 
 
         viewport = new FitViewport(Mario.visionWidth, Mario.visionHeight, new OrthographicCamera()); // nye kamera for hud
@@ -43,7 +46,9 @@ public class Hud implements Disposable {
         scoreLabel = new Label(String.format("%04d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         timeLabel = new Label(String.format("%03d", timer), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         keyLabel = new Label(String.format("%01d", collectedKey), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        shotLabel = new Label(String.format("%2d", pickedAmmo), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
+        Label shots = new Label("Shots", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         Label lives = new Label("Lives", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         Label gameName = new Label("KURT MARIO", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         Label player1 = new Label("Score p1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
@@ -51,6 +56,7 @@ public class Hud implements Disposable {
         Label key = new Label("Key", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
         //top row
+        table.add(shots).expandX();
         table.add(lives).expandX();
         table.add(key).expandX();
         table.add(timer).expandX();
@@ -60,6 +66,7 @@ public class Hud implements Disposable {
         table.row();
 
         //bottom row
+        table.add(shotLabel);
         table.add(lifeLabel).expandX();
         table.add(keyLabel).expandX();
         table.add(timeLabel).expandX();
@@ -67,7 +74,6 @@ public class Hud implements Disposable {
 
         stage.addActor(table); // legger til tabellen til stage
     }
-
     /**
      * oppdaterer antall liv i Hud
      */
@@ -81,6 +87,13 @@ public class Hud implements Disposable {
     public static void addKey(int i) {
         collectedKey = i;
         keyLabel.setText(String.format("%01d", collectedKey));
+    }
+
+    public static int addShot(int i) {
+        pickedAmmo += i;
+        shotLabel.setText(String.format("%02d", pickedAmmo));
+
+        return pickedAmmo;
     }
 
     /**

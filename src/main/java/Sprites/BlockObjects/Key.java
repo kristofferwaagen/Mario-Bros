@@ -1,6 +1,7 @@
-package Sprites;
+package Sprites.BlockObjects;
 
 import Scene.Hud;
+import Sprites.BlockObjects.InteractiveObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
@@ -8,7 +9,7 @@ import game.Mario;
 import static game.Mario.music;
 
 
-public class Key extends InteractiveObject{
+public class Key extends InteractiveObject {
     public Key (World world, TiledMap map, Rectangle r) {
         super(world, map, r);
         fixture.setUserData(this);

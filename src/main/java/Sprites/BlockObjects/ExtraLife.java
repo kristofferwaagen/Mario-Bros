@@ -1,6 +1,7 @@
-package Sprites;
+package Sprites.BlockObjects;
 
 import Scene.Hud;
+import Sprites.Player;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
@@ -11,7 +12,7 @@ import static game.Mario.music;
 /**
  * Når en spiller interagerer med objectlayer extralife, så skal spilleren få et ekstra liv.
  */
-public class ExtraLife extends InteractiveObject{
+public class ExtraLife extends InteractiveObject {
 
     public ExtraLife(World world, TiledMap map, Rectangle r) {
         super(world, map, r);

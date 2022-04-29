@@ -4,6 +4,7 @@ import Scene.Hud;
 import Screens.PlayScreen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
@@ -15,7 +16,7 @@ public class Player extends Sprite {
     public static int hp;
     public Boolean isDead;
     private Boolean removed;
-    public Boolean flipped = false;
+    public static Boolean flipped = false;
     private Boolean testing = true; // Hvis true, kaller musikk, HUD og andre klasser som ikke instansieres i tester.
     public World world;
     public Body b2body;
@@ -24,12 +25,17 @@ public class Player extends Sprite {
     private Array<Texture> frames;
     private Animation animation;
     private float time;
+    private Array<Bullets> bullets;
+    private PlayScreen screen;
 
 
     public Player(PlayScreen screen){
-        this(screen.getWorld());
+        this.screen = screen;
+        this.world = screen.getWorld();
         testing = false;
+        definePlayer();
         setBounds(0,0,16 / Mario.PPM, 16 / Mario.PPM);
+        bullets = new Array<Bullets>();
         //bilder til animation av spiller
         t1 = new Texture("src/resources/tileset/16x16/Hero/day/run1.png");
         t2 = new Texture("src/resources/tileset/16x16/Hero/day/run2.png");
@@ -38,6 +44,8 @@ public class Player extends Sprite {
         frames = new Array<>();
         frames.add(t1,t2,t3,t4);
         animation = new Animation(0.4f, frames);
+        isDead= false;
+        removed = false;
     }
     /**
      * Konstruktør som ikke er avhengig av textures og sprites, brukes for testing
@@ -47,8 +55,8 @@ public class Player extends Sprite {
         definePlayer();
         setBounds(0,0,16 / Mario.PPM, 16 / Mario.PPM);
         isDead = false;
-        removed = false;
         hp = 1;
+        bullets = new Array<Bullets>();
     }
 
     public void update(float dt){
@@ -56,12 +64,17 @@ public class Player extends Sprite {
         if(isDead && !removed){
             world.destroyBody(b2body);
             removed = true;
-        } else if (!removed) {
-            setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
-            setRegion((Texture) animation.getKeyFrame(time, true));  
-            if(flipped)
-            	setFlip(true, isFlipY());
         }
+        setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
+        setRegion((Texture) animation.getKeyFrame(time, true));
+
+        for(Bullets b: bullets){
+            b.update(dt);
+            if(b.removed)
+                bullets.removeValue(b, true);
+        }
+        if(flipped)
+            setFlip(true, isFlipY());
     }
 
     public void hit(){
@@ -70,10 +83,8 @@ public class Player extends Sprite {
     		Hud.addLife(-1);
     	}
         hp--;
-
-        if (hp < 1){
+        if (hp < 1)
             isDead = true;
-        }
     }
 
     public void definePlayer(){
@@ -86,7 +97,7 @@ public class Player extends Sprite {
         CircleShape shape = new CircleShape();
         shape.setRadius(5 / Mario.PPM);
         fdef.filter.categoryBits = Mario.bit;
-        fdef.filter.maskBits = Mario.groundBit | Mario.coinBit | Mario.enemyBit | Mario.objectBit | Mario.enemyTop | Mario.goalBit | Mario.keyBit | Mario.exprBlockBit | Mario.extraLifeBit;
+        fdef.filter.maskBits = Mario.groundBit | Mario.coinBit | Mario.enemyBit | Mario.objectBit | Mario.enemyTop | Mario.goalBit | Mario.keyBit | Mario.exprBlockBit | Mario.extraLifeBit | Mario.ammoBit;
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
@@ -122,4 +133,13 @@ public class Player extends Sprite {
 		}
 		return 0;
 	}
+    public void shootBullets(){
+        bullets.add(new Bullets(screen, b2body.getPosition().x, b2body.getPosition().y));
+    }
+    public void draw(Batch batch){
+        super.draw(batch);
+        for(Bullets b : bullets)
+            b.draw(batch);
+
+    }
 }

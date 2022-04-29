@@ -25,6 +25,8 @@ public class Mario extends com.badlogic.gdx.Game {
     public static final short exprBlockBit = 512;
     public static final short extraLifeBit = 1024;
     public static final short playerBot = 2048;
+    public static final short bulletBit = 4096;
+    public static final short ammoBit = 8192;
 
     public static boolean hasKey;
     public static AudioMusic music;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.1" orientation="orthogonal" renderorder="right-down" width="240" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="103">
+<map version="1.8" tiledversion="1.8.1" orientation="orthogonal" renderorder="right-down" width="240" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="15" nextobjectid="110">
  <tileset firstgid="1" source="complete_Tileset_16x16.tsx"/>
  <layer id="1" name="background" width="240" height="13">
   <data encoding="base64" compression="zlib">
@@ -10,7 +10,6 @@
   <object id="1" x="0" y="176" width="1024" height="32"/>
   <object id="2" x="544" y="128" width="48" height="16"/>
   <object id="3" x="288" y="64" width="96" height="16"/>
-  <object id="4" x="192" y="112" width="48" height="16"/>
   <object id="5" x="1056" y="176" width="240" height="32"/>
   <object id="6" x="1328" y="176" width="240" height="32"/>
   <object id="7" x="1328" y="112" width="16" height="64"/>
@@ -69,6 +68,7 @@
   <object id="99" x="2288" y="128" width="16" height="16"/>
   <object id="100" x="2256" y="144" width="16" height="16"/>
   <object id="101" x="1952" y="160" width="16" height="16"/>
+  <object id="106" x="192" y="112" width="48" height="16"/>
  </objectgroup>
  <objectgroup id="4" name="coin">
   <object id="45" x="2912" y="32" width="16" height="16"/>
@@ -85,7 +85,7 @@
  </objectgroup>
  <layer id="2" name="foreground" width="240" height="13">
   <data encoding="base64" compression="zlib">
-   eJztmE1uAjEMhcOoBeUOXXCTliJ1S6Uuu6RSlyzLQeAO9BqcrJ4FEqQzkzh/9gzvk6wwEvFYcZ6diTUAgLFipQOI4E06ACVsGmPeG+kogCQX/f7QPtgr2guPZHOyhXQgitlSvr4y5Uxb/lNxa7zveazU7L/nWcWXARGmVgdKkkN7IT5CcnLdL4d6Z0pffXBGADTBqV3W1NNvTXBuzg96oi6s4en30+OrBu3Z+WIAlKDdyy9kK7JXsnXAc+3+ZQ1fvzuPPw7oj7fYnt8xPrSdhULJGfeB6vsxosanxFBr3V3tSui3FJy68JzwHnduyj2kmwPuN03ff7XkxEeJunMi7f4y9TuG78gu7U5Jvxw+hOZe05WD0LyErrnW3LhxxfbMLh/uOAX6tFtDvxr30HehuRxd+fQb24dLrXfJPMb0zD4f7viUJ0QxhrSbQ7/3To77tDYPS9zv/qNdE6wLKAn2Fxgzf2ifJJk=
+   eJztmDsOwjAMhgPiodyBgUsw85JYQWJkBImREQ4Cd4BrcDLcoVIVWuI87RZ/kpVWoq6J89tptBIEoa1o6gA82FAHwIRtX6ldnzoKgZJSv1dYBzdGa2EINgIbUwfCmCPk6xQpZ9zyH4pZ4233bSVn/333Mr5MIKFrdSAlMbSH8YHJSbVf/uqdIX11YIyCwAmX2qVVPv3mRPbN8ZGeyAut3PR7sPjKQbF3Lk0QUlCs5QXYEmwFtkbc5+5fWrnr92LxVzJD+OpKf8T8Vwy64drHB7e9EJaYcd+hvj88anxIDLnm3dRubP1S4lIX5gHvMZ8NOYc0c+D6TdP0Wy45sZGi7jxBuy9H/bbhO7JOu13Srwt7omer1OUAmxfsnHPNjRmXb8+s82GOXaBJuzn0y3ENnRM966Irm359+3Cq+U6ZR5+e2eTDHCdxQiTjl3Zj6PffiXGeVuRhKue7XxRzIvMipETWl9BmPoRSJQM=
   </data>
  </layer>
  <objectgroup id="8" name="extralife">
@@ -130,5 +130,9 @@
   <object id="102" x="476.667" y="160">
    <point/>
   </object>
+ </objectgroup>
+ <objectgroup id="14" name="ammo">
+  <object id="107" x="48" y="112" width="16" height="16"/>
+  <object id="109" x="992" y="112" width="16" height="16"/>
  </objectgroup>
 </map>

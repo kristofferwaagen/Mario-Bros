@@ -1,7 +1,7 @@
 package game;
 
-import Screens.PlayScreen;
 import Sprites.*;
+import Sprites.BlockObjects.*;
 import com.badlogic.gdx.physics.box2d.*;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -13,7 +13,6 @@ public class WorldContact implements ContactListener {
 	private void definitions(Contact contact) {
     	a = contact.getFixtureA();
         b = contact.getFixtureB();
-
         contactDef = a.getFilterData().categoryBits | b.getFilterData().categoryBits;
 
 	}
@@ -30,6 +29,9 @@ public class WorldContact implements ContactListener {
             }
         }
         switch (contactDef){
+            case Mario.ammoBit | Mario.bit:
+                groundJump(Mario.ammoBit);
+                break;
             case Mario.groundBit | Mario.bit:
                 groundJump(Mario.groundBit);
                 break;
@@ -42,6 +44,14 @@ public class WorldContact implements ContactListener {
             case Mario.extraLifeBit | Mario.bit:
             	groundJump(Mario.extraLifeBit);
             	break;
+            case Mario.enemyTop | Mario.bulletBit:
+            case Mario.enemyBit | Mario.bulletBit:
+                if(a.getFilterData().categoryBits == Mario.enemyBit){
+                    ((Enemy) a.getUserData()).contactTop();
+                }else{
+                    ((Enemy) b.getUserData()).contactTop();
+                }
+                break;
             case Mario.enemyTop | Mario.bit:
                 if(a.getFilterData().categoryBits == Mario.enemyTop){
                     ((Enemy)a.getUserData()).contactTop();
@@ -50,8 +60,6 @@ public class WorldContact implements ContactListener {
                 }
                 break;
             case Mario.enemyBit | Mario.groundBit:
-            case Mario.enemyTop | Mario.groundBit:
-            case Mario.enemyTop | Mario.enemyBit:
                 if(a.getFilterData().categoryBits == Mario.enemyBit){
                     ((Enemy)a.getUserData()).flipSpeed(true, false);
                 }else{
@@ -62,8 +70,7 @@ public class WorldContact implements ContactListener {
                 if(a.getFilterData().categoryBits == Mario.bit){
                     ((Player)a.getUserData()).hit();
                 }else{
-                    ((Player)b.getUserData()).hit();
-                }
+                    ((Player)b.getUserData()).hit();}
                 break;
             case Mario.enemyBit | Mario.enemyBit:
                 ((Enemy)a.getUserData()).flipSpeed(true, false);
@@ -87,20 +94,23 @@ public class WorldContact implements ContactListener {
     public void endContact(Contact contact) {
     	definitions(contact);
         switch (contactDef){
-        case (Mario.groundBit) | Mario.bit:
-            airJump(Mario.groundBit);
-            break;
-        case Mario.exprBlockBit | Mario.bit:
-            airJump(Mario.exprBlockBit);
-            break;
-        case Mario.coinBit | Mario.bit:
-        	airJump(Mario.coinBit);
-        	break;
-        case Mario.extraLifeBit | Mario.bit:
-        	airJump(Mario.extraLifeBit);
-        	break;
-        default:
-        	break;
+            case Mario.ammoBit | Mario.bit:
+                airJump(Mario.ammoBit);
+                break;
+            case (Mario.groundBit) | Mario.bit:
+                airJump(Mario.groundBit);
+                break;
+            case Mario.exprBlockBit | Mario.bit:
+                airJump(Mario.exprBlockBit);
+                break;
+            case Mario.coinBit | Mario.bit:
+                airJump(Mario.coinBit);
+                break;
+            case Mario.extraLifeBit | Mario.bit:
+                airJump(Mario.extraLifeBit);
+                break;
+            default:
+                break;
         }
     }
     
