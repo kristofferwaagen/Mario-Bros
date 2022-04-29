@@ -101,7 +101,7 @@ public class Player extends Sprite {
         CircleShape shape = new CircleShape();
         shape.setRadius(5 / Mario.PPM);
         fdef.filter.categoryBits = Mario.bit;
-        fdef.filter.maskBits = Mario.groundBit | Mario.coinBit | Mario.enemyBit | Mario.objectBit | Mario.enemyTop | Mario.goalBit | Mario.keyBit | Mario.exprBlockBit | Mario.extraLifeBit | Mario.ammoBit;
+        fdef.filter.maskBits = Mario.groundBit | Mario.coinBit | Mario.bit | Mario.enemyBit | Mario.objectBit | Mario.enemyTop | Mario.goalBit | Mario.keyBit | Mario.exprBlockBit | Mario.extraLifeBit | Mario.ammoBit;
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
