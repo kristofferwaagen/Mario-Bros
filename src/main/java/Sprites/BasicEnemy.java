@@ -21,7 +21,7 @@ public class BasicEnemy extends Enemy{
     private Boolean removed;
     private Animation animation;
     private Array<Texture> frames;
-    private Texture t1, t2;
+    private Texture t1, t2, t3,t4;
 
     public BasicEnemy(PlayScreen screen, float x, float y) {
 
@@ -58,7 +58,7 @@ public class BasicEnemy extends Enemy{
     }
 
     @Override
-    protected void defineBody() {
+    protected void defineEnemy() {
         BodyDef bdef = new BodyDef();
         bdef.position.set(getX(), getY());
         bdef.type = BodyDef.BodyType.DynamicBody;
@@ -68,7 +68,7 @@ public class BasicEnemy extends Enemy{
         CircleShape shape = new CircleShape();
         shape.setRadius(5 / Mario.PPM);
         fdef.filter.categoryBits = Mario.enemyBit;
-        fdef.filter.maskBits = Mario.groundBit | Mario.coinBit | Mario.bit | Mario.objectBit | Mario.enemyBit | Mario.bulletBit;
+        fdef.filter.maskBits = Mario.groundBit | Mario.coinBit | Mario.bit | Mario.objectBit | Mario.enemyBit| Mario.bulletBit | Mario.exprBlockBit;
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
@@ -90,7 +90,6 @@ public class BasicEnemy extends Enemy{
 
     @Override
     public void contactTop() {
-        Bullets.toRemove = true;
         toRemove = true;
         music.getHitSound();
         Hud.scoreAdder(100);

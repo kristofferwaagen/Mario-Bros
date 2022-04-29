@@ -48,12 +48,11 @@ public class Bullets extends Sprite {
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
-        bullet.setRadius(2/ Mario.PPM);
+        bullet.setRadius(1/ Mario.PPM);
         fdef.filter.categoryBits = Mario.bulletBit;
         fdef.filter.maskBits = Mario.enemyBit | Mario.enemyTop | Mario.groundBit | Mario.coinBit | Mario.exprBlockBit;
         fdef.shape = bullet;
         fdef.restitution = 1;
-        fdef.friction = 0;
         b2body.createFixture(fdef).setUserData(this);
     }
     public void destroy(){

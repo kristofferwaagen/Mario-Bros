@@ -14,9 +14,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import game.Mario;
 
-/**
- * Fiende som er mer krevende å drepe enn BasicEnemy
- */
 public class AdvancedEnemy extends Enemy{
     private Boolean toRemove;
 	public Boolean removed;
@@ -52,6 +49,7 @@ public class AdvancedEnemy extends Enemy{
     	testing = true;
     }
 
+
     public void update(float dt){
         time += dt;
         if(toRemove && !removed){
@@ -67,11 +65,10 @@ public class AdvancedEnemy extends Enemy{
             }
             if(!singlePlayer){
                 Player currentPlayer = screen.getClosest(this);
-                if(b2body.getPosition().x < currentPlayer.getX())
-                    b2body.setLinearVelocity(1,-2);
-                    //flipSpeed(true, false);
-                else {
-                    b2body.setLinearVelocity(-1,-2);
+                if(b2body.getPosition().x < currentPlayer.getX()){
+                    flipSpeed(true, false);
+                }else {
+                    b2body.setLinearVelocity(speed);
                 }
             }
             else{
@@ -81,7 +78,7 @@ public class AdvancedEnemy extends Enemy{
     }
 
     @Override
-    protected void defineBody() {
+    protected void defineEnemy() {
         BodyDef bdef = new BodyDef();
         bdef.position.set(getX(), getY());
         bdef.type = BodyDef.BodyType.DynamicBody;
@@ -91,7 +88,7 @@ public class AdvancedEnemy extends Enemy{
         CircleShape shape = new CircleShape();
         shape.setRadius(5 / Mario.PPM);
         fdef.filter.categoryBits = Mario.enemyBit;
-        fdef.filter.maskBits = Mario.groundBit | Mario.coinBit | Mario.bit | Mario.objectBit | Mario.enemyBit | Mario.bulletBit;
+        fdef.filter.maskBits = Mario.groundBit | Mario.coinBit | Mario.bit | Mario.objectBit | Mario.enemyBit | Mario.bulletBit | Mario.exprBlockBit;
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
@@ -113,7 +110,6 @@ public class AdvancedEnemy extends Enemy{
 
     @Override
     public void contactTop() {
-        Bullets.toRemove = true;
         toRemove = true;
         if(!testing)
         	Hud.scoreAdder(100);

@@ -17,7 +17,7 @@ public abstract class Enemy extends Sprite {
         this.world = screen.getWorld();
         this.screen = screen;
         setPosition(x, y);
-        defineBody();
+        defineEnemy();
         speed = new Vector2(-1,-2);
         b2body.setActive(false);
     }
@@ -27,12 +27,12 @@ public abstract class Enemy extends Sprite {
     public Enemy(World world, float x, float y) {
     	this.world = world;
     	setPosition(x, y);
-        defineBody();
+        defineEnemy();
         speed = new Vector2(-1,-2);
         b2body.setActive(false);
     }
 
-    protected abstract void defineBody();
+    protected abstract void defineEnemy();
 
     public abstract void contactTop();
 
