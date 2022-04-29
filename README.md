@@ -1,7 +1,8 @@
-# Kurtmario av Hackespett
+# Kurt Mario av Hackespett
 
-Kurtmario er et libGDX basert platformspill
-
+Kurt Mario er et libGDX basert platformspill laget av Hackespett for en prosjektoppgave i INF112.
+Spillet er basert på det orginale Super Mario spillet. Målet for spillet er at spilleren skal bekjempe fiender, samle poeng, finne nøkkelen og ta
+den med seg til mål for å fullføre nivåene.
 ## Medlemmer
 
 - [Kristoffer Wågen](https://git.app.uib.no/Kristoffer.Wagen)
@@ -53,15 +54,22 @@ java -XstartOnFirstThread -jar RoboRallyVersion4.jar
 
 ## Hvordan spille spillet
 
-#### En spiller
-* Velg 1 player i startmenyen 
-* Bruk piltastene for å bevege spilleren.
-* Bruk mellomromstasten for å skyte. 
+Man kan velge mellom enspiller eller tospiller på samme pc.
+- Spiller 1 beveger seg med piltastene og skyter med ENTER
+- Spiler 2 beveger seg med W,A,D, og skyter med SPACE.
 
-#### To spillere i splitscreen 
-* Velg 2 player i startmenyen 
-* Spiller 1: bruk piltastene for bevegelse og mellomromstasten for å skyte.
-* Spiller 2. bruk bokstavene A, S, D og W for bevegelse.
+Når spillet starter vises menyskjermen. Her velger man mellom 1-spiller eller 2-spiller, og deretter velger man
+"choose level" og velger hvilket nivå man vil starte på.
+
+For å fullføre et nivå må man finne en nøkkel og den med seg til
+målområdet i enden av nivået. På veien kan man plukke opp penger, skudd og ekstra liv.
+Hver blokk med ammunisjon har 10 skudd, og pengeblokkene har et vilkårlig antall mynter opp til 8.
+For å plukke opp ekstra liv, skudd og penger må spilleren hoppe slik at hodet treffer undersiden
+av blokkene.
+Gjennom nivået vil man alltid ha en oversikt over poeng, skudd, nøkler og liv samlet, samt en klokke som
+teller ned. Dersom man blir truffet av en fiende eller tiden renner ut, er spillet over.
+
+Fiendene kan beseires enten ved å hoppe på hodene deres, eller skyte de om man har skudd tilgjengelig.
 
 ## Kjøre tester
 
@@ -87,8 +95,6 @@ For spillet:
 
 * Når den ene spilleren dør kan det komme en bug som gjør at den andre spilleren vil skyte ut den døde spilleren.
 
-* Om man går over et spesifikt objektet av typen ExprBlock på et av spillbrettene to ganger, så får man en feilmelding.
-
 * Når man dreper en fiende blir den drepte fienden den nærmeste spilleren for AdvancedEnemy å følge etter. Dermed stopper den å bevege seg.
 
 * Når en spiller dør i multiplayer kan spilleren styre "retningen" (øynene) til den andre gjenværende spilleren.
@@ -106,8 +112,13 @@ https://trello.com/invite/b/RknwjnfS/3604c83a56a6f5bdf2cc1b11ffdcaf95/kurt-mario
 ## Acknowledgements
 
 - En stor takk til [bee-m](https://bee-m.itch.io) for [Simple Platformer Premium 8x8 and 16x16](https://bee-m.itch.io/simple-platformer-premium-8x8-and-16x16) tilesettet
-- [Johnny Nguyen](https://git.app.uib.no/J.Nguyen) for png filene Elias16Transp.png og Steffen16Transp.png
 - [Kevin MacLeod](https://www.chosic.com/download-audio/27248/) for bakgrunsmusikken.
-- [ALEXANDER](https://orangefreesounds.com/mario-coin-sound/) for coin lyd og key lyd.
-- [Moonlightbunny](https://www.myinstants.com/profile/moonlightbnny/) for lyd når man plukker opp liv.
-- [Anonym](https://www.myinstants.com/instant/winner-winner-chicken-dinner-9/) for winner sound.
+- [ALEXANDER](https://orangefreesounds.com/mario-coin-sound/) for "coin.ogg" og "key.ogg".
+- [Moonlightbunny](https://www.myinstants.com/profile/moonlightbnny/) for "extraLife.ogg".
+- [Anonym](https://www.myinstants.com/instant/winner-winner-chicken-dinner-9/) for "winner.ogg".
+- [CyberMelt](https://www.myinstants.com/profile/CyberMelt/) for "hurt.ogg"
+- [kwahmah_02](https://freesound.org/people/kwahmah_02/sounds/262893/) for "jump.ogg"
+- [Anonym](https://www.myinstants.com/instant/pokemon-wall-bump-28798/) for "noCoin.ogg"
+- [GunGirl](https://www.myinstants.com/profile/GunGirl/) for "ammoPickup.ogg"
+- [Anonym](http://plantsvszombies.clan.su/publ/fajly/muzyka_i_zvuki_iz_igry/plants_vs_zombies_sounds_zvuki_iz_igry_chast_3/7-1-0-7) for "hit.ogg"
+- [Anders Stene](https://git.app.uib.no/Anders.Stene) for lydfilene "enSpillereValgt.ogg" og "toSpillereValgt.ogg"

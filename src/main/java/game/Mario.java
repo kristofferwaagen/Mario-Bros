@@ -1,7 +1,6 @@
 package game;
 
 import Scene.AudioMusic;
-import Screens.ChooseLevel;
 import Screens.MenuScreen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 

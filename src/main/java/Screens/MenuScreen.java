@@ -2,6 +2,7 @@ package Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -14,7 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import game.Mario;
 
-import javax.swing.*;
 
 public class MenuScreen implements Screen {
     Stage stage;
@@ -92,16 +92,18 @@ public class MenuScreen implements Screen {
         onePlayerButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new PlayScreen(game, true, 1));
-                dispose();
+                PlayScreen.singlePlayer = true;
+                Sound lyd = Gdx.audio.newSound(Gdx.files.internal("src/main/resources/audio/enSpillereValgt.ogg"));
+                lyd.play(0.2f);
             }
         });
 
         twoPlayerButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new PlayScreen(game, false, 1));
-                dispose();
+                PlayScreen.singlePlayer = false;
+                Sound lyd = Gdx.audio.newSound(Gdx.files.internal("src/main/resources/audio/toSpillereValgt.ogg"));
+                lyd.play(0.2f);
             }
         });
 

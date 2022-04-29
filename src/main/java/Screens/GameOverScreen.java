@@ -2,7 +2,6 @@ package Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -95,7 +94,11 @@ public class GameOverScreen implements Screen {
         retryButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new PlayScreen(game, true, Mario.levelCounter));
+                if(PlayScreen.singlePlayer)
+                    game.setScreen(new PlayScreen(game, true, Mario.levelCounter));
+                else
+                    game.setScreen(new PlayScreen(game, false, Mario.levelCounter));
+
                 dispose();
             }
         });

@@ -145,6 +145,7 @@ Samuel har fått implementert at spiller bare kan dobbelthoppe ved at en boolean
 om man er i luften eller toucher en ground bit eller andre liknende blokker.
 Anders har fått lagt inn animasjoner til fiendene og spillere. Samuel har
 også lagt inn flere tester av spillet.
-Til siste innlevering må vi fokusere på bugs, lage en executable fil via terminal, stretch goal og finpussing generelt
-av spillet.
-Dersom vi ikke får til multiplayer så endrer vi stretch goal til å lage en database med high scores.
+Til siste innlevering skal André prøve å få til en executable fil via terminal og oppdatere README.md, Anders skal lage klassediagram, skrive innleveringsfilen og
+se om vi kan implementere en skytefunksjon for spilleren. Kristoffer skal jobbe med multiplayer, og Samuel
+skal skrive tester og fikse bugs. Johnny skal rydde i koden og flytte resources inn i main.
+

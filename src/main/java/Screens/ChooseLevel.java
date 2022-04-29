@@ -94,14 +94,21 @@ public class ChooseLevel implements Screen {
         level1.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new PlayScreen(game, true, 1));
+                if(PlayScreen.singlePlayer)
+                    game.setScreen(new PlayScreen(game, true, 1));
+                else
+                    game.setScreen(new PlayScreen(game, false, 1));
+
                 dispose();
             }
         });
         level2.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new PlayScreen(game, true, 2));
+                if(PlayScreen.singlePlayer)
+                    game.setScreen(new PlayScreen(game, true, 2));
+                else
+                    game.setScreen(new PlayScreen(game, false, 2));
                 Mario.levelCounter = 2;
                 dispose();
             }
@@ -109,7 +116,10 @@ public class ChooseLevel implements Screen {
         level3.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new PlayScreen(game, true, 3));
+                if(PlayScreen.singlePlayer)
+                    game.setScreen(new PlayScreen(game, true, 3));
+                else
+                    game.setScreen(new PlayScreen(game, false, 3));
                 Mario.levelCounter = 3;
                 dispose();
             }
@@ -117,14 +127,20 @@ public class ChooseLevel implements Screen {
         level4.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new PlayScreen(game, true, 4));
+                if(PlayScreen.singlePlayer)
+                    game.setScreen(new PlayScreen(game, true, 4));
+                else
+                    game.setScreen(new PlayScreen(game, false, 4));
                 Mario.levelCounter = 4;
                 dispose();
             }
         });level5.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new PlayScreen(game, true, 5));
+                if(PlayScreen.singlePlayer)
+                    game.setScreen(new PlayScreen(game, true, 5));
+                else
+                    game.setScreen(new PlayScreen(game, false, 5));
                 Mario.levelCounter = 5;
                 dispose();
             }
