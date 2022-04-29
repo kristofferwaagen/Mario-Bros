@@ -52,12 +52,12 @@ public class ChooseLevel implements Screen {
         TextButton.TextButtonStyle lvl5Style = new TextButton.TextButtonStyle();
         TextButton.TextButtonStyle menuStyle = new TextButton.TextButtonStyle();
 
-        lvl1Style.up = new TextureRegionDrawable(new TextureRegion(new Texture("src/resources/button/level1.png")));
-        lvl2Style.up = new TextureRegionDrawable(new TextureRegion(new Texture("src/resources/button/level2.png")));
-        lvl3Style.up = new TextureRegionDrawable(new TextureRegion(new Texture("src/resources/button/level3.png")));
-        lvl4Style.up = new TextureRegionDrawable(new TextureRegion(new Texture("src/resources/button/level4.png")));
-        lvl5Style.up = new TextureRegionDrawable(new TextureRegion(new Texture("src/resources/button/level5.png")));
-        menuStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("src/resources/button/mainmenu.png")));
+        lvl1Style.up = new TextureRegionDrawable(new TextureRegion(new Texture("button/level1.png")));
+        lvl2Style.up = new TextureRegionDrawable(new TextureRegion(new Texture("button/level2.png")));
+        lvl3Style.up = new TextureRegionDrawable(new TextureRegion(new Texture("button/level3.png")));
+        lvl4Style.up = new TextureRegionDrawable(new TextureRegion(new Texture("button/level4.png")));
+        lvl5Style.up = new TextureRegionDrawable(new TextureRegion(new Texture("button/level5.png")));
+        menuStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("button/mainmenu.png")));
 
         lvl1Style.font = white;
         lvl2Style.font = white;
@@ -72,7 +72,7 @@ public class ChooseLevel implements Screen {
         level4 = new TextButton("", lvl4Style);
         level5 = new TextButton("", lvl5Style);
         menu = new TextButton("", menuStyle);
-        backgroundImage = new Image(new Texture("src/resources/button/backgroundForMeny.png"));
+        backgroundImage = new Image(new Texture("button/backgroundForMeny.png"));
 
         //set background
         backgroundTable.add(backgroundImage);

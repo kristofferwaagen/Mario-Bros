@@ -48,9 +48,9 @@ public class VictoryScreen implements Screen {
         TextButton.TextButtonStyle exitStyle = new TextButton.TextButtonStyle();
         TextButton.TextButtonStyle victoryStyle = new TextButton.TextButtonStyle();
 
-        menuStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("src/resources/button/mainmenu.png")));
-        victoryStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("src/resources/button/victory.png")));
-        exitStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("src/resources/button/exit.png")));
+        menuStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("button/mainmenu.png")));
+        victoryStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("button/victory.png")));
+        exitStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("button/exit.png")));
 
         victoryStyle.font = white;
         exitStyle.font = white;
@@ -58,7 +58,7 @@ public class VictoryScreen implements Screen {
         TextButton exitButton = new TextButton("", exitStyle);
         TextButton victoryButton = new TextButton("", victoryStyle);
         TextButton menuButton = new TextButton("", menuStyle);
-        backgroundImage = new Image(new Texture("src/resources/button/backgroundForMeny.png"));
+        backgroundImage = new Image(new Texture("button/backgroundForMeny.png"));
 
         //set background
         backgroundTable.add(backgroundImage);

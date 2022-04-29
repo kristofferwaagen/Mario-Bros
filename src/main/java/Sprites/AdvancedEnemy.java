@@ -31,8 +31,8 @@ public class AdvancedEnemy extends Enemy{
         this.singlePlayer = singlePlayer;
 
         setBounds(getX(), getY(), 16/Mario.PPM, 16/Mario.PPM);
-        t1 = new Texture("src/resources/tileset/16x16/Enemies/slime1.png");
-        t2 = new Texture("src/resources/tileset/16x16/Enemies/slime2.png");
+        t1 = new Texture("tileset/16x16/Enemies/slime1.png");
+        t2 = new Texture("tileset/16x16/Enemies/slime2.png");
         frames = new Array<>();
         frames.add(t1);
         frames.add(t2);
